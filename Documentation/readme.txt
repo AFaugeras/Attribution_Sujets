@@ -1,0 +1,1 @@
+Dans ce répertoire se trouveront les fichiers propres à la documentation du projet
