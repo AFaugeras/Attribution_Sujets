@@ -1,1 +1,1 @@
-Fichiers compilés
+Répertoire des sources du projet

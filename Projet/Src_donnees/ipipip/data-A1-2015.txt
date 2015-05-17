@@ -1,0 +1,221 @@
+/* nb eleves */																
+194
+/* nb sujets */																
+15
+/* pour chaque sujet de 1 a n, nb min de groupe puis nb max de groupes */																
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+0	2
+/* effectif min et effectif max d'un groupe */																
+12	14
+/* nb min de sujets effectivement affectés */																
+12
+/* nombre puis valeurs des pénalités (coûts des affectations) */													
+7	1	5	25	1000	20000	150000	1200000							
+/* nom prenom, nb choix, rang sujet 1.. Rang sujet n */																
+ABOUTARIK Sara	6	7	5	7	7	7	4	6	7	1	7	2	7	7	3	7
+ADAM François	6	7	7	4	7	7	7	7	7	7	1	7	3	6	5	2
+AGNOUX Rémi	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+AHMEN Nawfal	6	1	7	2	7	7	7	6	7	4	7	7	3	7	5	7
+AIT SI ALI Slimane	6	1	7	7	7	5	7	7	7	7	3	7	2	4	6	7
+ALLOUACHE Rayane	6	1	2	6	7	3	7	7	7	7	7	4	5	7	7	7
+ALOUGES Aymeric	6	1	7	7	7	7	2	7	7	7	4	3	5	7	7	6
+ALPHEN Madeleine	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+AMROUCHE Matyas	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+ANSQUER Maxime	6	1	2	4	7	7	7	7	7	7	5	7	3	6	7	7
+AOUSTIN Dany	6	1	7	3	7	7	7	7	7	5	7	7	4	2	6	7
+AUMARÉCHAL Baptiste	6	1	7	3	7	7	7	7	7	5	7	7	4	2	6	7
+AURRAND-LIONS Robin	6	7	7	6	7	4	7	7	1	3	7	7	2	5	7	7
+BAICHÈRE Maxence	6	1	2	6	7	3	7	7	7	7	7	4	5	7	7	7
+BAKASSA TRAORÉ Muriel	6	7	7	1	7	7	7	7	6	5	2	7	3	4	7	7
+BANCHON Kévin	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+BARRÉ Arnaud	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+BAURÈS Timothée	6	7	7	7	7	7	7	7	6	2	3	1	4	5	7	7
+BAYEUX Maxime	5	6	5	1	6	6	6	6	6	4	6	6	3	6	2	6
+BEGHDADI Ilyes	1	1	2	2	2	2	2	2	2	2	2	2	2	2	2	2
+BELGHITI Ali	6	1	7	7	7	2	5	4	3	6	7	7	7	7	7	7
+BELMOUFID Anas	6	5	4	7	7	6	1	7	2	7	7	7	7	7	7	3
+BESSEAU Nicolas	6	7	7	1	7	7	7	7	6	2	3	7	5	4	7	7
+BIAUNIÉ Mathilde	5	6	6	2	6	4	6	6	6	1	5	3	6	6	6	6
+BIGAULT Tom	6	7	7	3	4	6	7	5	7	7	2	7	1	7	7	7
+BLANC Manon	6	1	2	5	7	7	6	7	3	7	7	7	4	7	7	7
+BLEUNVEN Cédric	6	7	7	7	6	3	7	7	2	4	7	7	7	7	5	1
+BOUGRAT Nicolas	6	7	1	7	7	3	4	7	7	7	6	2	5	7	7	7
+BOUTIGNY Thomas	6	7	7	2	7	7	7	7	1	7	3	7	4	5	6	7
+BRESSO Caroline	6	7	7	5	7	7	7	7	3	1	4	7	2	6	7	7
+BROUDER Thomas	6	2	7	7	7	7	7	7	7	5	4	6	1	7	7	3
+BUSNEL Romain	6	5	2	7	7	1	7	7	6	3	7	7	7	7	7	4
+BUSSIERE Camille	6	7	7	1	7	7	7	5	7	4	3	7	7	2	6	7
+CADIOU Jean-Christophe	3	4	4	4	4	4	4	4	4	4	4	4	1	2	4	3
+CARPENTIER Agathe	6	7	4	1	7	7	7	7	6	3	5	2	7	7	7	7
+CERVERA Théo	6	4	1	7	7	3	2	7	7	7	7	7	6	5	7	7
+CHAHINE Osmann	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+CHALLIER Alexis	6	7	7	7	7	7	3	7	7	7	4	6	2	5	7	1
+CHARLES Clément	6	7	7	1	7	7	7	5	7	4	3	7	7	2	6	7
+CHATENET Angel	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+CHEVALIER Margaux	6	7	2	3	7	7	7	7	5	4	7	7	7	6	1	7
+CHRISTIN Sacha	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+CLERC Timothé	2	3	3	1	3	3	3	3	3	3	3	3	3	3	2	3
+CONDUCHÉ Alice	6	3	4	7	7	5	7	7	7	7	2	6	7	1	7	7
+CORVAISIER Faustine	6	7	7	2	7	7	7	7	3	6	4	7	7	1	5	7
+COULON--DECORZENS Maëlle	6	7	7	6	7	3	7	7	5	7	2	7	1	7	7	4
+COUTURIER Charles	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+COZETTE Alexis	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+DASSÉ Benjamin	6	1	7	3	7	4	7	7	7	7	5	7	2	6	7	7
+DAUGY Mathilde	6	7	7	3	7	7	7	7	2	7	7	4	7	1	5	6
+DEBLOCK Thibault	6	7	1	7	7	4	7	3	7	5	7	2	6	7	7	7
+DEBUIRE Sébastien	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+DELETOMBE Thibault	6	7	7	3	1	7	7	7	5	7	2	7	6	7	7	4
+DELETTRE Lucile	2	3	3	3	3	3	3	3	3	1	3	3	3	3	2	3
+DENUX Anthony	6	6	7	4	7	7	7	7	5	7	1	7	2	3	7	7
+DEPRECQ Arthur	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+DESPÉRON Sébastien	4	5	5	1	5	5	5	5	5	3	5	5	5	2	4	5
+DESVAGES Lucas	6	3	7	7	7	6	7	7	4	7	2	7	5	1	7	7
+DIAB MAALOUF Antoine	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+DIDIER Emma	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+DOMPTAIL Quentin	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+DRENO Marion	6	7	7	2	7	7	7	7	1	5	7	4	7	6	3	7
+DREZET Nicolas	3	4	4	4	4	4	4	4	4	4	4	3	2	4	4	1
+DRIANCOURT Antoine	5	5	2	6	6	1	6	6	4	3	6	6	6	6	6	6
+DROUET Florian	6	2	6	7	7	5	7	7	7	7	7	7	1	4	7	3
+DUBOIS Barbara	6	7	2	3	7	7	7	7	5	4	7	7	7	6	1	7
+DUCRET Florian	6	7	7	6	7	7	7	7	4	7	2	7	3	5	7	1
+DUMOULIN Albane	6	7	7	7	7	7	7	7	6	3	5	2	7	4	1	7
+DUTRONC Nicolas	6	1	6	7	7	3	4	7	7	7	2	7	5	7	7	7
+ETIENNE Maxime	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+FAURE Laurène	6	1	2	7	7	3	7	7	7	7	5	6	7	4	7	7
+FITOUSSI Simon	3	4	4	4	4	4	4	4	4	4	1	4	2	3	4	4
+FOISSY Martin	5	6	6	3	6	6	6	4	2	5	6	1	6	6	6	6
+FORTANIER Rémi	3	4	4	4	3	4	4	1	4	4	4	4	4	4	2	4
+GALVEZ Raphaël	6	7	7	1	7	7	7	7	6	2	3	7	4	5	7	7
+GAULARD Jérémie	5	6	6	6	5	2	6	6	6	6	4	1	6	3	6	6
+GAUTHIER Alexandre	5	6	2	6	6	6	6	6	4	6	6	6	1	5	6	3
+GENTY Théo	6	7	7	1	7	4	7	5	6	7	2	7	7	7	7	3
+GÉRON Corentin	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+GOMES Pedro	6	4	7	5	7	7	7	7	1	7	2	7	6	7	7	3
+GOURBESVILLE Pierre	6	7	7	7	7	7	7	6	1	3	2	7	4	7	7	5
+GREFFION Chloé	5	6	6	6	6	6	6	6	2	6	1	3	6	4	6	5
+GUILLONNET Adrien	4	1	5	5	5	4	3	5	5	5	5	5	2	5	5	5
+GUIMARD Mathieu	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+HAGENBURG Pierre	6	1	7	7	7	6	5	7	7	7	3	7	7	2	7	4
+HARRACH Benjamin	6	3	7	7	7	1	7	7	4	6	7	2	5	7	7	7
+HARTKE David	4	5	5	1	5	5	5	5	3	4	5	5	2	5	5	5
+HAUSS Guillaume	6	1	7	7	7	7	7	3	7	2	5	6	7	7	7	4
+HOANG Marc	6	1	7	7	7	3	2	7	7	4	7	6	7	7	7	5
+HUMEAU Jean-Baptiste	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+JABRI Mouna	6	3	7	7	7	1	2	7	5	7	4	7	7	7	6	7
+JACQUINOT Raphaël	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+KETHEESWARAN Eelaman	6	1	7	7	7	3	4	7	7	7	5	7	2	6	7	7
+KOUAM TOUKAM Aymeric	6	3	7	7	7	6	1	7	7	2	7	5	4	7	7	7
+LABETOULLE Tristan	6	2	1	7	7	7	7	7	4	5	7	7	6	7	7	3
+LAFAILLE Aurélien	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+LAI Samantha	5	3	6	6	6	6	6	6	4	2	6	6	6	5	1	6
+LALY Baptiste	5	6	6	3	6	6	6	6	5	6	2	4	6	1	6	6
+LE BAGOUSSE François	6	2	3	7	7	4	1	5	7	7	7	6	7	7	7	7
+LE BAIL Aude	6	7	7	3	7	7	7	7	6	7	2	7	1	4	5	7
+LE BIAVANT Jonathan	4	5	1	5	5	5	5	5	5	5	4	2	5	3	5	5
+LE BOUCHÉ Simon	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+LE JEUNE François	4	5	5	5	5	5	5	5	1	3	4	5	5	5	5	2
+LE MEUR Gaultier	6	7	1	7	5	2	4	7	7	6	7	3	7	7	7	7
+LECHENE Gaspard	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+LECLERC Thomas	6	7	7	1	7	6	7	7	5	4	3	7	7	7	2	7
+LEDOUX Clément	6	7	7	3	7	7	7	7	5	7	2	4	7	1	7	6
+LEGRAND Swann	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+LELOT Diane	6	7	7	6	7	7	7	7	7	3	2	7	7	5	1	4
+LENFLE Erwan	6	1	7	7	6	7	7	7	7	7	2	7	3	4	7	5
+LETOUQ Antoine	6	7	7	7	6	7	7	7	7	7	1	3	7	5	4	2
+LIU Yang	6	1	7	3	6	7	7	7	7	7	4	7	2	5	7	7
+LORENTZ Matthieu	6	4	7	5	7	2	1	7	7	7	3	7	7	6	7	7
+LOUINEAU Estelle	6	7	7	1	7	7	7	6	3	2	4	7	7	5	7	7
+LUKIC Angela	6	5	6	7	7	1	7	7	3	7	7	2	7	4	7	7
+MABOU TAKONE Urbain	5	6	3	6	6	1	6	6	2	6	5	6	6	6	6	4
+MACHECOURT Benjamin	6	1	4	6	7	7	7	7	7	7	3	7	2	5	7	7
+MAKHLOUF Selma	6	1	7	3	6	7	7	7	7	7	4	7	2	5	7	7
+MARÉCHAL Morgan	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+MATHERON Jeanne	6	7	6	7	7	1	7	7	7	3	4	7	2	5	7	7
+MAUDRU William	6	7	7	1	7	7	7	2	7	3	7	7	4	6	5	7
+MAYOL Clément	4	5	5	5	5	2	5	5	5	5	4	1	5	3	5	5
+MELLET Armand	6	7	3	7	7	4	1	5	7	7	7	6	2	7	7	7
+MICHEL Nicolas	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+MILHEM François	6	7	7	1	7	7	7	2	7	3	7	7	4	6	5	7
+MOKHTARI Massinissa	2	3	3	3	3	3	1	3	3	3	2	3	3	3	3	3
+MULLER Elliot	6	7	7	1	7	7	7	6	3	2	4	7	7	5	7	7
+NDETCHO Jordan	3	1	4	4	4	4	3	4	4	4	4	4	4	4	4	2
+NÈGRE Youri	6	1	7	7	7	7	2	7	6	7	3	7	5	7	7	4
+NERDIG Cyril	6	5	2	6	7	4	7	7	7	7	7	7	1	7	7	3
+NGUYEN Alexandre	6	2	1	7	7	7	4	7	6	7	5	7	3	7	7	7
+NICAUD Mathilde	6	7	7	5	7	7	7	7	1	3	6	7	4	2	7	7
+NOEL Derek	5	6	6	2	6	6	6	6	6	6	1	6	5	4	6	3
+NORMANT Corentin	6	5	7	7	7	1	7	7	3	7	7	2	7	4	7	6
+OLIVIER Aurélien	6	3	7	7	7	1	7	7	7	7	2	7	5	6	7	4
+ONODI Laurie	6	7	7	7	6	7	7	5	3	7	1	7	7	2	4	7
+ORAIN Barthélémy	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OSTER Benoît	6	4	3	6	7	7	7	7	7	7	7	7	5	7	1	2
+OUAKIL Ahmed	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+OUIN Charly	6	1	7	7	7	6	7	7	7	7	2	7	3	4	7	5
+PANO Béatrice	6	7	6	4	7	7	7	7	5	7	1	7	3	2	7	7
+PÉPIN Amélie	6	7	7	1	7	7	7	7	2	4	6	7	7	5	3	7
+PÉRARD Corentin	2	3	3	3	3	3	3	3	3	3	3	2	3	3	3	1
+PERRON Laura	6	7	7	1	7	7	7	7	2	4	6	7	7	5	3	7
+PEYRON Tsiory	6	1	7	7	7	7	2	7	4	7	6	7	7	3	7	5
+PICARD Yann	6	2	7	5	7	7	7	7	4	7	1	7	3	6	7	7
+PICART Tangui	6	3	4	7	7	7	2	7	7	7	6	5	7	7	7	1
+PILATUS-KOLATA Margaux	6	7	5	4	7	3	7	7	2	7	1	7	7	7	6	7
+POSMYK Matthieu	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+POT Jean-Xavier	6	7	7	1	7	4	7	5	6	7	2	7	7	7	7	3
+PROUST Edouard	6	4	7	2	7	3	7	7	6	7	1	7	7	5	7	7
+QUERAUD Romain	4	1	5	5	5	5	5	5	3	5	2	5	5	5	4	5
+QUÉRÉ Stanislas	6	6	7	7	5	2	7	7	7	1	7	7	7	7	4	3
+RAMAGE Enzo	6	7	7	7	7	2	3	7	7	7	7	4	7	1	6	5
+RANCINANGUE Benjamin	6	7	7	3	7	7	4	7	5	6	1	7	7	7	7	2
+RAULT Tim	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+RICHAUME Vincent	6	4	7	7	7	7	7	5	7	7	3	7	1	2	7	6
+RIVARD Stuart	6	2	7	3	7	7	7	7	7	7	1	7	7	4	5	6
+ROMANN Thibault	6	1	7	7	7	2	5	7	7	7	4	7	3	6	7	7
+ROMERO Vladimir	6	7	7	4	7	7	3	7	7	7	1	7	2	6	7	5
+ROUSSEAUX Constance	6	7	7	7	7	7	7	5	7	6	3	7	2	4	7	1
+RUSCH-BONTÉ Cannelle	6	1	7	4	7	7	7	7	7	6	2	7	3	5	7	7
+SAILLARD Camille	4	5	5	3	5	4	5	5	5	5	5	5	2	1	5	5
+SAMSON Fabian	6	1	2	5	7	7	7	6	7	4	7	7	3	7	7	7
+SARAFIS Edith	6	7	2	3	7	1	7	7	4	5	7	6	7	7	7	7
+SAUBOT Aymeric	6	7	7	3	7	6	7	5	4	2	7	7	7	1	7	7
+SCHLUSSEL Rémi	6	7	4	5	7	2	7	7	7	3	6	7	1	7	7	7
+SCHMITT Benoît	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+SECKINGER Etienne	6	1	7	7	7	3	7	7	7	6	5	7	2	7	7	4
+SÉRODON Clémence	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+SIMON Louis	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+SIMON Nicolas	6	5	1	7	7	2	7	7	7	7	6	3	4	7	7	7
+SIMON Thomas	4	5	5	5	5	5	3	5	2	5	4	5	5	5	5	1
+SIVILAY Aurélie	6	2	1	7	6	7	5	4	7	7	7	7	3	7	7	7
+SOMMET Virginie	6	7	7	1	7	7	7	7	6	4	2	7	3	7	7	5
+SOUVANNAVONG Vannasay	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+STEMMELEN Jonathan	6	3	2	7	7	5	7	7	7	7	6	7	1	7	7	4
+TABARD Romain	6	2	7	4	7	7	7	7	7	7	1	6	3	5	7	7
+TEISSIER Adrien	4	5	5	4	5	5	5	5	3	5	1	5	5	5	5	2
+THAN TRONG Thai-An	6	7	1	5	7	3	7	7	7	2	7	7	6	4	7	7
+TRÉFEIL Kim	6	7	1	5	7	3	7	7	7	2	6	7	7	4	7	7
+UGUEN  Guillaume	3	4	1	4	4	2	4	4	4	4	4	4	4	4	4	3
+VALLON Marie	6	7	7	3	7	7	7	7	2	7	4	6	5	1	7	7
+VALLOT Axelle	6	7	4	3	7	6	7	7	5	7	7	2	7	7	1	7
+VENDITTOZZI Blanche	6	7	7	3	7	7	7	7	2	7	1	7	7	5	6	4
+VILLADA Agathe	6	7	7	1	7	7	7	7	4	5	2	7	3	6	7	7
+VILLARD Laetitia	6	7	7	5	7	7	7	7	2	7	4	3	7	6	1	7
+WEISSLINGER Nicolas	6	7	7	7	7	7	3	7	7	7	4	6	2	5	7	1
+YSNEL Adrien	6	6	7	1	7	7	7	7	7	7	2	7	3	7	4	5
+YUNUSH Aadil	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+YVRARD Régis	6	7	7	7	3	7	7	7	5	7	2	7	1	6	7	4
+ZAKOWIC Aurélien	3	3	1	4	4	4	4	4	4	4	4	4	4	4	4	2
+ZERINGER Benoît	6	7	7	7	7	3	7	7	5	2	1	6	7	7	4	7
+ZIMMER Alexandre	6	7	5	1	7	7	7	7	6	7	4	3	7	7	2	7
