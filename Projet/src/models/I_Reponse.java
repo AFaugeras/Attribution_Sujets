@@ -1,4 +1,4 @@
-package traitement_donnee;
+package models;
 
 import java.util.Date;
 import java.util.List;
