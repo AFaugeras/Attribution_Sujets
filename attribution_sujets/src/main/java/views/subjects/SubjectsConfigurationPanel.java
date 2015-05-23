@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
-public class SubjectConfigurationPanel extends JPanel {
+public class SubjectsConfigurationPanel extends JPanel {
 
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
@@ -29,27 +27,26 @@ public class SubjectConfigurationPanel extends JPanel {
 			5, 5);
 
 	private JPanel jpSubjects;
-	
+
 	private JButton jbAddSubject;
 	private JButton jbImport;
 	private JButton jbNext;
 
-	public SubjectConfigurationPanel() {
+	public SubjectsConfigurationPanel() {
 		super();
 
 		this.initializeView();
 	}
 
 	public JPanel getJpSubjects() {
-		if(jpSubjects == null){
+		if (jpSubjects == null) {
 			this.jpSubjects = new JPanel();
-			this.jpSubjects.setBorder(BorderFactory.createTitledBorder("Sujets"));
+			this.jpSubjects.setBorder(BorderFactory
+					.createTitledBorder("Sujets"));
 		}
-		
+
 		return jpSubjects;
 	}
-
-
 
 	public JButton getJbAddSubject() {
 		if (jbAddSubject == null) {
@@ -64,10 +61,11 @@ public class SubjectConfigurationPanel extends JPanel {
 	public JButton getJbImport() {
 		if (jbImport == null) {
 			jbImport = new JButton("Importer", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/import_subjects.png")));
+					.getClassLoader()
+					.getResource("ihm/img/import_subjects.png")));
 			jbImport.setActionCommand(JB_IMPORT_ACTION);
 		}
-		
+
 		return jbImport;
 	}
 
@@ -77,7 +75,7 @@ public class SubjectConfigurationPanel extends JPanel {
 					.getClassLoader().getResource("ihm/img/next.png")));
 			jbNext.setActionCommand(JB_NEXT_ACTION);
 		}
-		
+
 		return jbNext;
 	}
 
@@ -101,6 +99,7 @@ public class SubjectConfigurationPanel extends JPanel {
 		return ret;
 	}
 
+	// TODO Development method to delete.
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -110,7 +109,7 @@ public class SubjectConfigurationPanel extends JPanel {
 
 		JFrame frameTest = new JFrame();
 		frameTest.setLayout(new GridBagLayout());
-		SubjectConfigurationPanel tmp = new SubjectConfigurationPanel();
+		SubjectsConfigurationPanel tmp = new SubjectsConfigurationPanel();
 		frameTest.add(tmp, new GridBagConstraints(0, 0, 1, 1, 1, 1,
 				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
 						0, 0, 0, 0), 0, 0));
