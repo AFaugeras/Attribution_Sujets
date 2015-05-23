@@ -1,21 +1,28 @@
 package views.subjects;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 
-public class SubjectsConfigurationPanel extends JPanel {
+import models.bean.Model;
+import models.bean.Subject;
+import controllers.SubjectsListCtrl;
+
+/**
+ * Widget de paramétre des sujets.
+ */
+public class SubjectsListPanel extends JPanel {
 
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
@@ -23,8 +30,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5,
-			5, 5);
+	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
 
 	private JPanel jpSubjects;
 
@@ -32,12 +38,20 @@ public class SubjectsConfigurationPanel extends JPanel {
 	private JButton jbImport;
 	private JButton jbNext;
 
-	public SubjectsConfigurationPanel() {
+	/**
+	 * Constructeur.
+	 */
+	public SubjectsListPanel() {
 		super();
 
 		this.initializeView();
 	}
 
+	/**
+	 * Accesseur de l'attribut getJpSubjects.
+	 * 
+	 * @return Le JPanel getJpSubjects.
+	 */
 	public JPanel getJpSubjects() {
 		if (jpSubjects == null) {
 			this.jpSubjects = new JPanel();
@@ -48,6 +62,11 @@ public class SubjectsConfigurationPanel extends JPanel {
 		return jpSubjects;
 	}
 
+	/**
+	 * Accesseur de l'attribut jbAddSubject.
+	 * 
+	 * @return Le JButton getJpSubjects.
+	 */
 	public JButton getJbAddSubject() {
 		if (jbAddSubject == null) {
 			jbAddSubject = new JButton("Ajouter", new ImageIcon(this.getClass()
@@ -58,6 +77,11 @@ public class SubjectsConfigurationPanel extends JPanel {
 		return jbAddSubject;
 	}
 
+	/**
+	 * Accesseur de l'attribut jbImport.
+	 * 
+	 * @return Le JButton jbImport.
+	 */
 	public JButton getJbImport() {
 		if (jbImport == null) {
 			jbImport = new JButton("Importer", new ImageIcon(this.getClass()
@@ -69,6 +93,11 @@ public class SubjectsConfigurationPanel extends JPanel {
 		return jbImport;
 	}
 
+	/**
+	 * Accesseur de l'attribut jbNext.
+	 * 
+	 * @return Le JButton jbNext.
+	 */
 	public JButton getJbNext() {
 		if (jbNext == null) {
 			jbNext = new JButton("Suivant", new ImageIcon(this.getClass()
@@ -79,18 +108,35 @@ public class SubjectsConfigurationPanel extends JPanel {
 		return jbNext;
 	}
 
+	@Override
+	public Dimension getPreferredSize() {
+		return PREFERED_SIZE;
+	}
+
+	/**
+	 * Cette méthode privée est appellée par le constructeur pour initialiser la
+	 * vue.
+	 */
 	private void initializeView() {
 		this.setLayout(new BorderLayout());
 
-		this.setBorder(BORDER);
-		this.setBackground(Color.WHITE);
+		JScrollPane jsp = new JScrollPane(getJpSubjects());
+		jsp.setBorder(null);
+		System.out.println(jsp.getVerticalScrollBar().getUnitIncrement());
+		jsp.getVerticalScrollBar().setUnitIncrement(15);
+		this.add(jsp, BorderLayout.CENTER);
 
-		this.add(getJpSubjects(), BorderLayout.CENTER);
-		this.add(initializeButtonsBar(), BorderLayout.SOUTH);
+		this.add(getButtonsBar(), BorderLayout.SOUTH);
 	}
 
-	private JPanel initializeButtonsBar() {
+	/**
+	 * Cette méthode privée construit la barre des boutons.
+	 * 
+	 * @return La barre des boutons (JPanel).
+	 */
+	private JPanel getButtonsBar() {
 		JPanel ret = new JPanel();
+		ret.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 		ret.add(getJbAddSubject());
 		ret.add(getJbImport());
@@ -109,9 +155,13 @@ public class SubjectsConfigurationPanel extends JPanel {
 
 		JFrame frameTest = new JFrame();
 		frameTest.setLayout(new GridBagLayout());
-		SubjectsConfigurationPanel tmp = new SubjectsConfigurationPanel();
-		frameTest.add(tmp, new GridBagConstraints(0, 0, 1, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
+		SubjectsListPanel tmp = new SubjectsListPanel();
+		new SubjectsListCtrl(new Model(null, null, new ArrayList<Subject>()),
+				tmp);
+		JPanel aux = new JPanel(new GridBagLayout());
+		aux.add(tmp);
+		frameTest.add(aux, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(
 						0, 0, 0, 0), 0, 0));
 		frameTest.setPreferredSize(new Dimension(1200, 600));
 		frameTest.pack();
@@ -121,5 +171,6 @@ public class SubjectsConfigurationPanel extends JPanel {
 		// frameTest.setPreferredSize(new Dimension(1200, 600));
 
 		System.out.println(tmp.getSize());
+
 	}
 }
