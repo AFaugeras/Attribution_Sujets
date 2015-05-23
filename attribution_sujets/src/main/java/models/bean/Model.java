@@ -1,8 +1,12 @@
 package models.bean;
 
 import java.util.List;
+import java.util.Observable;
 
-public class Model {
+public class Model extends Observable {
+
+	public static final String SUBJECTS_UPDATE_MESSAGE = "SUBJECTS_UPDATED";
+
 	private GeneralConstraints constraint;
 	private List<Person> persons;
 	private List<Subject> subjects;
@@ -29,6 +33,18 @@ public class Model {
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
+		this.notifyObservers(SUBJECTS_UPDATE_MESSAGE);
+	}
+
+	public boolean add(Subject e) {
+		boolean ret = false;
+
+		if (subjects.add(e)) {
+			ret = true;
+			this.notifyObservers(SUBJECTS_UPDATE_MESSAGE);
+		}
+
+		return ret;
 	}
 
 	public List<Subject> getSubjects() {
