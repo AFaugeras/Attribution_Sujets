@@ -1,4 +1,4 @@
-package parse;
+package models.parser;
 
 import java.io.File;
 import java.io.IOException;

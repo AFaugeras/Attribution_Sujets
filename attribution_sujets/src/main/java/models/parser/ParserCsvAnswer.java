@@ -1,4 +1,4 @@
-package parse;
+package models.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import factory.AnswerFactory;
+import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 /**
  * classe qui s'occupe de parser un fichier csv pour generer des objets réponse (Answer)
