@@ -70,7 +70,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	public JButton getJbAddSubject() {
 		if (jbAddSubject == null) {
 			jbAddSubject = new JButton("Ajouter", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/add_subject.png")));
+					.getClassLoader().getResource("ihm/img/add_subject2.png")));
 			jbAddSubject.setActionCommand(JB_ADD_SUBJECT_ACTION);
 		}
 
@@ -101,7 +101,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	public JButton getJbNext() {
 		if (jbNext == null) {
 			jbNext = new JButton("Suivant", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/next.png")));
+					.getClassLoader().getResource("ihm/img/next2.png")));
 			jbNext.setActionCommand(JB_NEXT_ACTION);
 		}
 

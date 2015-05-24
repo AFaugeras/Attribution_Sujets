@@ -1,12 +1,17 @@
 package views;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileFilter;
 
 public class MainFrame extends JFrame {
 	
@@ -33,11 +38,76 @@ public class MainFrame extends JFrame {
 
 	public JMenuItem getJmiImport() {
 		if(jmiImport == null) {
-			jmiImport = new JMenuItem("Importer");
+			jmiImport = new JMenu("Importer");
+			JMenuItem fromSolverChocco = new JMenuItem("à partir du résultat Chocco");
+			JMenuItem fromSolverGLPK = new JMenuItem("à partir du résultat GLPK");
+			JMenuItem fromTreatment = new JMenuItem("à partir du résultat de notre traitement");
+			
+			jmiImport.add(getFromCSV());
+			jmiImport.add(fromSolverChocco);
+			jmiImport.add(fromSolverGLPK);
+			jmiImport.add(fromTreatment);
 		}
 		
 		return jmiImport;
 	}
+	
+	public JMenuItem getFromCSV() {
+		JMenuItem fromCSV = new JMenuItem("à partir d'un CSV");
+		
+		fromCSV.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser fc = new JFileChooser();
+				
+				fc.setDialogTitle("Importer à partir d'un CSV");
+				fc.setFileFilter(new FileFilter() {
+					
+					@Override
+					public String getDescription() {
+						return ".xls, .csv";
+					}
+					
+					@Override
+					public boolean accept(File f) {
+						String[] extensions = {"csv", "xls"};
+						if (f.isDirectory()) {
+						      return true;
+						    } else {
+						      String path = f.getAbsolutePath().toLowerCase();
+						      for (int i = 0, n = extensions.length; i < n; i++) {
+						        String extension = extensions[i];
+						        if ((path.endsWith(extension) && (path.charAt(path.length() 
+						                  - extension.length() - 1)) == '.')) {
+						          return true;
+						        }
+						      }
+						    }
+						    return false;
+					}
+				});
+				
+				int returnVal = fc.showOpenDialog(null);
+				
+				if (returnVal == JFileChooser.CANCEL_OPTION) {
+					System.out.println("Choix du fichier csv annulé");
+				}
+				
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("Choix du fichier csv validé");
+					System.out.println(fc.getSelectedFile().getAbsolutePath());
+				}
+				
+				if (returnVal == JFileChooser.ERROR) {
+					System.out.println("Choix du fichier csv interrompu");
+				}
+			}
+		});
+		
+		return fromCSV;
+	}
+	
 	public JMenuItem getJmiLoad() {
 		if(jmiLoad == null) {
 			jmiLoad = new JMenuItem("Charger");
