@@ -5,7 +5,7 @@ import java.util.Observable;
 
 public class Model extends Observable {
 
-	public static final String SUBJECTS_UPDATE_MESSAGE = "SUBJECTS_UPDATED";
+	public static final String SUBJECTS_ADDED_MESSAGE = "SUBJECTS_ADDED";
 
 	private GeneralConstraints constraint;
 	private List<Person> persons;
@@ -33,7 +33,6 @@ public class Model extends Observable {
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
-		this.notifyObservers(SUBJECTS_UPDATE_MESSAGE);
 	}
 
 	public boolean add(Subject e) {
@@ -41,10 +40,16 @@ public class Model extends Observable {
 
 		if (subjects.add(e)) {
 			ret = true;
-			this.notifyObservers(SUBJECTS_UPDATE_MESSAGE);
+			notifySubjectsChanged(SUBJECTS_ADDED_MESSAGE);
 		}
 
 		return ret;
+	}
+
+	private void notifySubjectsChanged(String message) {
+		this.setChanged();
+		this.notifyObservers(message);
+		this.clearChanged();
 	}
 
 	public List<Subject> getSubjects() {
