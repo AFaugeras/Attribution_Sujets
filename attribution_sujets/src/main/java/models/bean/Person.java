@@ -4,17 +4,22 @@ import java.util.List;
 
 public class Person {
 
-	private String name;
+	private String firstName;
+	private String FamilyName;
 	private String IDcampus;
 	private List<Subject> choices;
 	private List<Subject> rejects;
 	private Subject assigned;
 	private String comment;
 
+	public Person() {
+
+	}
+
 	public Person(String name, String iDcampus, List<Subject> choices,
 			List<Subject> rejects, Subject assigned, String comment) {
 		super();
-		this.name = name;
+		this.firstName = name;
 		IDcampus = iDcampus;
 		this.choices = choices;
 		this.rejects = rejects;
@@ -22,12 +27,20 @@ public class Person {
 		this.comment = comment;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String name) {
+		this.firstName = name;
+	}
+
+	public String getFamilyName() {
+		return FamilyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		FamilyName = familyName;
 	}
 
 	public String getIDcampus() {
@@ -71,9 +84,21 @@ public class Person {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Person) {
+			Person other = (Person) obj;
+			return other.getIDcampus().equals(this.getIDcampus());
+
+		} else {
+			return false;
+		}
+	}
+
+	@Override
 	public String toString() {
-		return "Person [name=" + name + ", IDcampus=" + IDcampus + ", choices="
-				+ choices + ", rejects=" + rejects + ", assigned=" + assigned
+		return "Person [firstName=" + firstName + ", FamilyName=" + FamilyName
+				+ ", IDcampus=" + IDcampus + ", choices=" + choices
+				+ ", rejects=" + rejects + ", assigned=" + assigned
 				+ ", comment=" + comment + "]";
 	}
 }

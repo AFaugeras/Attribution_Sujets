@@ -108,6 +108,6 @@ public interface I_Answer {
 	 * @param other
 	 * @return
 	 */
-	public I_Answer wichIsTheEarlier(I_Answer other);
+	public I_Answer wichIsTheLater(I_Answer other);
 
 }

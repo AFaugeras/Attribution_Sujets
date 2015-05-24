@@ -11,15 +11,15 @@ import models.interfaces.I_Answer;
 public class AnswerFactory {
 
 	/**
-	 * renvoi un objet réponse en utilisant un tableau de chaine de caractére en
-	 * entrée modéle choisi: 9 entetes fixes :Réponse, Soumis le ,Institution,
-	 * Département, Cours, Groupe, ID, Nom complet, Nom d'utilisateur
+	 * renvoi un objet rï¿½ponse en utilisant un tableau de chaine de caractï¿½re en
+	 * entrï¿½e modï¿½le choisi: 9 entetes fixes :Rï¿½ponse, Soumis le ,Institution,
+	 * Dï¿½partement, Cours, Groupe, ID, Nom complet, Nom d'utilisateur
 	 * 
 	 * @param data
 	 * @return I_Response
 	 */
 
-	public static I_Answer createResponse(String[] data) {
+	public static I_Answer createAnswer(String[] data) {
 		I_Answer response = new Answer();
 		response.setIdReponse(data[0]);
 		// formatage de la date
@@ -28,7 +28,9 @@ public class AnswerFactory {
 			String dateInString = data[1];
 			Date date = sdf.parse(dateInString);
 			response.setDateSoumission(date);
-		} catch (ParseException e) {e.printStackTrace();}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		response.setInstitution(data[2]);
 		response.setDepartement(data[3]);
 		response.setCours(data[4]);
