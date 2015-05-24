@@ -19,7 +19,7 @@ public class AnswerFactory {
 	 * @return I_Response
 	 */
 
-	public static I_Answer createResponse(String[] data) {
+	public static I_Answer createAnswer(String[] data) {
 		I_Answer response = new Answer();
 		response.setIdReponse(data[0]);
 		// formatage de la date

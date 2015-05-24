@@ -1,10 +1,12 @@
-package parse;
+package parse.helper;
 
 import java.io.File;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
+
+import parse.helper.CsvHelper;
 
 public class CsvHelperTest extends TestCase {
 
