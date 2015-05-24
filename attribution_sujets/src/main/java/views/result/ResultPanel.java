@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -25,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+
+import com.itextpdf.text.DocumentException;
 
 import models.bean.Model;
 import models.bean.Person;
@@ -91,7 +94,12 @@ public class ResultPanel extends JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					exportPDF();
+					try {
+						exportPDF();
+					} catch (FileNotFoundException | DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -241,8 +249,82 @@ public class ResultPanel extends JPanel {
 		}
 	}
 
-	public void exportPDF() {
+	public void exportPDF() throws FileNotFoundException, DocumentException {
+		ResultPdfGenerator generator = new ResultPdfGenerator(this.entete, this.donnees);
+		
+		JFileChooser c = new JFileChooser() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
+			@Override
+			public void approveSelection() {
+				File f = getSelectedFile();
+				if (!f.getName().endsWith(".pdf"))
+					f = new File(f.getAbsolutePath() + ".pdf");
+		        if(f.exists() && getDialogType() == SAVE_DIALOG){
+		            int result = JOptionPane.showConfirmDialog(this,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+		            switch(result){
+		                case JOptionPane.YES_OPTION:
+		                    super.approveSelection();
+		                    return;
+		                case JOptionPane.NO_OPTION:
+		                    return;
+		                case JOptionPane.CLOSED_OPTION:
+		                    return;
+		                case JOptionPane.CANCEL_OPTION:
+		                    cancelSelection();
+		                    return;
+		            }
+		        }
+		        super.approveSelection();
+		    }  
+		};
+		
+		c.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return ".pdf";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				String[] extensions = {"pdf"};
+				if (f.isDirectory()) {
+				      return true;
+				    } else {
+				      String path = f.getAbsolutePath().toLowerCase();
+				      for (int i = 0, n = extensions.length; i < n; i++) {
+				        String extension = extensions[i];
+				        if ((path.endsWith(extension) && (path.charAt(path.length() 
+				                  - extension.length() - 1)) == '.')) {
+				          return true;
+				        }
+				      }
+				    }
+				    return false;
+			}
+		});
+		
+		c.setDialogTitle("Export PDF");
+		
+		// Demonstrate "Save" dialog:
+		int rVal = c.showSaveDialog(this.jpPeople);
+		if (rVal == JFileChooser.APPROVE_OPTION) {
+			String filename = c.getSelectedFile().getAbsolutePath();
+
+			if (!filename.endsWith(".pdf"))
+				filename += ".pdf";
+			
+			System.out.println("FILENAME CHOSEN : " + filename);
+
+			generator.buildPDF(filename);
+		}
+		if (rVal == JFileChooser.CANCEL_OPTION) {
+			System.out.println("CANCEL CHOSING FILENAME FOR PDF EXPORT");
+		}
 	}
 
 	// TODO Development method to delete.
@@ -271,8 +353,11 @@ public class ResultPanel extends JPanel {
 
 		for (int i = 0; i < 40; i++) {
 			int random = (int) (Math.random() * 4);
-			Person someone = new Person("Hodor " + i, i + "hodor" + 15, null,
-					null, subjects.get(random), null);
+			Person someone = new Person();
+			someone.setFirstName("Hodor");
+			someone.setFamilyName(String.valueOf(i));
+			someone.setIDcampus(i + "hodor" + 15);
+			someone.setAssigned(subjects.get(random));
 			people.add(someone);
 		}
 
