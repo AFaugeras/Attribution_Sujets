@@ -295,21 +295,22 @@ public class SubjectPanel extends JPanel {
 		gbc.gridy = 1;
 		gbc.weightx = 0;
 		gbc.weighty = 1;
+		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.insets.left = 0;
-		container.add(jlMaxCard, gbc);
+		container.add(jlMinCard, gbc);
 
 		gbc.gridx = 2;
 		gbc.insets.left = 5;
-		container.add(jlMinCard, gbc);
+		container.add(jlMaxCard, gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.NONE;
-		container.add(getJsMaxCard(), gbc);
+		container.add(getJsMinCard(), gbc);
 
 		gbc.gridx = 3;
-		container.add(getJsMinCard(), gbc);
+		container.add(getJsMaxCard(), gbc);
 	}
 
 	/**
@@ -330,18 +331,18 @@ public class SubjectPanel extends JPanel {
 		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.fill = GridBagConstraints.NONE;
-		container.add(jlMaxSize, gbc);
+		container.add(jlMinSize, gbc);
 
 		gbc.gridx = 2;
 		gbc.insets.left = 5;
-		container.add(jlMinSize, gbc);
+		container.add(jlMaxSize, gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 0;
-		container.add(getJsMaxSize(), gbc);
+		container.add(getJsMinSize(), gbc);
 
 		gbc.gridx = 3;
-		container.add(getJsMinSize(), gbc);
+		container.add(getJsMaxSize(), gbc);
 
 		gbc.gridx = 4;
 		gbc.weightx = 1;
