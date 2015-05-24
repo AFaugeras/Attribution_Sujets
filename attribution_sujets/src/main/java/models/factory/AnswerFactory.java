@@ -1,4 +1,4 @@
-package factory;
+package models.factory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
