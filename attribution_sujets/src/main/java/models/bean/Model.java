@@ -1,11 +1,10 @@
 package models.bean;
 
 import java.util.List;
-import java.util.Observable;
 
-public class Model extends Observable {
+public class Model {
 
-	public static final String SUBJECTS_ADDED_MESSAGE = "SUBJECTS_ADDED";
+	// public static final String SUBJECTS_ADDED_MESSAGE = "SUBJECTS_ADDED";
 
 	private GeneralConstraints constraint;
 	private List<Person> persons;
@@ -40,17 +39,17 @@ public class Model extends Observable {
 
 		if (subjects.add(e)) {
 			ret = true;
-			notifySubjectsChanged(SUBJECTS_ADDED_MESSAGE);
+			// notifySubjectsChanged(SUBJECTS_ADDED_MESSAGE);
 		}
 
 		return ret;
 	}
 
-	private void notifySubjectsChanged(String message) {
-		this.setChanged();
-		this.notifyObservers(message);
-		this.clearChanged();
-	}
+	// private void notifySubjectsChanged(String message) {
+	// this.setChanged();
+	// this.notifyObservers(message);
+	// this.clearChanged();
+	// }
 
 	public List<Subject> getSubjects() {
 		return subjects;
@@ -60,4 +59,9 @@ public class Model extends Observable {
 		this.subjects = subjects;
 	}
 
+	@Override
+	public String toString() {
+		return "Model [constraint=" + constraint + ", persons=" + persons
+				+ ", subjects=" + subjects + "]";
+	}
 }
