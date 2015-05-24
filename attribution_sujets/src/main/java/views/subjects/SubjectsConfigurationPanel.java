@@ -17,12 +17,12 @@ import javax.swing.UIManager;
 
 import models.bean.Model;
 import models.bean.Subject;
-import controllers.SubjectsListCtrl;
+import controllers.SubjectsConfigurationCtrl;
 
 /**
  * Widget de paramétre des sujets.
  */
-public class SubjectsListPanel extends JPanel {
+public class SubjectsConfigurationPanel extends JPanel {
 
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
@@ -41,7 +41,7 @@ public class SubjectsListPanel extends JPanel {
 	/**
 	 * Constructeur.
 	 */
-	public SubjectsListPanel() {
+	public SubjectsConfigurationPanel() {
 		super();
 
 		this.initializeView();
@@ -155,8 +155,8 @@ public class SubjectsListPanel extends JPanel {
 
 		JFrame frameTest = new JFrame();
 		frameTest.setLayout(new GridBagLayout());
-		SubjectsListPanel tmp = new SubjectsListPanel();
-		new SubjectsListCtrl(new Model(null, null, new ArrayList<Subject>()),
+		SubjectsConfigurationPanel tmp = new SubjectsConfigurationPanel();
+		new SubjectsConfigurationCtrl(new Model(null, null, new ArrayList<Subject>()),
 				tmp);
 		JPanel aux = new JPanel(new GridBagLayout());
 		aux.add(tmp);
