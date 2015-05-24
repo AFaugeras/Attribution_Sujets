@@ -45,7 +45,7 @@ public class ResultPanel extends JPanel {
 	private JButton jbExportCsv;
 	private JButton jbExportPdf;
 
-	private String[] entete = { "Nom", "Identifiant Campus",
+	private String[] entete = { "Prénom", "Nom", "Identifiant Campus",
 			"Identifiant sujet", "Sujet", "Commentaires" };;
 	private Object[][] donnees;
 
@@ -132,7 +132,7 @@ public class ResultPanel extends JPanel {
 
 			for (int i = 0; i < people.size(); i++) {
 				Person someone = people.get(i);
-				String[] data = { someone.getName(), someone.getIDcampus(),
+				String[] data = { someone.getFirstName(), someone.getFamilyName(), someone.getIDcampus(),
 						String.valueOf(someone.getAssigned().getId()),
 						someone.getAssigned().getLabel(), someone.getComment() };
 				donnees[i] = data;

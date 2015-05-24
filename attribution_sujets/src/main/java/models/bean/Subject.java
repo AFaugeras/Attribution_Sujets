@@ -86,4 +86,10 @@ public class Subject {
 		this.cardMax = cardMax;
 	}
 
+	@Override
+	public String toString() {
+		return "Subject [id=" + id + ", label=" + label + ", maxSize="
+				+ maxSize + ", minSize=" + minSize + ", multiple=" + multiple
+				+ ", cardMin=" + cardMin + ", cardMax=" + cardMax + "]";
+	}
 }

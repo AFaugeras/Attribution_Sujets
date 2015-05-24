@@ -153,7 +153,7 @@ public class Answer implements I_Answer{
 	}
 
 	@Override
-	public I_Answer wichIsTheEarlier(I_Answer other) {
+	public I_Answer wichIsTheLater(I_Answer other) {
 		return this.dateSoumission.before(other.getDateSoumission()) ? other
 				: this;
 
