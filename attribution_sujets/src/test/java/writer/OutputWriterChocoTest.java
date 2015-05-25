@@ -2,11 +2,15 @@ package writer;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import java.io.File;
+
 import models.adaptor.AdaptorChoco;
 import models.writer.OutputWriterChoco;
 import models.writer.WriterException;
 
 import org.easymock.EasyMock;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +22,12 @@ public class OutputWriterChocoTest {
 	public void setUp() throws Exception{
 		this.adaptorChocoMock = EasyMock.createMock(AdaptorChoco.class);
 		assertNotNull("précondition", this.adaptorChocoMock);
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		File output = new File("output.txt");
+		output.delete();
 	}
 	
 	@Test
