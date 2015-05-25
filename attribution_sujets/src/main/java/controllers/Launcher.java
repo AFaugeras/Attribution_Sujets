@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
-import models.bean.GeneralConstraints;
+import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
@@ -18,8 +18,9 @@ public class Launcher implements ActionListener {
 	private Model model;
 	private MainFrame view;
 
-	private GeneralConstraintPanelCtrl constraintsCtrl;
+	private ConstraintlCtrl constraintsCtrl;
 	private SubjectsConfigurationCtrl subjectsCtrl;
+	private DataSelectionPanelCtrl dataSelectionCtrl;
 
 	public Launcher(Model model, MainFrame view) {
 		this.model = model;
@@ -37,14 +38,19 @@ public class Launcher implements ActionListener {
 			this.subjectsCtrl.saveToModel();
 
 			System.out.println(this.model);
+			System.out.println(this.dataSelectionCtrl.getCampusFile());
+			System.out.println(this.dataSelectionCtrl.getPersonsFile());
 		}
 	}
 
 	private void initializeReactions() {
-		this.constraintsCtrl = new GeneralConstraintPanelCtrl(
-				this.model.getConstraint(), this.view.getConstraintsPanel());
+		this.constraintsCtrl = new ConstraintlCtrl(this.model.getConstraint(),
+				this.view.getBoundConstraintsPanel(),
+				this.view.getCampusConstraintsPanel());
 		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model,
 				this.view.getSubjectsPanel());
+		this.dataSelectionCtrl = new DataSelectionPanelCtrl(
+				this.view.getDataSelectionPanel());
 
 		this.view.getJbNext().addActionListener(this);
 	}
@@ -56,7 +62,7 @@ public class Launcher implements ActionListener {
 			e.printStackTrace();
 		}
 
-		GeneralConstraints gc = new GeneralConstraints(0, 0, 0, 0);
+		Constraints gc = new Constraints(0, 0, 0, 0);
 		List<Subject> subjects = new ArrayList<Subject>();
 		List<Person> persons = new ArrayList<Person>();
 		Model mockModel = new Model(gc, persons, subjects);

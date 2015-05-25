@@ -27,7 +27,7 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		this.model = model;
 		this.view = view;
 
-		this.subjectsPanels = new ArrayList<>();
+		this.subjectsPanels = new ArrayList<SubjectPanel>();
 
 		initializeReactions();
 	}
