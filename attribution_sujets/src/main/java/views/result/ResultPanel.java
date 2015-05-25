@@ -1,6 +1,7 @@
 package views.result;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +25,35 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileFilter;
-
-import com.itextpdf.text.DocumentException;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
 
+import com.itextpdf.text.DocumentException;
+
+/**
+ * @author Arthur FAUGERAS
+ * 
+ * Classe prennant en charge l'affchage des résultats des solveurs
+ *
+ */
 public class ResultPanel extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Notre modèle de données
+	 */
 	private Model model;
+	/**
+	 * La Jtable contenant l'affchage des résultats
+	 */
 	private JTable jpPeople;
 
 	public static final String JB_EXPORT_CSV_ACTION = "EXPORT CSV";
@@ -52,14 +62,32 @@ public class ResultPanel extends JPanel {
 	private JButton jbExportCsv;
 	private JButton jbExportPdf;
 
+	/**
+	 * La liste des entrées du tableau
+	 */
 	private String[] entete = { "Prénom", "Nom", "Identifiant Campus",
 			"Identifiant sujet", "Sujet", "Commentaires" };
+	/**
+	 * Les colonnes qui ne seront pas éditables
+	 */
 	private ArrayList<Integer> disabledCols = new ArrayList<Integer>(); 
+	/**
+	 * L'index de la colonne contenant les identifiants des sujets
+	 */
 	private Integer subjectIdColNumber = 3;
+	/**
+	 * L'index de la colonne contenant les libellés des sujets
+	 */
 	private Integer subjectLabelColNumber = 4;
 	
+	/**
+	 * Le tableau des résultats
+	 */
 	private Object[][] donnees;
 
+	/**
+	 * @param model notre modèle de données contenant le résultat du solveur
+	 */
 	public ResultPanel(Model model) {
 		this.model = model;
 		disabledCols.add(0);
@@ -78,13 +106,17 @@ public class ResultPanel extends JPanel {
 
 		JScrollPane jsp = new JScrollPane(getJpPeople());
 		jsp.setBorder(null);
-		System.out.println(jsp.getVerticalScrollBar().getUnitIncrement());
+		jsp.setPreferredSize(new Dimension(1000, 480));
+		
 		jsp.getVerticalScrollBar().setUnitIncrement(15);
 		this.add(jsp, BorderLayout.CENTER);
 
 		this.add(getButtonsBar(), BorderLayout.SOUTH);
 	}
 
+	/**
+	 * @return Le panel contenant les boutons d'export du tableau
+	 */
 	private JPanel getButtonsBar() {
 		JPanel ret = new JPanel();
 		ret.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -95,6 +127,9 @@ public class ResultPanel extends JPanel {
 		return ret;
 	}
 
+	/**
+	 * @return le bouton d'export PDF
+	 */
 	private JButton getJbExportPdf() {
 		if (jbExportCsv == null) {
 			jbExportCsv = new JButton("Export PDF", new ImageIcon(this
@@ -118,6 +153,9 @@ public class ResultPanel extends JPanel {
 		return jbExportCsv;
 	}
 
+	/**
+	 * @return le bouton d'export CSV
+	 */
 	private JButton getJbExportCsv() {
 		if (jbExportPdf == null) {
 			jbExportPdf = new JButton("Export CSV", new ImageIcon(this
@@ -141,6 +179,9 @@ public class ResultPanel extends JPanel {
 		return jbExportPdf;
 	}
 
+	/**
+	 * @return retourne le tableau construit des résultats
+	 */
 	private JTable getJpPeople() {
 		if (jpPeople == null) {
 			// this.jpPeople = new JPanel();
@@ -170,6 +211,26 @@ public class ResultPanel extends JPanel {
 					}
 					return true;
 				}
+				
+				// Override pour permettre le contrôle de la saisie
+				// Ainsi que l'actualisation dynamique du libellé des sujets
+				@Override
+				public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+					if (subjectIdColNumber.equals(columnIndex)) {
+						try {
+							if (Integer.valueOf(aValue.toString()) <= model.getSubjects().size() && Integer.valueOf(aValue.toString()) > 0) {
+								setValueAt(model.getSubjects().get(Integer.valueOf(aValue.toString()) - 1).getLabel(), rowIndex, subjectLabelColNumber);
+								super.setValueAt(aValue, rowIndex, columnIndex);
+							}
+						} catch (NumberFormatException e) {
+							
+						}
+					} else {
+						super.setValueAt(aValue, rowIndex, columnIndex);
+					}
+					resizeColumnWidth(this);
+				}
+				
 			};
 
 			for (Integer col : disabledCols) {
@@ -177,27 +238,38 @@ public class ResultPanel extends JPanel {
 			}
 			
 			tableau.getTableHeader().setReorderingAllowed(false);
-			
-			tableau.getModel().addTableModelListener(new TableModelListener() {
-				
-				@Override
-				public void tableChanged(TableModelEvent e) {
-					if (e.getType() == TableModelEvent.UPDATE) {
-						if (subjectIdColNumber.equals(e.getColumn())) {
-							String newValue = tableau.getModel().getValueAt(e.getFirstRow(),e.getColumn()).toString();
-							
-							
-						}
-					}
-				}
-			});
-			
+			tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
+			tableau.setFillsViewportHeight(true);
+			resizeColumnWidth(tableau);
 			this.jpPeople = tableau;
 		}
 
 		return jpPeople;
 	}
+	
+	/**
+	 * Méthode permettant de redimensionner les colonnes d'une JTable en fonction de la taille du contenu des colonnes
+	 * 
+	 * @param table la table sur laquelle on veut appliquer un redimensionnement des colonnes
+	 */
+	public void resizeColumnWidth(JTable table) {
+	    final TableColumnModel columnModel = table.getColumnModel();
+	    for (int column = 0; column < table.getColumnCount(); column++) {
+	        int width = 50; // Min width
+	        for (int row = 0; row < table.getRowCount(); row++) {
+	            TableCellRenderer renderer = table.getCellRenderer(row, column);
+	            Component comp = table.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width, width);
+	        }
+	        columnModel.getColumn(column).setPreferredWidth(width);
+	    }
+	}
 
+	/**
+	 * Exporte le tableau de résultats en fichier CSV
+	 * 
+	 * @throws IOException
+	 */
 	public void exportCSV() throws IOException {
 		JFileChooser c = new JFileChooser() {
 			/**
@@ -211,7 +283,7 @@ public class ResultPanel extends JPanel {
 				if (!f.getName().endsWith(".csv"))
 					f = new File(f.getAbsolutePath() + ".csv");
 		        if(f.exists() && getDialogType() == SAVE_DIALOG){
-		            int result = JOptionPane.showConfirmDialog(this,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+		            int result = JOptionPane.showConfirmDialog(this,"Ce fichier existe déjà, le remplacer ?","Fichier existant",JOptionPane.YES_NO_CANCEL_OPTION);
 		            switch(result){
 		                case JOptionPane.YES_OPTION:
 		                    super.approveSelection();
@@ -257,7 +329,6 @@ public class ResultPanel extends JPanel {
 		
 		c.setDialogTitle("Export CSV");
 		
-		// Demonstrate "Save" dialog:
 		int rVal = c.showSaveDialog(this.jpPeople);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			String filename = c.getSelectedFile().getAbsolutePath();
@@ -293,6 +364,12 @@ public class ResultPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Exporte les résultats dans un fichier PDF
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws DocumentException
+	 */
 	public void exportPDF() throws FileNotFoundException, DocumentException {
 		ResultPdfGenerator generator = new ResultPdfGenerator(this.entete, this.donnees);
 		
@@ -308,7 +385,7 @@ public class ResultPanel extends JPanel {
 				if (!f.getName().endsWith(".pdf"))
 					f = new File(f.getAbsolutePath() + ".pdf");
 		        if(f.exists() && getDialogType() == SAVE_DIALOG){
-		            int result = JOptionPane.showConfirmDialog(this,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+		            int result = JOptionPane.showConfirmDialog(this,"Ce fichier existe déjà, le remplacer ?","File existant",JOptionPane.YES_NO_CANCEL_OPTION);
 		            switch(result){
 		                case JOptionPane.YES_OPTION:
 		                    super.approveSelection();
@@ -354,7 +431,6 @@ public class ResultPanel extends JPanel {
 		
 		c.setDialogTitle("Export PDF");
 		
-		// Demonstrate "Save" dialog:
 		int rVal = c.showSaveDialog(this.jpPeople);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			String filename = c.getSelectedFile().getAbsolutePath();
@@ -408,7 +484,6 @@ public class ResultPanel extends JPanel {
 		Model model = new Model(null, people, subjects);
 
 		ResultPanel tmp = new ResultPanel(model);
-		// new ResultPanel(new Model(null, people, subjects));
 		JPanel aux = new JPanel(new GridBagLayout());
 		aux.add(tmp);
 		frameTest.add(aux, new GridBagConstraints(0, 0, 1, 1, 1, 1,

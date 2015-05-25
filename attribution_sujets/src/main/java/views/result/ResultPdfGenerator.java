@@ -17,9 +17,15 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * Classe prennant en charge la génération du pdf d'export de l'affichage des résultats
+ * 
+ * @author Arthur FAUGERAS
+ *
+ */
 public class ResultPdfGenerator {
 
-	Document document = new Document();
+	private Document document = new Document();
 
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
 			Font.BOLD);
@@ -40,6 +46,13 @@ public class ResultPdfGenerator {
 		ResultPdfGenerator.data = data;
 	}
 
+	/**
+	 * Fonction permettant l'enregistrement du pdf
+	 * 
+	 * @param filename le nom de fichier de l'export (absolutePath)
+	 * @throws FileNotFoundException
+	 * @throws DocumentException
+	 */
 	public void buildPDF(String filename) throws FileNotFoundException, DocumentException {
 		PdfWriter.getInstance(document, new FileOutputStream(filename));
 		document.open();
@@ -49,8 +62,10 @@ public class ResultPdfGenerator {
 		document.close();
 	}
 
-	// ajoute des metadata au PDF qui seront vues par Adobe Reader
-	// sous File -> Properties
+	/** ajoute des metadata au PDF qui seront vues par Adobe Reader
+	 *  sous File -> Properties
+	 * @param document le document pour lequel on souhaite ajouter des métadonnées
+	 */
 	private static void addMetaData(Document document) {
 		document.addTitle("Résultat d'attribution des sujets");
 		document.addSubject("Attribution des sujets");
@@ -59,6 +74,12 @@ public class ResultPdfGenerator {
 		document.addCreator("EMN");
 	}
 
+	/**
+	 * Ajoute la zone de titre prédéfinie au document
+	 * 
+	 * @param document le document pour lequel on souhaite ajouter le titre
+	 * @throws DocumentException
+	 */
 	private static void addTitlePage(Document document)
 			throws DocumentException {
 		Paragraph preface = new Paragraph();
@@ -79,6 +100,12 @@ public class ResultPdfGenerator {
 		//document.newPage();
 	}
 	
+	/**
+	 * Ajoute le contenu du document : le tableau des résultats
+	 * 
+	 * @param document le document pour lequel on souhaite ajouter le contenu
+	 * @throws DocumentException
+	 */
 	private static void addContent(Document document) throws DocumentException {
 	    PdfPTable table = new PdfPTable(header.length);
 
@@ -107,6 +134,12 @@ public class ResultPdfGenerator {
 	    document.add(table);
 	}
 
+	/**
+	 * Génère une line vide pour un paragraphe
+	 * 
+	 * @param paragraph le paragraphe auquel on veut ajouter la ligne vide
+	 * @param number
+	 */
 	private static void addEmptyLine(Paragraph paragraph, int number) {
 		for (int i = 0; i < number; i++) {
 			paragraph.add(new Paragraph(" "));
