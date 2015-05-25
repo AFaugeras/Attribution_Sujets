@@ -1,6 +1,6 @@
 package models.bean;
 
-public class GeneralConstraints {
+public class Constraints {
 
 	private int nbMaxChoice; // nombre de choix que le parseur devra prendre en
 								// compte
@@ -11,7 +11,7 @@ public class GeneralConstraints {
 								// compte
 	private int nbReject; // nombre reject que contient une réponse.
 
-	public GeneralConstraints(int nbMaxChoice, int nbChoice, int nbMaxReject,
+	public Constraints(int nbMaxChoice, int nbChoice, int nbMaxReject,
 			int nbReject) {
 		super();
 		this.nbMaxChoice = nbMaxChoice;

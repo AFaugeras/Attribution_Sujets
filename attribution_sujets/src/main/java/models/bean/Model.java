@@ -4,13 +4,11 @@ import java.util.List;
 
 public class Model {
 
-	// public static final String SUBJECTS_ADDED_MESSAGE = "SUBJECTS_ADDED";
-
-	private GeneralConstraints constraint;
+	private Constraints constraint;
 	private List<Person> persons;
 	private List<Subject> subjects;
 
-	public Model(GeneralConstraints constraint, List<Person> persons,
+	public Model(Constraints constraint, List<Person> persons,
 			List<Subject> subjects) {
 		super();
 		this.constraint = constraint;
@@ -18,11 +16,11 @@ public class Model {
 		this.subjects = subjects;
 	}
 
-	public GeneralConstraints getConstraint() {
+	public Constraints getConstraint() {
 		return constraint;
 	}
 
-	public void setConstraint(GeneralConstraints constraint) {
+	public void setConstraint(Constraints constraint) {
 		this.constraint = constraint;
 	}
 
@@ -39,17 +37,10 @@ public class Model {
 
 		if (subjects.add(e)) {
 			ret = true;
-			// notifySubjectsChanged(SUBJECTS_ADDED_MESSAGE);
 		}
 
 		return ret;
 	}
-
-	// private void notifySubjectsChanged(String message) {
-	// this.setChanged();
-	// this.notifyObservers(message);
-	// this.clearChanged();
-	// }
 
 	public List<Subject> getSubjects() {
 		return subjects;
