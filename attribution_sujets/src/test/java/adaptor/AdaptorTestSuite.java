@@ -1,7 +1,5 @@
 package adaptor;
 
-import parse.answer.ParseCsvAnswerTest;
-import parse.helper.CsvHelperTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
