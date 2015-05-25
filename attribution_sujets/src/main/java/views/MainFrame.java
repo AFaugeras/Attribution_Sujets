@@ -19,11 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.filechooser.FileFilter;
 
-import views.constraints.GeneralConstraintsPanel;
+import views.constraints.BoundsConstraintsPanel;
+import views.constraints.CampusConstraintsPanel;
+import views.dataselection.DataSelectionPanel;
 import views.subjects.SubjectsConfigurationPanel;
 
 public class MainFrame extends JFrame {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final String APPLICATION_NAME = "Attribution des sujets";
@@ -36,7 +38,9 @@ public class MainFrame extends JFrame {
 	private JMenuItem jmiExport;
 
 	private SubjectsConfigurationPanel subjectsPanel;
-	private GeneralConstraintsPanel constraintsPanel;
+	private BoundsConstraintsPanel boundConstraintsPanel;
+	private CampusConstraintsPanel campusConstraintsPanel;
+	private DataSelectionPanel dataSelectionPanel;
 
 	private JButton jbNext;
 
@@ -54,77 +58,81 @@ public class MainFrame extends JFrame {
 	}
 
 	public JMenuItem getJmiImport() {
-		if(jmiImport == null) {
+		if (jmiImport == null) {
 			jmiImport = new JMenu("Importer");
-			JMenuItem fromSolverChocco = new JMenuItem("à partir du résultat Chocco");
-			JMenuItem fromSolverGLPK = new JMenuItem("à partir du résultat GLPK");
-			JMenuItem fromTreatment = new JMenuItem("à partir du résultat de notre traitement");
-			
+			JMenuItem fromSolverChocco = new JMenuItem(
+					"à partir du résultat Chocco");
+			JMenuItem fromSolverGLPK = new JMenuItem(
+					"à partir du résultat GLPK");
+			JMenuItem fromTreatment = new JMenuItem(
+					"à partir du résultat de notre traitement");
+
 			jmiImport.add(getFromCSV());
 			jmiImport.add(fromSolverChocco);
 			jmiImport.add(fromSolverGLPK);
 			jmiImport.add(fromTreatment);
 		}
-		
+
 		return jmiImport;
 	}
-	
+
 	public JMenuItem getFromCSV() {
 		JMenuItem fromCSV = new JMenuItem("à partir d'un CSV");
-		
+
 		fromCSV.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fc = new JFileChooser();
-				
+
 				fc.setDialogTitle("Importer à partir d'un CSV");
 				fc.setFileFilter(new FileFilter() {
-					
+
 					@Override
 					public String getDescription() {
 						return ".xls, .csv";
 					}
-					
+
 					@Override
 					public boolean accept(File f) {
-						String[] extensions = {"csv", "xls"};
+						String[] extensions = { "csv", "xls" };
 						if (f.isDirectory()) {
-						      return true;
-						    } else {
-						      String path = f.getAbsolutePath().toLowerCase();
-						      for (int i = 0, n = extensions.length; i < n; i++) {
-						        String extension = extensions[i];
-						        if ((path.endsWith(extension) && (path.charAt(path.length() 
-						                  - extension.length() - 1)) == '.')) {
-						          return true;
-						        }
-						      }
-						    }
-						    return false;
+							return true;
+						} else {
+							String path = f.getAbsolutePath().toLowerCase();
+							for (int i = 0, n = extensions.length; i < n; i++) {
+								String extension = extensions[i];
+								if ((path.endsWith(extension) && (path
+										.charAt(path.length()
+												- extension.length() - 1)) == '.')) {
+									return true;
+								}
+							}
+						}
+						return false;
 					}
 				});
-				
+
 				int returnVal = fc.showOpenDialog(null);
-				
+
 				if (returnVal == JFileChooser.CANCEL_OPTION) {
 					System.out.println("Choix du fichier csv annulé");
 				}
-				
+
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					System.out.println("Choix du fichier csv validé");
 					System.out.println(fc.getSelectedFile().getAbsolutePath());
 				}
-				
+
 				if (returnVal == JFileChooser.ERROR) {
 					System.out.println("Choix du fichier csv interrompu");
 				}
 			}
 		});
-		
+
 		return fromCSV;
 	}
-	
+
 	public JMenuItem getJmiLoad() {
 		if (this.jmiLoad == null) {
 			this.jmiLoad = new JMenuItem("Charger");
@@ -140,7 +148,7 @@ public class MainFrame extends JFrame {
 
 		return this.jmiSave;
 	}
-	
+
 	public JMenuItem getJmiExport() {
 		if (this.jmiExport == null) {
 			this.jmiExport = new JMenuItem("Exporter en CVS");
@@ -157,12 +165,28 @@ public class MainFrame extends JFrame {
 		return this.subjectsPanel;
 	}
 
-	public GeneralConstraintsPanel getConstraintsPanel() {
-		if (this.constraintsPanel == null) {
-			this.constraintsPanel = new GeneralConstraintsPanel();
+	public BoundsConstraintsPanel getBoundConstraintsPanel() {
+		if (this.boundConstraintsPanel == null) {
+			this.boundConstraintsPanel = new BoundsConstraintsPanel();
 		}
 
-		return this.constraintsPanel;
+		return this.boundConstraintsPanel;
+	}
+
+	public CampusConstraintsPanel getCampusConstraintsPanel() {
+		if (this.campusConstraintsPanel == null) {
+			this.campusConstraintsPanel = new CampusConstraintsPanel();
+		}
+
+		return this.campusConstraintsPanel;
+	}
+
+	public DataSelectionPanel getDataSelectionPanel() {
+		if (this.dataSelectionPanel == null) {
+			this.dataSelectionPanel = new DataSelectionPanel();
+		}
+
+		return this.dataSelectionPanel;
 	}
 
 	/**
@@ -198,43 +222,54 @@ public class MainFrame extends JFrame {
 		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridheight = 4;
 		container.add(getSubjectsPanel(), gbc);
-
-		// gbc.gridx = 1;
-		// gbc.weightx = 0;
-		// container.add(new JSeparator(JSeparator.VERTICAL), gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 1;
-		container.add(getConstraintsPanel(), gbc);
+		gbc.weighty = 0;
+		gbc.gridheight = 1;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		container.add(getBoundConstraintsPanel(), gbc);
+
+		gbc.gridy = 1;
+		container.add(getCampusConstraintsPanel(), gbc);
+
+		gbc.gridy = 2;
+		container.add(getDataSelectionPanel(), gbc);
+
+		gbc.gridy = 3;
+		gbc.fill = GridBagConstraints.BOTH;
+		container.add(new JPanel(), gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 4;
 		gbc.weighty = 0;
 		gbc.gridwidth = 2;
 		gbc.insets.top = 9;
 		container.add(new JSeparator(), gbc);
-		gbc.gridy = 2;
+
+		gbc.gridy = 5;
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.NONE;
 		container.add(getJbNext(), gbc);
 
 		this.getContentPane().add(container);
 	}
-	
+
 	private JMenuBar getMenus() {
 		JMenuBar menuBar = new JMenuBar();
-		
+
 		JMenu menu = new JMenu("Fichier");
 		menu.add(getJmiImport());
 		menu.add(getJmiLoad());
 		menu.add(getJmiSave());
 		menu.add(getJmiExport());
 		menuBar.add(menu);
-		
+
 		menu = new JMenu("Paramètres");
 		menuBar.add(menu);
-		
+
 		return menuBar;
 	}
 }
