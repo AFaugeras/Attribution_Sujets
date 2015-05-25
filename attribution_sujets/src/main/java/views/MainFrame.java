@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -210,7 +209,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initializeView() {
-		this.setJMenuBar(getMenus());
+		// this.setJMenuBar(getMenus());
 
 		JPanel container = new JPanel(new GridBagLayout());
 		container.setBorder(BorderFactory.createEmptyBorder(9, 9, 9, 9));
@@ -257,19 +256,19 @@ public class MainFrame extends JFrame {
 		this.getContentPane().add(container);
 	}
 
-	private JMenuBar getMenus() {
-		JMenuBar menuBar = new JMenuBar();
-
-		JMenu menu = new JMenu("Fichier");
-		menu.add(getJmiImport());
-		menu.add(getJmiLoad());
-		menu.add(getJmiSave());
-		menu.add(getJmiExport());
-		menuBar.add(menu);
-
-		menu = new JMenu("Paramètres");
-		menuBar.add(menu);
-
-		return menuBar;
-	}
+	// private JMenuBar getMenus() {
+	// JMenuBar menuBar = new JMenuBar();
+	//
+	// JMenu menu = new JMenu("Fichier");
+	// menu.add(getJmiImport());
+	// menu.add(getJmiLoad());
+	// menu.add(getJmiSave());
+	// menu.add(getJmiExport());
+	// menuBar.add(menu);
+	//
+	// menu = new JMenu("Paramètres");
+	// menuBar.add(menu);
+	//
+	// return menuBar;
+	// }
 }
