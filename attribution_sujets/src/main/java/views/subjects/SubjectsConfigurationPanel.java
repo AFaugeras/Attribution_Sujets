@@ -2,6 +2,7 @@ package views.subjects;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 
 /**
  * Widget de paramétre des sujets.
@@ -92,8 +94,12 @@ public class SubjectsConfigurationPanel extends JPanel {
 	 */
 	private void initializeView() {
 		this.setLayout(new BorderLayout());
-		this.setBorder(BorderFactory.createTitledBorder("Sujets"));
-		
+
+		TitledBorder border = BorderFactory.createTitledBorder("Sujets");
+		Font font = border.getTitleFont();
+		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
+		this.setBorder(border);
+
 		JScrollPane jsp = new JScrollPane(getJpSubjects());
 		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		jsp.setBorder(UIManager.getBorder("TitledBorder.border"));
