@@ -25,6 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileFilter;
 
 import com.itextpdf.text.DocumentException;
@@ -49,12 +53,19 @@ public class ResultPanel extends JPanel {
 	private JButton jbExportPdf;
 
 	private String[] entete = { "Prénom", "Nom", "Identifiant Campus",
-			"Identifiant sujet", "Sujet", "Commentaires" };;
+			"Identifiant sujet", "Sujet", "Commentaires" };
+	private ArrayList<Integer> disabledCols = new ArrayList<Integer>(); 
+	private Integer subjectIdColNumber = 3;
+	private Integer subjectLabelColNumber = 4;
+	
 	private Object[][] donnees;
 
 	public ResultPanel(Model model) {
 		this.model = model;
-
+		disabledCols.add(0);
+		disabledCols.add(1);
+		disabledCols.add(2);
+		disabledCols.add(4);
 		initializeView();
 	}
 
@@ -146,8 +157,41 @@ public class ResultPanel extends JPanel {
 				donnees[i] = data;
 			}
 
-			JTable tableau = new JTable(donnees, entete);
+			JTable tableau = new JTable(donnees, entete) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
+				@Override
+				public boolean isCellEditable(int row, int col) {
+					if (disabledCols.contains(col)) {
+						return false;
+					}
+					return true;
+				}
+			};
+
+			for (Integer col : disabledCols) {
+				tableau.getColumnModel().getColumn(col).setCellRenderer(new ResultCellRenderer());
+			}
+			
+			tableau.getTableHeader().setReorderingAllowed(false);
+			
+			tableau.getModel().addTableModelListener(new TableModelListener() {
+				
+				@Override
+				public void tableChanged(TableModelEvent e) {
+					if (e.getType() == TableModelEvent.UPDATE) {
+						if (subjectIdColNumber.equals(e.getColumn())) {
+							String newValue = tableau.getModel().getValueAt(e.getFirstRow(),e.getColumn()).toString();
+							
+							
+						}
+					}
+				}
+			});
+			
 			this.jpPeople = tableau;
 		}
 
