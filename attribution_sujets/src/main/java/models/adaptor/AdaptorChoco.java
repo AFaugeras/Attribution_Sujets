@@ -32,7 +32,7 @@ public class AdaptorChoco implements Adaptor{
 	 * @return nombre de partcipants sous forme de chaines de caracteres
 	 */
 	public StringBuilder getNbPersons(){
-		return new StringBuilder(this.data.getPersons().size());
+		return new StringBuilder("" + this.data.getPersons().size());
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class AdaptorChoco implements Adaptor{
 	 * @return nombre de sujets sous forme de chaines de caracteres
 	 */
 	public StringBuilder getNbSubjects(){
-		return new StringBuilder(this.data.getSubjects().size());
+		return new StringBuilder("" + this.data.getSubjects().size());
 	}
 	
 	/**
@@ -51,12 +51,16 @@ public class AdaptorChoco implements Adaptor{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
+		Subject current = null;
 		
 		for(int i = 0; i < subjects.size(); i++){
-			ret.append(subjects.get(i).getMinSize());
+			current = subjects.get(i);
+			ret.append(current.getMinSize());
 			ret.append("\t");
-			ret.append(subjects.get(i).getMaxSize());
+			ret.append(current.getMaxSize());
+			ret.append("\n");
 		}
+		ret.deleteCharAt(ret.length()-1);
 		
 		return ret;
 	}
@@ -69,13 +73,16 @@ public class AdaptorChoco implements Adaptor{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
+		Subject current = null;
 		
 		for(int i = 0; i < subjects.size(); i++){
-			ret.append(subjects.get(i).getCardMin());
+			current = subjects.get(i);
+			ret.append(current.getCardMin());
 			ret.append("\t");
-			ret.append(subjects.get(i).getCardMax());
+			ret.append(current.getCardMax());
 			ret.append("\n");
 		}
+		ret.deleteCharAt(ret.length()-1);
 		
 		return ret;
 	}
@@ -85,7 +92,7 @@ public class AdaptorChoco implements Adaptor{
 	 * @return Nombre minimum de sujets assignes sous forme de chaines de caracteres
 	 */
 	public StringBuilder getMinimumAssignedSubject(){
-		return new StringBuilder(0);
+		return new StringBuilder("" + 0);
 	}
 	
 	/**
@@ -200,7 +207,7 @@ public class AdaptorChoco implements Adaptor{
 	 * @return Multiplicite des groupes sous forme de chaines de caracteres
 	 */
 	public StringBuilder getMultiplicity(){
-		return new StringBuilder(0);
+		return new StringBuilder("" + 0);
 	}
 	
 	
