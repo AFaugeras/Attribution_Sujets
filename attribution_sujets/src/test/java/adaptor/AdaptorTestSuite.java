@@ -15,5 +15,4 @@ public class AdaptorTestSuite extends TestSuite {
 
 		return suite;
 	}
-	
 }
