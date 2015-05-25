@@ -4,19 +4,25 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import models.bean.Model;
 import models.bean.Subject;
+import models.parser.subject.ParserCsvSubject;
+import models.utils.CSVXLSFileFilter;
 import views.subjects.SubjectPanel;
 import views.subjects.SubjectsConfigurationPanel;
 
 public class SubjectsConfigurationCtrl implements ActionListener {
+
+	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
 	private Model model;
 	private SubjectsConfigurationPanel view;
@@ -41,6 +47,9 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 			addNewSubject();
 		} else if (actionCommand.equals(SubjectPanel.JB_DELETE_ACTION)) {
 			deleteSubject((JButton) e.getSource());
+		} else if (actionCommand
+				.equals(SubjectsConfigurationPanel.JB_IMPORT_ACTION)) {
+			importSubjectsFromCVS();
 		}
 	}
 
@@ -98,6 +107,49 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		this.subjectsPanels.remove(subjectPanel);
 
 		this.repaintSubjects();
+	}
+
+	private void importSubjectsFromCVS() {
+		final JFileChooser fc = new JFileChooser();
+
+		fc.setFileFilter(CSV_XLS_FILE_FILTER);
+
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			ParserCsvSubject parser = new ParserCsvSubject();
+			try {
+				parser.ParseSubjectList(fc.getSelectedFile());
+
+				for (Subject s : parser.getSubjectList()) {
+					this.subjectsPanels
+							.add(this.createSubjectPanelFromModel(s));
+				}
+
+				this.repaintSubjects();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null,
+						"Erreur à l'ouverture du fichier.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		} else if (returnVal != JFileChooser.CANCEL_OPTION) {
+			JOptionPane.showMessageDialog(null, "Fichier incorrect.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private SubjectPanel createSubjectPanelFromModel(Subject model) {
+		SubjectPanel ret = this.createSubjectPanel(model.getId());
+
+		ret.getJtfSubjectLabel().setText(model.getLabel());
+		ret.getJsMaxSize().setValue(model.getMaxSize());
+		ret.getJsMinSize().setValue(model.getMinSize());
+		ret.getJsMaxCard().setValue(model.getCardMax());
+		ret.getJsMinCard().setValue(model.getCardMin());
+		ret.getJsMultiplicity().setValue(model.getMultiple());
+
+		return ret;
 	}
 
 	private void repaintSubjects() {
