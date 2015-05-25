@@ -134,25 +134,34 @@ public class AdaptorChoco implements Adaptor{
 		
 		Person current = null;
 		
-		for(int i = 0; i < this.data.getPersons().size(); i++){
-			current = this.data.getPersons().get(i);
+		List<Subject> subjects = this.data.getSubjects();
+		List<Person> persons = this.data.getPersons();
+		
+		int nbPersons = persons.size();
+		int nbSubjects = subjects.size();
+		
+
+		
+		for(int i = 0; i < nbPersons; i++){
+			current = persons.get(i);
 			
 			ret.append(current.getIDcampus());
 			
-			int nbSubjects = this.data.getSubjects().size();
-			int defaultRank = nbSubjects - current.getChoices().size();
+			List<Subject> choices = current.getChoices();
+			int defaultRank = nbSubjects - choices.size();
 			
 			Subject currentSubject = null;
 			for(int j = 0; j < nbSubjects; j++){
-				currentSubject = this.data.getSubjects().get(j);
+				currentSubject = subjects.get(j);
 				
 				ret.append("\t");
 				
-				if(current.getChoices().indexOf(currentSubject) == -1){
+				int rank = choices.indexOf(currentSubject);
+				if(rank == -1){
 					ret.append(defaultRank);
 				}
 				else{
-					ret.append(current.getChoices().indexOf(currentSubject));
+					ret.append(rank + 1);
 				}			
 			}
 			
@@ -173,23 +182,30 @@ public class AdaptorChoco implements Adaptor{
 	public StringBuilder getRejects(){
 		StringBuilder ret = new StringBuilder();
 		
+		List<Person> persons = this.data.getPersons();
+		int nbPersons = persons.size();
+		List<Subject> subjects = this.data.getSubjects();
+		
 		Person current = null;
 		
-		for(int i = 0; i < this.data.getPersons().size(); i++){
-			current = this.data.getPersons().get(i);
-			
-			int nbRejects = current.getRejects().size();
-			
-			ret.append(nbRejects);
-						
+		for(int i = 0; i < nbPersons; i++){
+			current = persons.get(i);
+			System.out.println(i);
+			List<Subject> rejects = current.getRejects();
+			int nbRejects = rejects.size();
+			System.out.println(nbRejects);
+			ret.append(nbRejects);	
 			Subject currentReject = null;
 			for(int j = 0; j < nbRejects; j++){
-				currentReject = this.data.getSubjects().get(j);
-				
+				System.out.println("ok");
+				currentReject = rejects.get(j);
+				System.out.println(currentReject);
 				ret.append("\t");
+				System.out.println("ok");
 				
-				if(this.data.getSubjects().indexOf(currentReject) != -1){
-					ret.append(this.data.getSubjects().indexOf(currentReject));
+				int rang = subjects.indexOf(currentReject);
+				if(rang != -1){
+					ret.append(rang + 1);
 				}		
 			}
 			

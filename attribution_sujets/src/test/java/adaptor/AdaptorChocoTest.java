@@ -141,7 +141,95 @@ public class AdaptorChocoTest {
 	@Test
 	public void testGetChoices()
 	{
-		assertEquals(this.ac.getMultiplicity().toString(), new StringBuilder("0").toString());
+		List<Subject> listSubjMock = EasyMock.createMock(List.class);
+		List<Person> listPersMock = EasyMock.createMock(List.class);
+		Subject subj = EasyMock.createMock(Subject.class);
+		Person pers = EasyMock.createMock(Person.class);
+		
+		EasyMock.expect(this.modelMock.getPersons()).andReturn(listPersMock);
+		EasyMock.expect(listPersMock.size()).andReturn(2);
+		
+		EasyMock.expect(this.modelMock.getSubjects()).andReturn(listSubjMock);
+		EasyMock.expect(listSubjMock.size()).andReturn(3);	
+
+		EasyMock.expect(listPersMock.get(0)).andReturn(pers);
+		EasyMock.expect(pers.getIDcampus()).andReturn("clinqu14");
+		EasyMock.expect(pers.getChoices()).andReturn(listSubjMock);
+		EasyMock.expect(listSubjMock.size()).andReturn(1);
+		EasyMock.expect(listSubjMock.get(0)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(-1);
+		EasyMock.expect(listSubjMock.get(1)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(-1);
+		EasyMock.expect(listSubjMock.get(2)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(0);
+		
+		EasyMock.expect(listPersMock.get(1)).andReturn(pers);
+		EasyMock.expect(pers.getIDcampus()).andReturn("afauge14");
+		EasyMock.expect(pers.getChoices()).andReturn(listSubjMock);
+		EasyMock.expect(listSubjMock.size()).andReturn(1);
+		EasyMock.expect(listSubjMock.get(0)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(0);
+		EasyMock.expect(listSubjMock.get(1)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(-1);
+		EasyMock.expect(listSubjMock.get(2)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(-1);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(listSubjMock);
+		EasyMock.replay(listPersMock);
+		EasyMock.replay(pers);
+		EasyMock.replay(subj);
+		
+		assertEquals(this.ac.getChoices().toString(), new StringBuilder("clinqu14\t2\t2\t1\nafauge14\t1\t2\t2").toString());
+		
+		EasyMock.verify(this.modelMock);
+		EasyMock.verify(listSubjMock);
+		EasyMock.verify(listPersMock);
+		EasyMock.verify(pers);
+		EasyMock.verify(subj);
+	}
+	
+	@Test
+	public void testGetRejects()
+	{
+		List<Subject> listSubjMock = EasyMock.createMock(List.class);
+		List<Person> listPersMock = EasyMock.createMock(List.class);
+		List<Subject> listRejectsMock = EasyMock.createMock(List.class);
+		
+		Subject subj = EasyMock.createMock(Subject.class);
+		Person pers = EasyMock.createMock(Person.class);
+		
+		EasyMock.expect(this.modelMock.getPersons()).andReturn(listPersMock);
+		EasyMock.expect(listPersMock.size()).andReturn(2);
+		
+		EasyMock.expect(this.modelMock.getSubjects()).andReturn(listSubjMock);
+
+		EasyMock.expect(listPersMock.get(0)).andReturn(pers);
+		EasyMock.expect(pers.getRejects()).andReturn(listRejectsMock);
+		EasyMock.expect(listRejectsMock.size()).andReturn(0);
+		
+		EasyMock.expect(listPersMock.get(1)).andReturn(pers);
+		EasyMock.expect(pers.getRejects()).andReturn(listRejectsMock);
+		EasyMock.expect(listRejectsMock.size()).andReturn(1);
+		EasyMock.expect(listRejectsMock.get(0)).andReturn(subj);	
+		EasyMock.expect(listSubjMock.indexOf(subj)).andReturn(2);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(listSubjMock);
+		EasyMock.replay(listPersMock);
+		EasyMock.replay(listRejectsMock);
+		EasyMock.replay(pers);
+		EasyMock.replay(subj);
+
+		
+		assertEquals(this.ac.getRejects().toString(), new StringBuilder("0\n1\t3").toString());
+		
+		EasyMock.verify(this.modelMock);
+		EasyMock.verify(listSubjMock);
+		EasyMock.verify(listPersMock);
+		EasyMock.verify(listRejectsMock);
+		EasyMock.verify(pers);
+		EasyMock.verify(subj);
 	}
 	
 	@Test

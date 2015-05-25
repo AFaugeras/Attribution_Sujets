@@ -44,7 +44,7 @@ public class OutputWriterChoco{
 			bw.write("\n/* nom prenom, nb choix, rang sujet 1.. Rang sujet n */\n");
 			bw.write(data.getChoices().toString());
 			
-			bw.write("\n/* pour chaque eleve, nb puis liste des sujets refusés */");
+			bw.write("\n/* pour chaque eleve, nb puis liste des sujets refusés */\n");
 			bw.write(data.getRejects().toString());
 			
 			bw.write("\n/* multiplicite des groupes */\n");
