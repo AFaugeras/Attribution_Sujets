@@ -1,6 +1,7 @@
 package views.result;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileFilter;
-
-import com.itextpdf.text.DocumentException;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+
+import com.itextpdf.text.DocumentException;
 
 public class ResultPanel extends JPanel {
 
@@ -78,6 +76,7 @@ public class ResultPanel extends JPanel {
 
 		JScrollPane jsp = new JScrollPane(getJpPeople());
 		jsp.setBorder(null);
+		jsp.setPreferredSize(new Dimension(1000, 480));
 		System.out.println(jsp.getVerticalScrollBar().getUnitIncrement());
 		jsp.getVerticalScrollBar().setUnitIncrement(15);
 		this.add(jsp, BorderLayout.CENTER);
@@ -170,6 +169,24 @@ public class ResultPanel extends JPanel {
 					}
 					return true;
 				}
+				
+				@Override
+				public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+					if (subjectIdColNumber.equals(columnIndex)) {
+						try {
+							if (Integer.valueOf(aValue.toString()) <= model.getSubjects().size() && Integer.valueOf(aValue.toString()) > 0) {
+								setValueAt(model.getSubjects().get(Integer.valueOf(aValue.toString()) - 1).getLabel(), rowIndex, subjectLabelColNumber);
+								super.setValueAt(aValue, rowIndex, columnIndex);
+							}
+						} catch (NumberFormatException e) {
+							
+						}
+					} else {
+						super.setValueAt(aValue, rowIndex, columnIndex);
+					}
+					resizeColumnWidth(this);
+				}
+				
 			};
 
 			for (Integer col : disabledCols) {
@@ -177,25 +194,28 @@ public class ResultPanel extends JPanel {
 			}
 			
 			tableau.getTableHeader().setReorderingAllowed(false);
-			
-			tableau.getModel().addTableModelListener(new TableModelListener() {
-				
-				@Override
-				public void tableChanged(TableModelEvent e) {
-					if (e.getType() == TableModelEvent.UPDATE) {
-						if (subjectIdColNumber.equals(e.getColumn())) {
-							String newValue = tableau.getModel().getValueAt(e.getFirstRow(),e.getColumn()).toString();
-							
-							
-						}
-					}
-				}
-			});
-			
+			tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
+			tableau.setFillsViewportHeight(true);
+			resizeColumnWidth(tableau);
 			this.jpPeople = tableau;
+			
+			
 		}
 
 		return jpPeople;
+	}
+	
+	public void resizeColumnWidth(JTable table) {
+	    final TableColumnModel columnModel = table.getColumnModel();
+	    for (int column = 0; column < table.getColumnCount(); column++) {
+	        int width = 50; // Min width
+	        for (int row = 0; row < table.getRowCount(); row++) {
+	            TableCellRenderer renderer = table.getCellRenderer(row, column);
+	            Component comp = table.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width, width);
+	        }
+	        columnModel.getColumn(column).setPreferredWidth(width);
+	    }
 	}
 
 	public void exportCSV() throws IOException {

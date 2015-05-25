@@ -7,11 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>		
-		<dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>itextpdf</artifactId>
-			<version>5.0.6</version>
-		</dependency>
 		
 		<dependency>
 			<groupId>junit</groupId>
@@ -33,7 +28,12 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/lib/Choco.jar</systemPath>
 		</dependency>
-			
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

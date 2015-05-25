@@ -19,7 +19,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class ResultPdfGenerator {
 
-	Document document = new Document();
+	private Document document = new Document();
 
 	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
 			Font.BOLD);
