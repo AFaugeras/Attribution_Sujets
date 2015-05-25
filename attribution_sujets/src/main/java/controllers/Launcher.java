@@ -21,7 +21,7 @@ public class Launcher implements ActionListener {
 	private ConstraintlCtrl constraintsCtrl;
 	private SubjectsConfigurationCtrl subjectsCtrl;
 	private DataSelectionPanelCtrl dataSelectionCtrl;
-
+ 
 	public Launcher(Model model, MainFrame view) {
 		this.model = model;
 		this.view = view;

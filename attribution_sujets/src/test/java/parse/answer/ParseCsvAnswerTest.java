@@ -23,10 +23,8 @@ public class ParseCsvAnswerTest extends TestCase {
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		parser.parseAnswer(f);
 		List<I_Answer> answer = parser.getCleanedData();
-		assertEquals(answer.get(0).getDateSoumission(),
-				createKeptAnswerDoublon().getDateSoumission());
-		assertEquals(answer.get(0).getIdRepondant(), createKeptAnswerDoublon()
-				.getIdRepondant());
+		assertEquals(answer.get(0).getDateSoumission(),createKeptAnswerDoublon().getDateSoumission());
+		assertEquals(answer.get(0).getIdRepondant(), createKeptAnswerDoublon().getIdRepondant());
 	}
 
 	private I_Answer createKeptAnswerDoublon() {
