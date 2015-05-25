@@ -6,13 +6,7 @@
 
 	<version>0.0.1-SNAPSHOT</version>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.choco-solver</groupId>
-			<artifactId>choco-solver</artifactId>
-			<version>3.3.1</version>
-		</dependency>
-		
+	<dependencies>		
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
@@ -25,6 +19,21 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+	
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>lib</groupId>
+			<artifactId>Choco</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/Choco.jar</systemPath>
+		</dependency>
+			
 	</dependencies>
 
 	<build>
