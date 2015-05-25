@@ -7,6 +7,12 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ * Classe permettant d'appliquer des règles particulères de rendu pour le tableau d'affichage des résultats
+ * 
+ * @author Arthur FAUGERAS
+ *
+ */
 public class ResultCellRenderer extends DefaultTableCellRenderer {
 
 	/**
