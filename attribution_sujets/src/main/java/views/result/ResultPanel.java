@@ -89,12 +89,17 @@ public class ResultPanel extends JPanel {
 	 * @param model notre modèle de données contenant le résultat du solveur
 	 */
 	public ResultPanel(Model model) {
-		this.model = model;
-		disabledCols.add(0);
-		disabledCols.add(1);
-		disabledCols.add(2);
-		disabledCols.add(4);
-		initializeView();
+		setModel(model);
+	}
+	
+	public void setModel(Model model) {
+		if (model != null) {
+			disabledCols.add(0);
+			disabledCols.add(1);
+			disabledCols.add(2);
+			disabledCols.add(4);
+			initializeView();
+		}
 	}
 
 	/**
