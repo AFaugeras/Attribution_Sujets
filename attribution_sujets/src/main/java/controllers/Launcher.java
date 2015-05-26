@@ -2,19 +2,24 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import controllers.constraints.ConstraintsCtrl;
-import controllers.dataSelection.DataSelectionPanelCtrl;
-import controllers.subjects.SubjectsConfigurationCtrl;
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.parser.BeanMatcher;
+import models.parser.answer.ParserCsvAnswer;
+import models.parser.user.ParserCsvUserList;
 import views.MainFrame;
+import controllers.constraints.ConstraintsCtrl;
+import controllers.dataSelection.DataSelectionPanelCtrl;
+import controllers.subjects.SubjectsConfigurationCtrl;
 
 public class Launcher implements ActionListener {
 
@@ -24,7 +29,7 @@ public class Launcher implements ActionListener {
 	private ConstraintsCtrl constraintsCtrl;
 	private SubjectsConfigurationCtrl subjectsCtrl;
 	private DataSelectionPanelCtrl dataSelectionCtrl;
- 
+
 	public Launcher(Model model, MainFrame view) {
 		this.model = model;
 		this.view = view;
@@ -37,12 +42,36 @@ public class Launcher implements ActionListener {
 		String actionCommand = e.getActionCommand();
 
 		if (actionCommand.equals(MainFrame.JB_NEXT_ACTION)) {
-			this.constraintsCtrl.saveToModel();
-			this.subjectsCtrl.saveToModel();
+			if (!isErrors()) {
+				this.constraintsCtrl.saveToModel();
+				this.subjectsCtrl.saveToModel();
 
-			System.out.println(this.model);
-			System.out.println(this.dataSelectionCtrl.getCampusFile());
-			System.out.println(this.dataSelectionCtrl.getPersonsFile());
+				ParserCsvAnswer parserAwnser = new ParserCsvAnswer();
+				ParserCsvUserList parserPerson = new ParserCsvUserList();
+				BeanMatcher matcher;
+
+				try {
+					parserAwnser.parseAnswer(this.dataSelectionCtrl
+							.getCampusFile());
+					parserPerson.ParseUserList(this.dataSelectionCtrl
+							.getPersonsFile());
+
+					this.model.setPersons(parserPerson.getUserList());
+
+					matcher = new BeanMatcher(parserPerson.getUserList(),
+							parserAwnser.getCleanedData(),
+							this.model.getSubjects(),
+							this.model.getConstraint());
+
+					matcher.match();
+
+				} catch (Exception exp) {
+					JOptionPane.showMessageDialog(null, exp.getMessage(),
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
+
+				System.out.println(this.model);
+			}
 		}
 	}
 
@@ -56,6 +85,33 @@ public class Launcher implements ActionListener {
 				this.view.getDataSelectionPanel());
 
 		this.view.getJbNext().addActionListener(this);
+	}
+
+	private boolean isErrors() {
+		boolean ret = false;
+
+		if (!this.subjectsCtrl.isIdsUnique()) {
+			JOptionPane.showMessageDialog(null,
+					"Les identifiants ne sont pas uniques", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			ret = true;
+		}
+
+		if (!this.dataSelectionCtrl.isCampusFileExists()) {
+			JOptionPane.showMessageDialog(null,
+					"Fichier campus non renseigné ou non existant.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			ret = true;
+		}
+
+		if (!this.dataSelectionCtrl.isPersonFileExists()) {
+			JOptionPane.showMessageDialog(null,
+					"Liste des personnes non renseignés ou non existante.",
+					"Error", JOptionPane.ERROR_MESSAGE);
+			ret = true;
+		}
+
+		return ret;
 	}
 
 	public static void main(String[] args) {

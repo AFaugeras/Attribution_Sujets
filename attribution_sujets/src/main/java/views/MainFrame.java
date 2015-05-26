@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.initializeView();
-		this.setResizable(false);
+//		this.setResizable(false);
 
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -195,8 +195,8 @@ public class MainFrame extends JFrame {
 	 */
 	public JButton getJbNext() {
 		if (jbNext == null) {
-			jbNext = new JButton("Suivant", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/next.png")));
+			jbNext = new JButton("Répartir", new ImageIcon(this.getClass()
+					.getClassLoader().getResource("ihm/img/next2.png")));
 			jbNext.setActionCommand(JB_NEXT_ACTION);
 		}
 

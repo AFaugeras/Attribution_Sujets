@@ -34,10 +34,18 @@ public class DataSelectionPanelCtrl implements ActionListener {
 		String actionCommand = e.getActionCommand();
 
 		if (actionCommand.equals(DataSelectionPanel.JB_CAMPUS_SELECTION)) {
-			campusFileSelection();
+			this.campusFileSelection();
 		} else if (actionCommand.equals(DataSelectionPanel.JB_PERSON_SELECTION)) {
-			personFileSelection();
+			this.personFileSelection();
 		}
+	}
+	
+	public boolean isCampusFileExists() {
+		return this.getCampusFile().exists();
+	}
+	
+	public boolean isPersonFileExists() {
+		return this.getPersonsFile().exists();
 	}
 
 	private void initializeReactions() {

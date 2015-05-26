@@ -54,27 +54,27 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 	}
 
 	public void saveToModel() {
-		if (checkIds()) {
-			this.model.getSubjects().clear();
+		// if (this.checkIds()) {
+		this.model.getSubjects().clear();
 
-			for (SubjectPanel sp : this.subjectsPanels) {
-				Subject tmp = new Subject(Integer.parseInt(sp.getJtfID()
-						.getText()), sp.getJtfSubjectLabel().getText(),
-						(int) sp.getJsMaxSize().getValue(), (int) sp
-								.getJsMinSize().getValue(), (int) sp
-								.getJsMultiplicity().getValue(), (int) sp
-								.getJsMinCard().getValue(), (int) sp
-								.getJsMaxCard().getValue());
-				this.model.add(tmp);
-			}
-		} else {
-			JOptionPane.showMessageDialog(null,
-					"Les identifiants ne sont pas uniques", "Error",
-					JOptionPane.ERROR_MESSAGE);
+		for (SubjectPanel sp : this.subjectsPanels) {
+			Subject tmp = new Subject(
+					Integer.parseInt(sp.getJtfID().getText()), sp
+							.getJtfSubjectLabel().getText(), (int) sp
+							.getJsMaxSize().getValue(), (int) sp.getJsMinSize()
+							.getValue(), (int) sp.getJsMultiplicity()
+							.getValue(), (int) sp.getJsMinCard().getValue(),
+					(int) sp.getJsMaxCard().getValue());
+			this.model.add(tmp);
 		}
+		// } else {
+		// JOptionPane.showMessageDialog(null,
+		// "Les identifiants ne sont pas uniques", "Error",
+		// JOptionPane.ERROR_MESSAGE);
+		// }
 	}
 
-	private boolean checkIds() {
+	public boolean isIdsUnique() {
 		boolean ret = true;
 		List<Integer> ids = new ArrayList<Integer>();
 
@@ -121,6 +121,7 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 			try {
 				parser.ParseSubjectList(fc.getSelectedFile());
 
+				this.subjectsPanels.clear();
 				for (Subject s : parser.getSubjectList()) {
 					this.subjectsPanels
 							.add(this.createSubjectPanelFromModel(s));
