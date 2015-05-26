@@ -65,4 +65,6 @@ public class ParserCsvAnswer extends AbstractParser {
 	public List<I_Answer> getCleanedData() {
 		return DataCleaner.cleanAnswers(this.answerlist);
 	}
+	
+	
 }

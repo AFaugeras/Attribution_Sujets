@@ -1,5 +1,6 @@
 package models.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
@@ -13,7 +14,8 @@ public class Person {
 	private String comment;
 
 	public Person() {
-
+		choices = new ArrayList<Subject>();
+		rejects = new ArrayList<Subject>();
 	}
 
 	public Person(String name, String iDcampus, List<Subject> choices,

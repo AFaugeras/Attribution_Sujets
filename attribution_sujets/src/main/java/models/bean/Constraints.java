@@ -10,7 +10,9 @@ public class Constraints {
 	private int nbMaxReject; // nombre de reject que le parseur devra prendre en
 								// compte
 	private int nbReject; // nombre reject que contient une réponse.
-
+	
+	private boolean matchSubjectOnId = false;// permet de savoir si la corelation doit se faire sur l'id ou sur le libéllé du fichier 
+	
 	public Constraints(int nbMaxChoice, int nbChoice, int nbMaxReject,
 			int nbReject) {
 		super();
@@ -50,6 +52,13 @@ public class Constraints {
 
 	public void setNbReject(int nbReject) {
 		this.nbReject = nbReject;
+	}
+	public boolean isMatchSubjectOnId() {
+		return matchSubjectOnId;
+	}
+
+	public void setMatchSubjectOnId(boolean matchSubjectOnId) {
+		this.matchSubjectOnId = matchSubjectOnId;
 	}
 
 	@Override
