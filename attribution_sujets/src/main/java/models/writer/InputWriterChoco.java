@@ -7,9 +7,9 @@ import java.io.IOException;
 import models.adaptor.AdaptorChoco;
 
 /**
- * Module d'ecriture du fichier d'entree du Solver Choco.
+ * Classe d'ecriture du fichier d'entree du Solver Choco.
  */
-public class OutputWriterChoco{
+public class InputWriterChoco{
 	
 	/**
 	 * Methode d'ecriture d'un fichier d'entree de Choco

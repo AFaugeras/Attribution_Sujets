@@ -6,7 +6,8 @@ import static org.junit.Assert.fail;
 import java.io.File;
 
 import models.adaptor.AdaptorChoco;
-import models.writer.OutputWriterChoco;
+import models.bean.Model;
+import models.writer.InputWriterChoco;
 import models.writer.WriterException;
 
 import org.easymock.EasyMock;
@@ -14,20 +15,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OutputWriterChocoTest {
+public class InputWriterChocoTest {
 
 	private AdaptorChoco adaptorChocoMock;
 	
+	private String path;
+	
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception{	
 		this.adaptorChocoMock = EasyMock.createMock(AdaptorChoco.class);
 		assertNotNull("précondition", this.adaptorChocoMock);
+		
+		this.path = "src" + File.separator + "test"
+				+ File.separator + "resources" +  File.separator + "inputChoco.txt";
 	}
 	
 	@After
 	public void tearDown() throws Exception {
-		File output = new File("output.txt");
-		output.delete();
+//		File output = new File(this.path);
+//		output.delete();
 	}
 	
 	@Test
@@ -40,14 +46,15 @@ public class OutputWriterChocoTest {
 		EasyMock.expect(this.adaptorChocoMock.getCardRange()).andReturn(new StringBuilder("0\t2\n0\t2"));
 		EasyMock.expect(this.adaptorChocoMock.getMinimumAssignedSubject()).andReturn(new StringBuilder("0"));
 		EasyMock.expect(this.adaptorChocoMock.getRepartitionCost()).andReturn(new StringBuilder("4\t1\t5\t25\t1000"));
-		EasyMock.expect(this.adaptorChocoMock.getChoices()).andReturn(new StringBuilder("clinqu14\t1\t2\nafauge14\t2\t1\nnhebra14\t1\t1\nlsinqu14\t2\t1"));
+		EasyMock.expect(this.adaptorChocoMock.getChoices()).andReturn(new StringBuilder("clinqu14\t1\t1\t2\nafauge14\t1\t2\t1\nnhebra14\t2\t1\t1\nlsinqu14\t1\t2\t1"));
 		EasyMock.expect(this.adaptorChocoMock.getRejects()).andReturn(new StringBuilder("0\n0\n0\n0"));
 		EasyMock.expect(this.adaptorChocoMock.getMultiplicity()).andReturn(new StringBuilder("0"));
 		
 		EasyMock.replay(this.adaptorChocoMock);
 		
+		
 		try{
-			OutputWriterChoco.write("output.txt", this.adaptorChocoMock);
+			InputWriterChoco.write(this.path, this.adaptorChocoMock);
 		}
 		catch(WriterException e){
 			fail("Echec ecriture");

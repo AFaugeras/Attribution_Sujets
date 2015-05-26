@@ -146,9 +146,10 @@ public class AdaptorChoco implements Adaptor{
 			current = persons.get(i);
 			
 			ret.append(current.getIDcampus());
-			
 			List<Subject> choices = current.getChoices();
-			int defaultRank = nbSubjects - choices.size();
+			int nbChoices = choices.size();
+			ret.append("\t" + nbChoices);
+			int defaultRank = nbSubjects - nbChoices;
 			
 			Subject currentSubject = null;
 			for(int j = 0; j < nbSubjects; j++){
