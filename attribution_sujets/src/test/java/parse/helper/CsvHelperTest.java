@@ -12,8 +12,9 @@ public class CsvHelperTest extends TestCase {
 	@Test
 	public void testOvertureFichier() {
 		File f = new File("");
-		CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "donnees"
-				+ f.separator + "Choix_des_sujets_2015.csv");
+		CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
+				+ f.separator + "test"+ f.separator+ "resources"
+				+ f.separator+"Choix_des_sujets_2015.csv");
 	}
 
 	@Test
@@ -21,7 +22,7 @@ public class CsvHelperTest extends TestCase {
 		try {
 			CsvHelper.getRessource(null);
 		} catch (NullPointerException e) {
-			System.out.println("exception conformément trouvée");
+			
 		}
 	}
 }

@@ -17,9 +17,9 @@ public class ParserUserTest extends TestCase {
 	@Test
 	public void testParsingUser() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator
-				+ "donnees" + f.separator + "UnitTest" + f.separator
-				+ "liste_1eleve.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
+				+ f.separator + "test"+ f.separator+ "resources"
+				+ f.separator+ "liste_1eleve.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		parser.ParseUserList(f);
 		List<Person> personList = parser.getUserList();
@@ -32,9 +32,9 @@ public class ParserUserTest extends TestCase {
 	@Test
 	public void testParsing195Users() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator
-				+ "donnees" + f.separator + "UnitTest" + f.separator
-				+ "liste_195eleves.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath()  + f.separator + "src"
+				+ f.separator + "test"+ f.separator+ "resources"
+				+ f.separator+ "liste_195eleves.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		parser.ParseUserList(f);
 		List<Person> personList = parser.getUserList();
@@ -46,9 +46,9 @@ public class ParserUserTest extends TestCase {
 	@Test
 	public void testParsing195UsersPlus1Doublon() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator
-				+ "donnees" + f.separator + "UnitTest" + f.separator
-				+ "liste_195eleves_plus_1doublon.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
+				+ f.separator + "test"+ f.separator+ "resources"
+				+ f.separator+ "liste_195eleves_plus_1doublon.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		parser.ParseUserList(f);
 		List<Person> personList = parser.getUserList();

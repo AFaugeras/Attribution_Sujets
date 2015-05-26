@@ -17,9 +17,9 @@ public class ParseCsvAnswerTest extends TestCase {
 	@Test
 	public void testSuppressionDoublon() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator
-				+ "donnees" + f.separator + "UnitTest" + f.separator
-				+ "Choix_avec_doublon.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath()  + f.separator + "src"
+				+ f.separator + "test"+ f.separator+ "resources"
+				+ f.separator+ "Choix_avec_doublon.csv");
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		parser.parseAnswer(f);
 		List<I_Answer> answer = parser.getCleanedData();
