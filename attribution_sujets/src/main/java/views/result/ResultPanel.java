@@ -61,6 +61,7 @@ public class ResultPanel extends JPanel {
 
 	private JButton jbExportCsv;
 	private JButton jbExportPdf;
+	private JButton jbBack;
 
 	/**
 	 * La liste des entrées du tableau
@@ -130,8 +131,26 @@ public class ResultPanel extends JPanel {
 
 		ret.add(getJbExportCsv());
 		ret.add(getJbExportPdf());
+		ret.add(getJbBack());
 
 		return ret;
+	}
+
+	private Component getJbBack() {
+		if (jbBack == null) {
+			jbBack = new JButton("Retour", new ImageIcon(this
+					.getClass().getClassLoader()
+					.getResource("ihm/img/back.png")));
+			jbBack.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
+		}
+
+		return jbBack;
 	}
 
 	/**
