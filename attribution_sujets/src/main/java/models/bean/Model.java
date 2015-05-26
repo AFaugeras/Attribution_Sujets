@@ -1,12 +1,14 @@
 package models.bean;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class Model {
 
 	private Constraints constraint;
 	private List<Person> persons;
 	private List<Subject> subjects;
+	public static String fileChoserPath = "";
 
 	public Model(Constraints constraint, List<Person> persons,
 			List<Subject> subjects) {
@@ -30,6 +32,14 @@ public class Model {
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
+	}
+
+	public static String getFileChoserPath() {
+		return fileChoserPath;
+	}
+	
+	public static void setFileChoserPath(String fileChoserPath) {
+		Model.fileChoserPath = fileChoserPath;
 	}
 
 	public boolean add(Subject e) {

@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,12 +112,13 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 
 	private void importSubjectsFromCVS() {
 		final JFileChooser fc = new JFileChooser();
-
+		fc.setCurrentDirectory(new File(Model.getFileChoserPath()));
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
 
 		int returnVal = fc.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			Model.setFileChoserPath(fc.getSelectedFile().getParent());
 			ParserCsvSubject parser = new ParserCsvSubject();
 			try {
 				parser.ParseSubjectList(fc.getSelectedFile());

@@ -331,7 +331,7 @@ public class ResultPanel extends JPanel {
 				super.approveSelection();
 			}
 		};
-
+		c.setCurrentDirectory(new File(Model.getFileChoserPath()));
 		c.setFileFilter(new FileFilter() {
 
 			@Override
@@ -362,6 +362,7 @@ public class ResultPanel extends JPanel {
 
 		int rVal = c.showSaveDialog(this.jpPeople);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
+			Model.setFileChoserPath(c.getSelectedFile().getParent());
 			String filename = c.getSelectedFile().getAbsolutePath();
 
 			if (!filename.endsWith(".csv"))
@@ -436,7 +437,7 @@ public class ResultPanel extends JPanel {
 				super.approveSelection();
 			}
 		};
-
+		c.setCurrentDirectory(new File(Model.getFileChoserPath()));
 		c.setFileFilter(new FileFilter() {
 
 			@Override
@@ -467,6 +468,7 @@ public class ResultPanel extends JPanel {
 
 		int rVal = c.showSaveDialog(this.jpPeople);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
+			Model.setFileChoserPath(c.getSelectedFile().getParent());
 			String filename = c.getSelectedFile().getAbsolutePath();
 
 			if (!filename.endsWith(".pdf"))
