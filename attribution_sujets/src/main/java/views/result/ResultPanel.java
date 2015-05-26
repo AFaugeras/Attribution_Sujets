@@ -38,7 +38,7 @@ import com.itextpdf.text.DocumentException;
 /**
  * @author Arthur FAUGERAS
  * 
- * Classe prennant en charge l'affchage des résultats des solveurs
+ *         Classe prennant en charge l'affchage des résultats des solveurs
  *
  */
 public class ResultPanel extends JPanel {
@@ -70,7 +70,7 @@ public class ResultPanel extends JPanel {
 	/**
 	 * Les colonnes qui ne seront pas éditables
 	 */
-	private ArrayList<Integer> disabledCols = new ArrayList<Integer>(); 
+	private ArrayList<Integer> disabledCols = new ArrayList<Integer>();
 	/**
 	 * L'index de la colonne contenant les identifiants des sujets
 	 */
@@ -79,19 +79,20 @@ public class ResultPanel extends JPanel {
 	 * L'index de la colonne contenant les libellés des sujets
 	 */
 	private Integer subjectLabelColNumber = 4;
-	
+
 	/**
 	 * Le tableau des résultats
 	 */
 	private Object[][] donnees;
 
 	/**
-	 * @param model notre modèle de données contenant le résultat du solveur
+	 * @param model
+	 *            notre modèle de données contenant le résultat du solveur
 	 */
 	public ResultPanel(Model model) {
 		setModel(model);
 	}
-	
+
 	public void setModel(Model model) {
 		this.model = model;
 		if (model != null) {
@@ -113,7 +114,7 @@ public class ResultPanel extends JPanel {
 		JScrollPane jsp = new JScrollPane(getJpPeople());
 		jsp.setBorder(null);
 		jsp.setPreferredSize(new Dimension(1000, 480));
-		
+
 		jsp.getVerticalScrollBar().setUnitIncrement(15);
 		this.add(jsp, BorderLayout.CENTER);
 
@@ -198,9 +199,17 @@ public class ResultPanel extends JPanel {
 
 			for (int i = 0; i < people.size(); i++) {
 				Person someone = people.get(i);
-				String[] data = { someone.getFirstName(), someone.getFamilyName(), someone.getIDcampus(),
-						String.valueOf(someone.getAssigned().getId()),
-						someone.getAssigned().getLabel(), someone.getComment() };
+
+				String subjectId = "-1";
+				String subjectLabel = "N/A";
+				if (someone.getAssigned() != null) {
+					subjectId = String.valueOf(someone.getAssigned().getId());
+					subjectLabel = someone.getAssigned().getLabel();
+				}
+
+				String[] data = { someone.getFirstName(),
+						someone.getFamilyName(), someone.getIDcampus(),
+						subjectId, subjectLabel, someone.getComment() };
 				donnees[i] = data;
 			}
 
@@ -217,34 +226,44 @@ public class ResultPanel extends JPanel {
 					}
 					return true;
 				}
-				
+
 				// Override pour permettre le contrôle de la saisie
 				// Ainsi que l'actualisation dynamique du libellé des sujets
 				@Override
-				public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+				public void setValueAt(Object aValue, int rowIndex,
+						int columnIndex) {
 					if (subjectIdColNumber.equals(columnIndex)) {
 						try {
-							if (Integer.valueOf(aValue.toString()) <= model.getSubjects().size() && Integer.valueOf(aValue.toString()) > 0) {
-								setValueAt(model.getSubjects().get(Integer.valueOf(aValue.toString()) - 1).getLabel(), rowIndex, subjectLabelColNumber);
+							if (Integer.valueOf(aValue.toString()) <= model
+									.getSubjects().size()
+									&& Integer.valueOf(aValue.toString()) > 0) {
+								setValueAt(
+										model.getSubjects()
+												.get(Integer.valueOf(aValue
+														.toString()) - 1)
+												.getLabel(), rowIndex,
+										subjectLabelColNumber);
 								super.setValueAt(aValue, rowIndex, columnIndex);
 							}
 						} catch (NumberFormatException e) {
-							
+
 						}
 					} else {
 						super.setValueAt(aValue, rowIndex, columnIndex);
 					}
 					resizeColumnWidth(this);
 				}
-				
+
 			};
 
 			for (Integer col : disabledCols) {
-				tableau.getColumnModel().getColumn(col).setCellRenderer(new ResultCellRenderer());
+				tableau.getColumnModel().getColumn(col)
+						.setCellRenderer(new ResultCellRenderer());
 			}
-			
+
 			tableau.getTableHeader().setReorderingAllowed(false);
-			tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
+			tableau.setPreferredScrollableViewportSize(tableau
+					.getPreferredSize());
 			tableau.setFillsViewportHeight(true);
 			resizeColumnWidth(tableau);
 			this.jpPeople = tableau;
@@ -252,23 +271,26 @@ public class ResultPanel extends JPanel {
 
 		return jpPeople;
 	}
-	
+
 	/**
-	 * Méthode permettant de redimensionner les colonnes d'une JTable en fonction de la taille du contenu des colonnes
+	 * Méthode permettant de redimensionner les colonnes d'une JTable en
+	 * fonction de la taille du contenu des colonnes
 	 * 
-	 * @param table la table sur laquelle on veut appliquer un redimensionnement des colonnes
+	 * @param table
+	 *            la table sur laquelle on veut appliquer un redimensionnement
+	 *            des colonnes
 	 */
 	public void resizeColumnWidth(JTable table) {
-	    final TableColumnModel columnModel = table.getColumnModel();
-	    for (int column = 0; column < table.getColumnCount(); column++) {
-	        int width = 50; // Min width
-	        for (int row = 0; row < table.getRowCount(); row++) {
-	            TableCellRenderer renderer = table.getCellRenderer(row, column);
-	            Component comp = table.prepareRenderer(renderer, row, column);
-	            width = Math.max(comp.getPreferredSize().width, width);
-	        }
-	        columnModel.getColumn(column).setPreferredWidth(width);
-	    }
+		final TableColumnModel columnModel = table.getColumnModel();
+		for (int column = 0; column < table.getColumnCount(); column++) {
+			int width = 50; // Min width
+			for (int row = 0; row < table.getRowCount(); row++) {
+				TableCellRenderer renderer = table.getCellRenderer(row, column);
+				Component comp = table.prepareRenderer(renderer, row, column);
+				width = Math.max(comp.getPreferredSize().width, width);
+			}
+			columnModel.getColumn(column).setPreferredWidth(width);
+		}
 	}
 
 	/**
@@ -288,60 +310,63 @@ public class ResultPanel extends JPanel {
 				File f = getSelectedFile();
 				if (!f.getName().endsWith(".csv"))
 					f = new File(f.getAbsolutePath() + ".csv");
-		        if(f.exists() && getDialogType() == SAVE_DIALOG){
-		            int result = JOptionPane.showConfirmDialog(this,"Ce fichier existe déjà, le remplacer ?","Fichier existant",JOptionPane.YES_NO_CANCEL_OPTION);
-		            switch(result){
-		                case JOptionPane.YES_OPTION:
-		                    super.approveSelection();
-		                    return;
-		                case JOptionPane.NO_OPTION:
-		                    return;
-		                case JOptionPane.CLOSED_OPTION:
-		                    return;
-		                case JOptionPane.CANCEL_OPTION:
-		                    cancelSelection();
-		                    return;
-		            }
-		        }
-		        super.approveSelection();
-		    }  
+				if (f.exists() && getDialogType() == SAVE_DIALOG) {
+					int result = JOptionPane.showConfirmDialog(this,
+							"Ce fichier existe déjà, le remplacer ?",
+							"Fichier existant",
+							JOptionPane.YES_NO_CANCEL_OPTION);
+					switch (result) {
+					case JOptionPane.YES_OPTION:
+						super.approveSelection();
+						return;
+					case JOptionPane.NO_OPTION:
+						return;
+					case JOptionPane.CLOSED_OPTION:
+						return;
+					case JOptionPane.CANCEL_OPTION:
+						cancelSelection();
+						return;
+					}
+				}
+				super.approveSelection();
+			}
 		};
-		
+
 		c.setFileFilter(new FileFilter() {
-			
+
 			@Override
 			public String getDescription() {
 				return ".csv";
 			}
-			
+
 			@Override
 			public boolean accept(File f) {
-				String[] extensions = {"csv"};
+				String[] extensions = { "csv" };
 				if (f.isDirectory()) {
-				      return true;
-				    } else {
-				      String path = f.getAbsolutePath().toLowerCase();
-				      for (int i = 0, n = extensions.length; i < n; i++) {
-				        String extension = extensions[i];
-				        if ((path.endsWith(extension) && (path.charAt(path.length() 
-				                  - extension.length() - 1)) == '.')) {
-				          return true;
-				        }
-				      }
-				    }
-				    return false;
+					return true;
+				} else {
+					String path = f.getAbsolutePath().toLowerCase();
+					for (int i = 0, n = extensions.length; i < n; i++) {
+						String extension = extensions[i];
+						if ((path.endsWith(extension) && (path.charAt(path
+								.length() - extension.length() - 1)) == '.')) {
+							return true;
+						}
+					}
+				}
+				return false;
 			}
 		});
-		
+
 		c.setDialogTitle("Export CSV");
-		
+
 		int rVal = c.showSaveDialog(this.jpPeople);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			String filename = c.getSelectedFile().getAbsolutePath();
 
 			if (!filename.endsWith(".csv"))
 				filename += ".csv";
-			
+
 			System.out.println("FILENAME CHOSEN : " + filename);
 
 			FileWriter fileWriter = new FileWriter(filename);
@@ -377,8 +402,9 @@ public class ResultPanel extends JPanel {
 	 * @throws DocumentException
 	 */
 	public void exportPDF() throws FileNotFoundException, DocumentException {
-		ResultPdfGenerator generator = new ResultPdfGenerator(this.entete, this.donnees);
-		
+		ResultPdfGenerator generator = new ResultPdfGenerator(this.entete,
+				this.donnees);
+
 		JFileChooser c = new JFileChooser() {
 			/**
 			 * 
@@ -390,60 +416,62 @@ public class ResultPanel extends JPanel {
 				File f = getSelectedFile();
 				if (!f.getName().endsWith(".pdf"))
 					f = new File(f.getAbsolutePath() + ".pdf");
-		        if(f.exists() && getDialogType() == SAVE_DIALOG){
-		            int result = JOptionPane.showConfirmDialog(this,"Ce fichier existe déjà, le remplacer ?","File existant",JOptionPane.YES_NO_CANCEL_OPTION);
-		            switch(result){
-		                case JOptionPane.YES_OPTION:
-		                    super.approveSelection();
-		                    return;
-		                case JOptionPane.NO_OPTION:
-		                    return;
-		                case JOptionPane.CLOSED_OPTION:
-		                    return;
-		                case JOptionPane.CANCEL_OPTION:
-		                    cancelSelection();
-		                    return;
-		            }
-		        }
-		        super.approveSelection();
-		    }  
+				if (f.exists() && getDialogType() == SAVE_DIALOG) {
+					int result = JOptionPane.showConfirmDialog(this,
+							"Ce fichier existe déjà, le remplacer ?",
+							"File existant", JOptionPane.YES_NO_CANCEL_OPTION);
+					switch (result) {
+					case JOptionPane.YES_OPTION:
+						super.approveSelection();
+						return;
+					case JOptionPane.NO_OPTION:
+						return;
+					case JOptionPane.CLOSED_OPTION:
+						return;
+					case JOptionPane.CANCEL_OPTION:
+						cancelSelection();
+						return;
+					}
+				}
+				super.approveSelection();
+			}
 		};
-		
+
 		c.setFileFilter(new FileFilter() {
-			
+
 			@Override
 			public String getDescription() {
 				return ".pdf";
 			}
-			
+
 			@Override
 			public boolean accept(File f) {
-				String[] extensions = {"pdf"};
+				String[] extensions = { "pdf" };
 				if (f.isDirectory()) {
-				      return true;
-				    } else {
-				      String path = f.getAbsolutePath().toLowerCase();
-				      for (int i = 0, n = extensions.length; i < n; i++) {
-				        String extension = extensions[i];
-				        if ((path.endsWith(extension) && (path.charAt(path.length() 
-				                  - extension.length() - 1)) == '.')) {
-				          return true;
-				        }
-				      }
-				    }
-				    return false;
+					return true;
+				} else {
+					String path = f.getAbsolutePath().toLowerCase();
+					for (int i = 0, n = extensions.length; i < n; i++) {
+						String extension = extensions[i];
+						if ((path.endsWith(extension) && (path.charAt(path
+								.length() - extension.length() - 1)) == '.')) {
+							return true;
+						}
+					}
+				}
+				return false;
 			}
 		});
-		
+
 		c.setDialogTitle("Export PDF");
-		
+
 		int rVal = c.showSaveDialog(this.jpPeople);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			String filename = c.getSelectedFile().getAbsolutePath();
 
 			if (!filename.endsWith(".pdf"))
 				filename += ".pdf";
-			
+
 			System.out.println("FILENAME CHOSEN : " + filename);
 
 			generator.buildPDF(filename);
