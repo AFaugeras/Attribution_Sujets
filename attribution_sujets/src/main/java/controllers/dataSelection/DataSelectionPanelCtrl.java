@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import models.bean.Model;
 import models.utils.CSVXLSFileFilter;
 import views.dataselection.DataSelectionPanel;
 
@@ -56,12 +57,13 @@ public class DataSelectionPanelCtrl implements ActionListener {
 	private void campusFileSelection() {
 		final JFileChooser fc = new JFileChooser(new File(this.view
 				.getJtfCampusFile().getText()));
-
+		fc.setCurrentDirectory(new File(Model.getFileChoserPath()));
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
 
 		int returnVal = fc.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			Model.setFileChoserPath(fc.getSelectedFile().getParent());
 			this.view.getJtfCampusFile().setText(
 					fc.getSelectedFile().getAbsolutePath());
 		}
@@ -70,11 +72,13 @@ public class DataSelectionPanelCtrl implements ActionListener {
 	private void personFileSelection() {
 		final JFileChooser fc = new JFileChooser(new File(this.view
 				.getJtfPersonsFile().getText()));
+		fc.setCurrentDirectory(new File(Model.getFileChoserPath()));
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
 
 		int returnVal = fc.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			Model.setFileChoserPath(fc.getSelectedFile().getParent());
 			this.view.getJtfPersonsFile().setText(
 					fc.getSelectedFile().getAbsolutePath());
 		}
