@@ -180,7 +180,7 @@ public class AdaptorChocoTest {
 		EasyMock.replay(pers);
 		EasyMock.replay(subj);
 		
-		assertEquals(this.ac.getChoices().toString(), new StringBuilder("clinqu14\t2\t2\t1\nafauge14\t1\t2\t2").toString());
+		assertEquals(this.ac.getChoices().toString(), new StringBuilder("clinqu14\t1\t2\t2\t1\nafauge14\t1\t1\t2\t2").toString());
 		
 		EasyMock.verify(this.modelMock);
 		EasyMock.verify(listSubjMock);
