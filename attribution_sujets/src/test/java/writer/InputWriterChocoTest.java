@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import models.adaptor.AdaptorChoco;
+import models.adaptor.AdaptorChocoImpl;
 import models.bean.Model;
 import models.writer.InputWriterChoco;
 import models.writer.WriterException;
@@ -17,13 +17,13 @@ import org.junit.Test;
 
 public class InputWriterChocoTest {
 
-	private AdaptorChoco adaptorChocoMock;
+	private AdaptorChocoImpl adaptorChocoMock;
 	
 	private String path;
 	
 	@Before
 	public void setUp() throws Exception{	
-		this.adaptorChocoMock = EasyMock.createMock(AdaptorChoco.class);
+		this.adaptorChocoMock = EasyMock.createMock(AdaptorChocoImpl.class);
 		assertNotNull("précondition", this.adaptorChocoMock);
 		
 		this.path = "src" + File.separator + "test"

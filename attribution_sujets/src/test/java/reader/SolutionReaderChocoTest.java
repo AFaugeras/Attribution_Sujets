@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import models.adaptor.AdaptorChoco;
+import models.adaptor.AdaptorChocoImpl;
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;

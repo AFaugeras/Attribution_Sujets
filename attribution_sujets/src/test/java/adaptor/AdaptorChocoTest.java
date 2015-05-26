@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import models.adaptor.AdaptorChoco;
+import models.adaptor.AdaptorChocoImpl;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
@@ -18,14 +18,14 @@ public class AdaptorChocoTest {
 
 	private Model modelMock;
 	
-	private AdaptorChoco ac;
+	private AdaptorChocoImpl ac;
 
 	@Before
 	public void setUp() throws Exception{
 		this.modelMock = EasyMock.createMock(Model.class);
 		assertNotNull("précondition", this.modelMock);
 		
-		this.ac = new AdaptorChoco(this.modelMock);
+		this.ac = new AdaptorChocoImpl(this.modelMock);
 		assertNotNull("constructeur erreur", this.ac);
 
 	}

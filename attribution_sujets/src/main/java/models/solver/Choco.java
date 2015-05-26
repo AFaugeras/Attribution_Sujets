@@ -1,0 +1,34 @@
+package models.solver;
+
+import models.adaptor.AdaptorChoco;
+import models.adaptor.AdaptorChocoImpl;
+import models.bean.Model;
+import models.reader.NotFoundSolutionException;
+import models.reader.ReaderException;
+import models.reader.SolutionReaderChoco;
+import models.writer.InputWriterChoco;
+import models.writer.WriterException;
+import choco.Ipipip;
+
+public class Choco {
+		
+	public Model solve(String inputFilename, String outputFilename, Model data) throws WriterException, ReaderException, NotFoundSolutionException{
+		AdaptorChoco ac = new AdaptorChocoImpl(data);
+		
+		InputWriterChoco.write(inputFilename, ac);
+		
+		String[] args = new String[1];
+		args[0] = inputFilename;
+		args[1] = outputFilename;
+		Ipipip.main(args);
+		
+		SolutionReaderChoco.read(outputFilename, data);
+		
+		return data;
+		
+		
+		
+		
+		
+	}
+}
