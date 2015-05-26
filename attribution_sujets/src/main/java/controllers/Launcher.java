@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
+import controllers.constraints.ConstraintsCtrl;
+import controllers.dataSelection.DataSelectionPanelCtrl;
+import controllers.subjects.SubjectsConfigurationCtrl;
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;

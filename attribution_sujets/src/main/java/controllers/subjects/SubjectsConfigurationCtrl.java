@@ -1,4 +1,4 @@
-package controllers;
+package controllers.subjects;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

@@ -1,4 +1,4 @@
-package controllers;
+package controllers.constraints;
 
 import models.bean.Constraints;
 import views.constraints.BoundsConstraintsPanel;
