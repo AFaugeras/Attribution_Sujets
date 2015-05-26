@@ -4,13 +4,13 @@ import models.bean.Constraints;
 import views.constraints.BoundsConstraintsPanel;
 import views.constraints.CampusConstraintsPanel;
 
-public class ConstraintlCtrl {
+public class ConstraintsCtrl {
 
 	private Constraints model;
 	private BoundsConstraintsPanel boundsView;
 	private CampusConstraintsPanel campusView;
 
-	public ConstraintlCtrl(Constraints model,
+	public ConstraintsCtrl(Constraints model,
 			BoundsConstraintsPanel boundsView, CampusConstraintsPanel campusView) {
 		super();
 		this.model = model;

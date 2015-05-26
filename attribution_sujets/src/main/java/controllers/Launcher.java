@@ -18,7 +18,7 @@ public class Launcher implements ActionListener {
 	private Model model;
 	private MainFrame view;
 
-	private ConstraintlCtrl constraintsCtrl;
+	private ConstraintsCtrl constraintsCtrl;
 	private SubjectsConfigurationCtrl subjectsCtrl;
 	private DataSelectionPanelCtrl dataSelectionCtrl;
  
@@ -44,7 +44,7 @@ public class Launcher implements ActionListener {
 	}
 
 	private void initializeReactions() {
-		this.constraintsCtrl = new ConstraintlCtrl(this.model.getConstraint(),
+		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
 				this.view.getBoundConstraintsPanel(),
 				this.view.getCampusConstraintsPanel());
 		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model,
