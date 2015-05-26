@@ -93,6 +93,7 @@ public class ResultPanel extends JPanel {
 	}
 	
 	public void setModel(Model model) {
+		this.model = model;
 		if (model != null) {
 			disabledCols.add(0);
 			disabledCols.add(1);
