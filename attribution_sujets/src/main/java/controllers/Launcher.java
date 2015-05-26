@@ -17,6 +17,7 @@ import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
 import views.MainFrame;
 import views.configuration.ConfigurationPanel;
+import views.result.ResultPanel;
 import controllers.constraints.ConstraintsCtrl;
 import controllers.dataSelection.DataSelectionPanelCtrl;
 import controllers.subjects.SubjectsConfigurationCtrl;
@@ -42,42 +43,56 @@ public class Launcher implements ActionListener {
 		String actionCommand = e.getActionCommand();
 
 		if (actionCommand.equals(ConfigurationPanel.JB_NEXT_ACTION)) {
-			if (!isErrors()) {
-				this.constraintsCtrl.saveToModel();
-				this.subjectsCtrl.saveToModel();
-
-				ParserCsvAnswer parserAwnser = new ParserCsvAnswer();
-				ParserCsvUserList parserPerson = new ParserCsvUserList();
-				BeanMatcher matcher;
-
-				try {
-					parserAwnser.parseAnswer(this.dataSelectionCtrl
-							.getCampusFile());
-					parserPerson.ParseUserList(this.dataSelectionCtrl
-							.getPersonsFile());
-
-					this.model.setPersons(parserPerson.getUserList());
-
-					matcher = new BeanMatcher(parserPerson.getUserList(),
-							parserAwnser.getCleanedData(),
-							this.model.getSubjects(),
-							this.model.getConstraint());
-
-					matcher.match();
-
-					this.view.getPanelResult().setModel(this.model);
-					this.view.switchCard();
-
-				} catch (Exception exp) {
-					exp.printStackTrace();
-					JOptionPane.showMessageDialog(null,
-							"erreur : " + exp.getMessage(), "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				System.out.println(this.model);
-			}
+			solvingAsked();
+		} else if (actionCommand.equals(ResultPanel.JB_BACK_ACTION)) {
+			returnToConfiguration();
 		}
+	}
+
+	private void solvingAsked() {
+		if (!isErrors()) {
+			this.constraintsCtrl.saveToModel();
+			this.subjectsCtrl.saveToModel();
+
+			ParserCsvAnswer parserAwnser = new ParserCsvAnswer();
+			ParserCsvUserList parserPerson = new ParserCsvUserList();
+			BeanMatcher matcher;
+
+			try {
+				parserAwnser
+						.parseAnswer(this.dataSelectionCtrl.getCampusFile());
+				parserPerson.ParseUserList(this.dataSelectionCtrl
+						.getPersonsFile());
+
+				this.model.setPersons(parserPerson.getUserList());
+
+				matcher = new BeanMatcher(parserPerson.getUserList(),
+						parserAwnser.getCleanedData(),
+						this.model.getSubjects(), this.model.getConstraint());
+
+				matcher.match();
+
+				this.view.getResultPanel().setModel(this.model);
+
+				// this.view.getResultPanel().invalidate();
+				// this.view.getResultPanel().validate();
+				// this.view.getResultPanel().repaint();
+
+				this.view.showResultPanel();
+
+			} catch (Exception exp) {
+				exp.printStackTrace();
+				JOptionPane.showMessageDialog(null,
+						"erreur : " + exp.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			System.out.println(this.model);
+		}
+	}
+
+	private void returnToConfiguration() {
+		this.view.showConfigurationPanel();
 	}
 
 	private void initializeReactions() {
@@ -90,6 +105,7 @@ public class Launcher implements ActionListener {
 				.getConfigurationPanel().getDataSelectionPanel());
 
 		this.view.getConfigurationPanel().getJbNext().addActionListener(this);
+		this.view.getResultPanel().getJbBack().addActionListener(this);
 	}
 
 	private boolean isErrors() {

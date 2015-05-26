@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 		return this.configurationPanel;
 	}
 
-	public ResultPanel getPanelResult() {
+	public ResultPanel getResultPanel() {
 		if (this.resultPanel == null) {
 			this.resultPanel = new ResultPanel(null);
 		}
@@ -52,20 +52,26 @@ public class MainFrame extends JFrame {
 		return this.resultPanel;
 	}
 
-	public void switchCard() {
-		((CardLayout) this.cardPanel.getLayout()).next(this.cardPanel);
-	}
-
 	@Override
 	public Dimension getPreferredSize() {
 		return PREFERED_SIZE;
+	}
+
+	public void showConfigurationPanel() {
+		((CardLayout) this.cardPanel.getLayout()).show(this.cardPanel,
+				CONFIGURATION_PANEL);
+	}
+
+	public void showResultPanel() {
+		((CardLayout) this.cardPanel.getLayout()).show(this.cardPanel,
+				RESULT_PANEL);
 	}
 
 	private void initializeView() {
 		this.cardPanel = new JPanel(new CardLayout());
 
 		this.cardPanel.add(this.getConfigurationPanel(), CONFIGURATION_PANEL);
-		this.cardPanel.add(this.getPanelResult(), RESULT_PANEL);
+		this.cardPanel.add(this.getResultPanel(), RESULT_PANEL);
 
 		this.getContentPane().add(cardPanel);
 	}

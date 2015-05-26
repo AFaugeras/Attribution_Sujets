@@ -58,6 +58,7 @@ public class ResultPanel extends JPanel {
 
 	public static final String JB_EXPORT_CSV_ACTION = "EXPORT CSV";
 	public static final String JB_EXPORT_PDF_ACTION = "EXPORT PDF";
+	public static final String JB_BACK_ACTION = "BACK";
 
 	private JButton jbExportCsv;
 	private JButton jbExportPdf;
@@ -105,11 +106,22 @@ public class ResultPanel extends JPanel {
 		}
 	}
 
+	public JButton getJbBack() {
+		if (jbBack == null) {
+			jbBack = new JButton("Retour", new ImageIcon(this.getClass()
+					.getClassLoader().getResource("ihm/img/back.png")));
+			jbBack.setActionCommand(JB_BACK_ACTION);
+		}
+
+		return jbBack;
+	}
+
 	/**
 	 * Cette méthode privée est appellée par le constructeur pour initialiser la
 	 * vue.
 	 */
 	private void initializeView() {
+		this.removeAll();
 		this.setLayout(new BorderLayout());
 
 		JScrollPane jsp = new JScrollPane(getJpPeople());
@@ -134,23 +146,6 @@ public class ResultPanel extends JPanel {
 		ret.add(getJbBack());
 
 		return ret;
-	}
-
-	private Component getJbBack() {
-		if (jbBack == null) {
-			jbBack = new JButton("Retour", new ImageIcon(this
-					.getClass().getClassLoader()
-					.getResource("ihm/img/back.png")));
-			jbBack.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			});
-		}
-
-		return jbBack;
 	}
 
 	/**
@@ -209,84 +204,82 @@ public class ResultPanel extends JPanel {
 	 * @return retourne le tableau construit des résultats
 	 */
 	private JTable getJpPeople() {
-		if (jpPeople == null) {
-			// this.jpPeople = new JPanel();
+		// if (jpPeople == null) {
+		// this.jpPeople = new JPanel();
 
-			List<Person> people = this.model.getPersons();
+		List<Person> people = this.model.getPersons();
 
-			donnees = new Object[people.size()][];
+		donnees = new Object[people.size()][];
 
-			for (int i = 0; i < people.size(); i++) {
-				Person someone = people.get(i);
+		for (int i = 0; i < people.size(); i++) {
+			Person someone = people.get(i);
 
-				String subjectId = "-1";
-				String subjectLabel = "N/A";
-				if (someone.getAssigned() != null) {
-					subjectId = String.valueOf(someone.getAssigned().getId());
-					subjectLabel = someone.getAssigned().getLabel();
-				}
-
-				String[] data = { someone.getFirstName(),
-						someone.getFamilyName(), someone.getIDcampus(),
-						subjectId, subjectLabel, someone.getComment() };
-				donnees[i] = data;
+			String subjectId = "-1";
+			String subjectLabel = "N/A";
+			if (someone.getAssigned() != null) {
+				subjectId = String.valueOf(someone.getAssigned().getId());
+				subjectLabel = someone.getAssigned().getLabel();
 			}
 
-			JTable tableau = new JTable(donnees, entete) {
-				/**
+			String[] data = { someone.getFirstName(), someone.getFamilyName(),
+					someone.getIDcampus(), subjectId, subjectLabel,
+					someone.getComment() };
+			donnees[i] = data;
+		}
+
+		JTable tableau = new JTable(donnees, entete) {
+			/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
-				@Override
-				public boolean isCellEditable(int row, int col) {
-					if (disabledCols.contains(col)) {
-						return false;
-					}
-					return true;
+			@Override
+			public boolean isCellEditable(int row, int col) {
+				if (disabledCols.contains(col)) {
+					return false;
 				}
-
-				// Override pour permettre le contrôle de la saisie
-				// Ainsi que l'actualisation dynamique du libellé des sujets
-				@Override
-				public void setValueAt(Object aValue, int rowIndex,
-						int columnIndex) {
-					if (subjectIdColNumber.equals(columnIndex)) {
-						try {
-							if (Integer.valueOf(aValue.toString()) <= model
-									.getSubjects().size()
-									&& Integer.valueOf(aValue.toString()) > 0) {
-								setValueAt(
-										model.getSubjects()
-												.get(Integer.valueOf(aValue
-														.toString()) - 1)
-												.getLabel(), rowIndex,
-										subjectLabelColNumber);
-								super.setValueAt(aValue, rowIndex, columnIndex);
-							}
-						} catch (NumberFormatException e) {
-
-						}
-					} else {
-						super.setValueAt(aValue, rowIndex, columnIndex);
-					}
-					resizeColumnWidth(this);
-				}
-
-			};
-
-			for (Integer col : disabledCols) {
-				tableau.getColumnModel().getColumn(col)
-						.setCellRenderer(new ResultCellRenderer());
+				return true;
 			}
 
-			tableau.getTableHeader().setReorderingAllowed(false);
-			tableau.setPreferredScrollableViewportSize(tableau
-					.getPreferredSize());
-			tableau.setFillsViewportHeight(true);
-			resizeColumnWidth(tableau);
-			this.jpPeople = tableau;
+			// Override pour permettre le contrôle de la saisie
+			// Ainsi que l'actualisation dynamique du libellé des sujets
+			@Override
+			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+				if (subjectIdColNumber.equals(columnIndex)) {
+					try {
+						if (Integer.valueOf(aValue.toString()) <= model
+								.getSubjects().size()
+								&& Integer.valueOf(aValue.toString()) > 0) {
+							setValueAt(
+									model.getSubjects()
+											.get(Integer.valueOf(aValue
+													.toString()) - 1)
+											.getLabel(), rowIndex,
+									subjectLabelColNumber);
+							super.setValueAt(aValue, rowIndex, columnIndex);
+						}
+					} catch (NumberFormatException e) {
+
+					}
+				} else {
+					super.setValueAt(aValue, rowIndex, columnIndex);
+				}
+				resizeColumnWidth(this);
+			}
+
+		};
+
+		for (Integer col : disabledCols) {
+			tableau.getColumnModel().getColumn(col)
+					.setCellRenderer(new ResultCellRenderer());
 		}
+
+		tableau.getTableHeader().setReorderingAllowed(false);
+		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
+		tableau.setFillsViewportHeight(true);
+		resizeColumnWidth(tableau);
+		this.jpPeople = tableau;
+		// }
 
 		return jpPeople;
 	}

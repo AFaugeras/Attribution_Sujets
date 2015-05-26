@@ -193,9 +193,9 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 	}
 
 	private void repaintView() {
-		view.invalidate();
-		view.validate();
-		view.repaint();
+		this.view.invalidate();
+		this.view.validate();
+		this.view.repaint();
 	}
 
 	private int generateId() {
