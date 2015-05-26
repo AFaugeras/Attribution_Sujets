@@ -64,9 +64,13 @@ public class Launcher implements ActionListener {
 							this.model.getConstraint());
 
 					matcher.match();
+					
+					this.view.getPanelResult().setModel(this.model);
+					this.view.switchCard();
 
 				} catch (Exception exp) {
-					JOptionPane.showMessageDialog(null, exp.getMessage(),
+					exp.printStackTrace();
+					JOptionPane.showMessageDialog(null, "erreur : " + exp.getMessage(),
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 

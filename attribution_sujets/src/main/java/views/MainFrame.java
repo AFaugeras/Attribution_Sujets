@@ -1,5 +1,7 @@
 package views;
 
+import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,14 +23,19 @@ import javax.swing.filechooser.FileFilter;
 import views.constraints.BoundsConstraintsPanel;
 import views.constraints.CampusConstraintsPanel;
 import views.dataselection.DataSelectionPanel;
+import views.result.ResultPanel;
 import views.subjects.SubjectsConfigurationPanel;
 
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String APPLICATION_NAME = "Attribution des sujets";
 	public static final String JB_NEXT_ACTION = "NEXT";
+	
+	private static final String APPLICATION_NAME = "Attribution des sujets";
+	private static final String CONFIGURATION_PANEL = "CONFIGURATION_PANEL";
+	private static final String RESULT_PANEL = "RESULT_PANEL";
+	
 	private static final Dimension PREFERED_SIZE = new Dimension(1200, 650);
 
 	private JMenuItem jmiImport;
@@ -41,6 +48,10 @@ public class MainFrame extends JFrame {
 	private CampusConstraintsPanel campusConstraintsPanel;
 	private DataSelectionPanel dataSelectionPanel;
 
+	private JPanel cardPanel;
+	private JPanel panelConfiguration;
+	private ResultPanel resultPanel;
+
 	private JButton jbNext;
 
 	public MainFrame() {
@@ -49,7 +60,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.initializeView();
-//		this.setResizable(false);
+		// this.setResizable(false);
 
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -209,10 +220,64 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initializeView() {
+		this.cardPanel = new JPanel(new CardLayout());
+		
+		this.cardPanel.add(this.getPanelConfiguration(), CONFIGURATION_PANEL);
+		this.cardPanel.add(this.getPanelResult(), RESULT_PANEL);
+		
+		this.getContentPane().add(cardPanel);
 		// this.setJMenuBar(getMenus());
+		// JPanel container = new JPanel(new GridBagLayout());
+		// container.setBorder(BorderFactory.createEmptyBorder(9, 9, 9, 9));
+		//
+		// GridBagConstraints gbc = new GridBagConstraints();
+		// gbc.gridx = 0;
+		// gbc.gridy = 0;
+		// gbc.weightx = 1;
+		// gbc.weighty = 1;
+		// gbc.anchor = GridBagConstraints.CENTER;
+		// gbc.fill = GridBagConstraints.BOTH;
+		// gbc.gridheight = 4;
+		// container.add(getSubjectsPanel(), gbc);
+		//
+		// gbc.gridx = 1;
+		// gbc.weightx = 1;
+		// gbc.weighty = 0;
+		// gbc.gridheight = 1;
+		// gbc.fill = GridBagConstraints.HORIZONTAL;
+		// container.add(getBoundConstraintsPanel(), gbc);
+		//
+		// gbc.gridy = 1;
+		// container.add(getCampusConstraintsPanel(), gbc);
+		//
+		// gbc.gridy = 2;
+		// container.add(getDataSelectionPanel(), gbc);
+		//
+		// gbc.gridy = 3;
+		// gbc.fill = GridBagConstraints.BOTH;
+		// container.add(new JPanel(), gbc);
+		//
+		// gbc.gridx = 0;
+		// gbc.gridy = 4;
+		// gbc.weighty = 0;
+		// gbc.gridwidth = 2;
+		// gbc.insets.top = 9;
+		// container.add(new JSeparator(), gbc);
+		//
+		// gbc.gridy = 5;
+		// gbc.weightx = 0;
+		// gbc.fill = GridBagConstraints.NONE;
+		// container.add(getJbNext(), gbc);
+		//
+		// this.getContentPane().add(container);
+	}
 
-		JPanel container = new JPanel(new GridBagLayout());
-		container.setBorder(BorderFactory.createEmptyBorder(9, 9, 9, 9));
+	private JPanel getPanelConfiguration() {
+		if (this.panelConfiguration == null) {
+			this.panelConfiguration = new JPanel(new GridBagLayout());
+		}
+		this.panelConfiguration.setBorder(BorderFactory.createEmptyBorder(9, 9,
+				9, 9));
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -222,38 +287,50 @@ public class MainFrame extends JFrame {
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridheight = 4;
-		container.add(getSubjectsPanel(), gbc);
+		this.panelConfiguration.add(getSubjectsPanel(), gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 1;
 		gbc.weighty = 0;
 		gbc.gridheight = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		container.add(getBoundConstraintsPanel(), gbc);
+		this.panelConfiguration.add(getBoundConstraintsPanel(), gbc);
 
 		gbc.gridy = 1;
-		container.add(getCampusConstraintsPanel(), gbc);
+		this.panelConfiguration.add(getCampusConstraintsPanel(), gbc);
 
 		gbc.gridy = 2;
-		container.add(getDataSelectionPanel(), gbc);
+		this.panelConfiguration.add(getDataSelectionPanel(), gbc);
 
 		gbc.gridy = 3;
 		gbc.fill = GridBagConstraints.BOTH;
-		container.add(new JPanel(), gbc);
+		this.panelConfiguration.add(new JPanel(), gbc);
 
 		gbc.gridx = 0;
 		gbc.gridy = 4;
 		gbc.weighty = 0;
 		gbc.gridwidth = 2;
 		gbc.insets.top = 9;
-		container.add(new JSeparator(), gbc);
+		this.panelConfiguration.add(new JSeparator(), gbc);
 
 		gbc.gridy = 5;
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.NONE;
-		container.add(getJbNext(), gbc);
+		this.panelConfiguration.add(getJbNext(), gbc);
 
-		this.getContentPane().add(container);
+		return this.panelConfiguration;
+	}
+
+	public ResultPanel getPanelResult() {
+		if(this.resultPanel == null) {
+			this.resultPanel = new ResultPanel(null);
+		}
+		
+		return this.resultPanel;
+	}
+	
+	public void switchCard() {
+		((CardLayout) this.cardPanel.getLayout()).next(this.cardPanel);
 	}
 
 	// private JMenuBar getMenus() {
