@@ -190,22 +190,22 @@ public class AdaptorChoco implements Adaptor{
 		
 		for(int i = 0; i < nbPersons; i++){
 			current = persons.get(i);
-			System.out.println(i);
+			
+			
 			List<Subject> rejects = current.getRejects();
 			int nbRejects = rejects.size();
-			System.out.println(nbRejects);
 			ret.append(nbRejects);	
+			
 			Subject currentReject = null;
+			
 			for(int j = 0; j < nbRejects; j++){
-				System.out.println("ok");
 				currentReject = rejects.get(j);
-				System.out.println(currentReject);
+
 				ret.append("\t");
-				System.out.println("ok");
 				
-				int rang = subjects.indexOf(currentReject);
-				if(rang != -1){
-					ret.append(rang + 1);
+				int rank = subjects.indexOf(currentReject);
+				if(rank != -1){
+					ret.append(rank + 1);
 				}		
 			}
 			
