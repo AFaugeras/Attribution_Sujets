@@ -1,4 +1,4 @@
-package views.subjects;
+package views.configuration.subjects;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

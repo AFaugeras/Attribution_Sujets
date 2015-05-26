@@ -1,7 +1,6 @@
 package models.bean;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class Model {
 
@@ -37,7 +36,7 @@ public class Model {
 	public static String getFileChoserPath() {
 		return fileChoserPath;
 	}
-	
+
 	public static void setFileChoserPath(String fileChoserPath) {
 		Model.fileChoserPath = fileChoserPath;
 	}

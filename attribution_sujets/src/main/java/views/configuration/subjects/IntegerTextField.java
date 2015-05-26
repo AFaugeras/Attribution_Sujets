@@ -1,4 +1,4 @@
-package views.subjects;
+package views.configuration.subjects;
 
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;

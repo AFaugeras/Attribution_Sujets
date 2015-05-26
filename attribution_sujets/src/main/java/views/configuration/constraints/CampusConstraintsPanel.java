@@ -1,4 +1,4 @@
-package views.constraints;
+package views.configuration.constraints;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;

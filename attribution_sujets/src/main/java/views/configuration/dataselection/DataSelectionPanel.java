@@ -1,4 +1,4 @@
-package views.dataselection;
+package views.configuration.dataselection;
 
 import java.awt.Color;
 import java.awt.Font;

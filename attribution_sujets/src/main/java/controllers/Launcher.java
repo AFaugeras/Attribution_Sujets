@@ -2,7 +2,6 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
 import views.MainFrame;
+import views.configuration.ConfigurationPanel;
 import controllers.constraints.ConstraintsCtrl;
 import controllers.dataSelection.DataSelectionPanelCtrl;
 import controllers.subjects.SubjectsConfigurationCtrl;
@@ -41,7 +41,7 @@ public class Launcher implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
 
-		if (actionCommand.equals(MainFrame.JB_NEXT_ACTION)) {
+		if (actionCommand.equals(ConfigurationPanel.JB_NEXT_ACTION)) {
 			if (!isErrors()) {
 				this.constraintsCtrl.saveToModel();
 				this.subjectsCtrl.saveToModel();
@@ -64,14 +64,15 @@ public class Launcher implements ActionListener {
 							this.model.getConstraint());
 
 					matcher.match();
-					
+
 					this.view.getPanelResult().setModel(this.model);
 					this.view.switchCard();
 
 				} catch (Exception exp) {
 					exp.printStackTrace();
-					JOptionPane.showMessageDialog(null, "erreur : " + exp.getMessage(),
-							"Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,
+							"erreur : " + exp.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 				System.out.println(this.model);
@@ -81,14 +82,14 @@ public class Launcher implements ActionListener {
 
 	private void initializeReactions() {
 		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
-				this.view.getBoundConstraintsPanel(),
-				this.view.getCampusConstraintsPanel());
-		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model,
-				this.view.getSubjectsPanel());
-		this.dataSelectionCtrl = new DataSelectionPanelCtrl(
-				this.view.getDataSelectionPanel());
+				this.view.getConfigurationPanel().getBoundConstraintsPanel(),
+				this.view.getConfigurationPanel().getCampusConstraintsPanel());
+		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, this.view
+				.getConfigurationPanel().getSubjectsPanel());
+		this.dataSelectionCtrl = new DataSelectionPanelCtrl(this.view
+				.getConfigurationPanel().getDataSelectionPanel());
 
-		this.view.getJbNext().addActionListener(this);
+		this.view.getConfigurationPanel().getJbNext().addActionListener(this);
 	}
 
 	private boolean isErrors() {

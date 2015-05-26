@@ -18,8 +18,8 @@ import models.bean.Model;
 import models.bean.Subject;
 import models.parser.subject.ParserCsvSubject;
 import models.utils.CSVXLSFileFilter;
-import views.subjects.SubjectPanel;
-import views.subjects.SubjectsConfigurationPanel;
+import views.configuration.subjects.SubjectPanel;
+import views.configuration.subjects.SubjectsConfigurationPanel;
 
 public class SubjectsConfigurationCtrl implements ActionListener {
 

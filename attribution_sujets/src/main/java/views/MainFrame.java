@@ -1,58 +1,27 @@
 package views;
 
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.filechooser.FileFilter;
 
-import views.constraints.BoundsConstraintsPanel;
-import views.constraints.CampusConstraintsPanel;
-import views.dataselection.DataSelectionPanel;
+import views.configuration.ConfigurationPanel;
 import views.result.ResultPanel;
-import views.subjects.SubjectsConfigurationPanel;
 
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String JB_NEXT_ACTION = "NEXT";
-	
 	private static final String APPLICATION_NAME = "Attribution des sujets";
 	private static final String CONFIGURATION_PANEL = "CONFIGURATION_PANEL";
 	private static final String RESULT_PANEL = "RESULT_PANEL";
-	
+
 	private static final Dimension PREFERED_SIZE = new Dimension(1200, 650);
 
-	private JMenuItem jmiImport;
-	private JMenuItem jmiLoad;
-	private JMenuItem jmiSave;
-	private JMenuItem jmiExport;
-
-	private SubjectsConfigurationPanel subjectsPanel;
-	private BoundsConstraintsPanel boundConstraintsPanel;
-	private CampusConstraintsPanel campusConstraintsPanel;
-	private DataSelectionPanel dataSelectionPanel;
-
 	private JPanel cardPanel;
-	private JPanel panelConfiguration;
+	private ConfigurationPanel configurationPanel;
 	private ResultPanel resultPanel;
-
-	private JButton jbNext;
 
 	public MainFrame() {
 		super(APPLICATION_NAME);
@@ -67,151 +36,24 @@ public class MainFrame extends JFrame {
 		this.setVisible(true);
 	}
 
-	public JMenuItem getJmiImport() {
-		if (jmiImport == null) {
-			jmiImport = new JMenu("Importer");
-			JMenuItem fromSolverChocco = new JMenuItem(
-					"à partir du résultat Chocco");
-			JMenuItem fromSolverGLPK = new JMenuItem(
-					"à partir du résultat GLPK");
-			JMenuItem fromTreatment = new JMenuItem(
-					"à partir du résultat de notre traitement");
-
-			jmiImport.add(getFromCSV());
-			jmiImport.add(fromSolverChocco);
-			jmiImport.add(fromSolverGLPK);
-			jmiImport.add(fromTreatment);
+	public ConfigurationPanel getConfigurationPanel() {
+		if (this.configurationPanel == null) {
+			this.configurationPanel = new ConfigurationPanel();
 		}
 
-		return jmiImport;
+		return this.configurationPanel;
 	}
 
-	public JMenuItem getFromCSV() {
-		JMenuItem fromCSV = new JMenuItem("à partir d'un CSV");
-
-		fromCSV.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				final JFileChooser fc = new JFileChooser();
-
-				fc.setDialogTitle("Importer à partir d'un CSV");
-				fc.setFileFilter(new FileFilter() {
-
-					@Override
-					public String getDescription() {
-						return ".xls, .csv";
-					}
-
-					@Override
-					public boolean accept(File f) {
-						String[] extensions = { "csv", "xls" };
-						if (f.isDirectory()) {
-							return true;
-						} else {
-							String path = f.getAbsolutePath().toLowerCase();
-							for (int i = 0, n = extensions.length; i < n; i++) {
-								String extension = extensions[i];
-								if ((path.endsWith(extension) && (path
-										.charAt(path.length()
-												- extension.length() - 1)) == '.')) {
-									return true;
-								}
-							}
-						}
-						return false;
-					}
-				});
-
-				int returnVal = fc.showOpenDialog(null);
-
-				if (returnVal == JFileChooser.CANCEL_OPTION) {
-					System.out.println("Choix du fichier csv annulé");
-				}
-
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					System.out.println("Choix du fichier csv validé");
-					System.out.println(fc.getSelectedFile().getAbsolutePath());
-				}
-
-				if (returnVal == JFileChooser.ERROR) {
-					System.out.println("Choix du fichier csv interrompu");
-				}
-			}
-		});
-
-		return fromCSV;
-	}
-
-	public JMenuItem getJmiLoad() {
-		if (this.jmiLoad == null) {
-			this.jmiLoad = new JMenuItem("Charger");
+	public ResultPanel getPanelResult() {
+		if (this.resultPanel == null) {
+			this.resultPanel = new ResultPanel(null);
 		}
 
-		return this.jmiLoad;
+		return this.resultPanel;
 	}
 
-	public JMenuItem getJmiSave() {
-		if (this.jmiSave == null) {
-			this.jmiSave = new JMenuItem("Sauvegarder");
-		}
-
-		return this.jmiSave;
-	}
-
-	public JMenuItem getJmiExport() {
-		if (this.jmiExport == null) {
-			this.jmiExport = new JMenuItem("Exporter en CVS");
-		}
-
-		return this.jmiExport;
-	}
-
-	public SubjectsConfigurationPanel getSubjectsPanel() {
-		if (this.subjectsPanel == null) {
-			this.subjectsPanel = new SubjectsConfigurationPanel();
-		}
-
-		return this.subjectsPanel;
-	}
-
-	public BoundsConstraintsPanel getBoundConstraintsPanel() {
-		if (this.boundConstraintsPanel == null) {
-			this.boundConstraintsPanel = new BoundsConstraintsPanel();
-		}
-
-		return this.boundConstraintsPanel;
-	}
-
-	public CampusConstraintsPanel getCampusConstraintsPanel() {
-		if (this.campusConstraintsPanel == null) {
-			this.campusConstraintsPanel = new CampusConstraintsPanel();
-		}
-
-		return this.campusConstraintsPanel;
-	}
-
-	public DataSelectionPanel getDataSelectionPanel() {
-		if (this.dataSelectionPanel == null) {
-			this.dataSelectionPanel = new DataSelectionPanel();
-		}
-
-		return this.dataSelectionPanel;
-	}
-
-	/**
-	 * Accesseur de l'attribut jbNext.
-	 *
-	 * @return Le JButton jbNext.
-	 */
-	public JButton getJbNext() {
-		if (jbNext == null) {
-			jbNext = new JButton("Répartir", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/next2.png")));
-			jbNext.setActionCommand(JB_NEXT_ACTION);
-		}
-
-		return jbNext;
+	public void switchCard() {
+		((CardLayout) this.cardPanel.getLayout()).next(this.cardPanel);
 	}
 
 	@Override
@@ -221,131 +63,117 @@ public class MainFrame extends JFrame {
 
 	private void initializeView() {
 		this.cardPanel = new JPanel(new CardLayout());
-		
-		this.cardPanel.add(this.getPanelConfiguration(), CONFIGURATION_PANEL);
+
+		this.cardPanel.add(this.getConfigurationPanel(), CONFIGURATION_PANEL);
 		this.cardPanel.add(this.getPanelResult(), RESULT_PANEL);
-		
+
 		this.getContentPane().add(cardPanel);
-		// this.setJMenuBar(getMenus());
-		// JPanel container = new JPanel(new GridBagLayout());
-		// container.setBorder(BorderFactory.createEmptyBorder(9, 9, 9, 9));
-		//
-		// GridBagConstraints gbc = new GridBagConstraints();
-		// gbc.gridx = 0;
-		// gbc.gridy = 0;
-		// gbc.weightx = 1;
-		// gbc.weighty = 1;
-		// gbc.anchor = GridBagConstraints.CENTER;
-		// gbc.fill = GridBagConstraints.BOTH;
-		// gbc.gridheight = 4;
-		// container.add(getSubjectsPanel(), gbc);
-		//
-		// gbc.gridx = 1;
-		// gbc.weightx = 1;
-		// gbc.weighty = 0;
-		// gbc.gridheight = 1;
-		// gbc.fill = GridBagConstraints.HORIZONTAL;
-		// container.add(getBoundConstraintsPanel(), gbc);
-		//
-		// gbc.gridy = 1;
-		// container.add(getCampusConstraintsPanel(), gbc);
-		//
-		// gbc.gridy = 2;
-		// container.add(getDataSelectionPanel(), gbc);
-		//
-		// gbc.gridy = 3;
-		// gbc.fill = GridBagConstraints.BOTH;
-		// container.add(new JPanel(), gbc);
-		//
-		// gbc.gridx = 0;
-		// gbc.gridy = 4;
-		// gbc.weighty = 0;
-		// gbc.gridwidth = 2;
-		// gbc.insets.top = 9;
-		// container.add(new JSeparator(), gbc);
-		//
-		// gbc.gridy = 5;
-		// gbc.weightx = 0;
-		// gbc.fill = GridBagConstraints.NONE;
-		// container.add(getJbNext(), gbc);
-		//
-		// this.getContentPane().add(container);
 	}
 
-	private JPanel getPanelConfiguration() {
-		if (this.panelConfiguration == null) {
-			this.panelConfiguration = new JPanel(new GridBagLayout());
-		}
-		this.panelConfiguration.setBorder(BorderFactory.createEmptyBorder(9, 9,
-				9, 9));
+	// public static final String JB_NEXT_ACTION = "NEXT";
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridheight = 4;
-		this.panelConfiguration.add(getSubjectsPanel(), gbc);
+	// private JMenuItem jmiImport;
+	// private JMenuItem jmiLoad;
+	// private JMenuItem jmiSave;
+	// private JMenuItem jmiExport;
 
-		gbc.gridx = 1;
-		gbc.weightx = 1;
-		gbc.weighty = 0;
-		gbc.gridheight = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.panelConfiguration.add(getBoundConstraintsPanel(), gbc);
-
-		gbc.gridy = 1;
-		this.panelConfiguration.add(getCampusConstraintsPanel(), gbc);
-
-		gbc.gridy = 2;
-		this.panelConfiguration.add(getDataSelectionPanel(), gbc);
-
-		gbc.gridy = 3;
-		gbc.fill = GridBagConstraints.BOTH;
-		this.panelConfiguration.add(new JPanel(), gbc);
-
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		gbc.weighty = 0;
-		gbc.gridwidth = 2;
-		gbc.insets.top = 9;
-		this.panelConfiguration.add(new JSeparator(), gbc);
-
-		gbc.gridy = 5;
-		gbc.weightx = 0;
-		gbc.fill = GridBagConstraints.NONE;
-		this.panelConfiguration.add(getJbNext(), gbc);
-
-		return this.panelConfiguration;
-	}
-
-	public ResultPanel getPanelResult() {
-		if(this.resultPanel == null) {
-			this.resultPanel = new ResultPanel(null);
-		}
-		
-		return this.resultPanel;
-	}
-	
-	public void switchCard() {
-		((CardLayout) this.cardPanel.getLayout()).next(this.cardPanel);
-	}
-
-	// private JMenuBar getMenus() {
-	// JMenuBar menuBar = new JMenuBar();
+	// public JMenuItem getFromCSV() {
+	// JMenuItem fromCSV = new JMenuItem("à partir d'un CSV");
 	//
-	// JMenu menu = new JMenu("Fichier");
-	// menu.add(getJmiImport());
-	// menu.add(getJmiLoad());
-	// menu.add(getJmiSave());
-	// menu.add(getJmiExport());
-	// menuBar.add(menu);
+	// fromCSV.addActionListener(new ActionListener() {
 	//
-	// menu = new JMenu("Paramètres");
-	// menuBar.add(menu);
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// final JFileChooser fc = new JFileChooser();
 	//
-	// return menuBar;
+	// fc.setDialogTitle("Importer à partir d'un CSV");
+	// fc.setFileFilter(new FileFilter() {
+	//
+	// @Override
+	// public String getDescription() {
+	// return ".xls, .csv";
+	// }
+	//
+	// @Override
+	// public boolean accept(File f) {
+	// String[] extensions = { "csv", "xls" };
+	// if (f.isDirectory()) {
+	// return true;
+	// } else {
+	// String path = f.getAbsolutePath().toLowerCase();
+	// for (int i = 0, n = extensions.length; i < n; i++) {
+	// String extension = extensions[i];
+	// if ((path.endsWith(extension) && (path
+	// .charAt(path.length()
+	// - extension.length() - 1)) == '.')) {
+	// return true;
+	// }
+	// }
+	// }
+	// return false;
+	// }
+	// });
+	//
+	// int returnVal = fc.showOpenDialog(null);
+	//
+	// if (returnVal == JFileChooser.CANCEL_OPTION) {
+	// System.out.println("Choix du fichier csv annulé");
+	// }
+	//
+	// if (returnVal == JFileChooser.APPROVE_OPTION) {
+	// System.out.println("Choix du fichier csv validé");
+	// System.out.println(fc.getSelectedFile().getAbsolutePath());
+	// }
+	//
+	// if (returnVal == JFileChooser.ERROR) {
+	// System.out.println("Choix du fichier csv interrompu");
+	// }
+	// }
+	// });
+	//
+	// return fromCSV;
+	// }
+
+	// public JMenuItem getJmiImport() {
+	// if (jmiImport == null) {
+	// jmiImport = new JMenu("Importer");
+	// JMenuItem fromSolverChocco = new JMenuItem(
+	// "à partir du résultat Chocco");
+	// JMenuItem fromSolverGLPK = new JMenuItem(
+	// "à partir du résultat GLPK");
+	// JMenuItem fromTreatment = new JMenuItem(
+	// "à partir du résultat de notre traitement");
+	//
+	// jmiImport.add(getFromCSV());
+	// jmiImport.add(fromSolverChocco);
+	// jmiImport.add(fromSolverGLPK);
+	// jmiImport.add(fromTreatment);
+	// }
+	//
+	// return jmiImport;
+	// }
+
+	// public JMenuItem getJmiLoad() {
+	// if (this.jmiLoad == null) {
+	// this.jmiLoad = new JMenuItem("Charger");
+	// }
+	//
+	// return this.jmiLoad;
+	// }
+
+	// public JMenuItem getJmiSave() {
+	// if (this.jmiSave == null) {
+	// this.jmiSave = new JMenuItem("Sauvegarder");
+	// }
+	//
+	// return this.jmiSave;
+	// }
+
+	// public JMenuItem getJmiExport() {
+	// if (this.jmiExport == null) {
+	// this.jmiExport = new JMenuItem("Exporter en CVS");
+	// }
+	//
+	// return this.jmiExport;
 	// }
 }

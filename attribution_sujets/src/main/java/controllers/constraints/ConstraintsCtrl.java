@@ -1,8 +1,8 @@
 package controllers.constraints;
 
 import models.bean.Constraints;
-import views.constraints.BoundsConstraintsPanel;
-import views.constraints.CampusConstraintsPanel;
+import views.configuration.constraints.BoundsConstraintsPanel;
+import views.configuration.constraints.CampusConstraintsPanel;
 
 public class ConstraintsCtrl {
 

@@ -7,7 +7,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import models.utils.CSVXLSFileFilter;
-import views.dataselection.DataSelectionPanel;
+import views.configuration.dataselection.DataSelectionPanel;
 
 public class DataSelectionPanelCtrl implements ActionListener {
 
