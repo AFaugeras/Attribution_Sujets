@@ -18,16 +18,26 @@ import javax.swing.border.TitledBorder;
  */
 public class SubjectsConfigurationPanel extends JPanel {
 
+	// Constantes :
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
 
 	private static final long serialVersionUID = 1L;
-
 	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
 
+	/**
+	 * Panel des sujets.
+	 */
 	private JPanel jpSubjects;
 
+	/**
+	 * Bouton ajouter.
+	 */
 	private JButton jbAddSubject;
+	
+	/**
+	 * Bouton importer.
+	 */
 	private JButton jbImport;
 
 	/**
@@ -89,8 +99,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	}
 
 	/**
-	 * Cette méthode privée est appellée par le constructeur pour initialiser la
-	 * vue.
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la vue.
 	 */
 	private void initializeView() {
 		this.setLayout(new BorderLayout());

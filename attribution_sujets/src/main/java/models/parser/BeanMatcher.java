@@ -2,7 +2,6 @@ package models.parser;
 
 import java.util.List;
 
-import models.bean.Answer;
 import models.bean.Constraints;
 import models.bean.Person;
 import models.bean.Subject;
@@ -12,8 +11,6 @@ import models.interfaces.I_Answer;
 
 /**
  * Classe chargée de faire la corélation entre les personnes, les responses et les sujets.
- * 
- *
  */
 public class BeanMatcher {
 

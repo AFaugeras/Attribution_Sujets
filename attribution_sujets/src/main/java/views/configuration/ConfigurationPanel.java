@@ -19,23 +19,50 @@ import views.configuration.subjects.SubjectsConfigurationPanel;
  */
 public class ConfigurationPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-
+	// Constantes :
 	public static final String JB_NEXT_ACTION = "NEXT";
 
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Panel de configuration des sujets.
+	 */
 	private SubjectsConfigurationPanel subjectsPanel;
+
+	/**
+	 * Panel bornes min et max.
+	 */
 	private BoundsConstraintsPanel boundConstraintsPanel;
+
+	/**
+	 * Panel de configuration campus.
+	 */
 	private CampusConstraintsPanel campusConstraintsPanel;
+
+	/**
+	 * Panel de selection du fichier campus et de la liste de personnes.
+	 */
 	private DataSelectionPanel dataSelectionPanel;
 
+	/**
+	 * Bouton suivant.
+	 */
 	private JButton jbNext;
 
+	/**
+	 * Constructeur.
+	 */
 	public ConfigurationPanel() {
 		super();
 
 		this.initializeView();
 	}
 
+	/**
+	 * Accesseur de l'attribut subjectsPanel.
+	 *
+	 * @return Le panel subjectsPanel.
+	 */
 	public SubjectsConfigurationPanel getSubjectsPanel() {
 		if (this.subjectsPanel == null) {
 			this.subjectsPanel = new SubjectsConfigurationPanel();
@@ -44,6 +71,11 @@ public class ConfigurationPanel extends JPanel {
 		return this.subjectsPanel;
 	}
 
+	/**
+	 * Accesseur de l'attribut boundConstraintsPanel.
+	 *
+	 * @return Le panel boundConstraintsPanel.
+	 */
 	public BoundsConstraintsPanel getBoundConstraintsPanel() {
 		if (this.boundConstraintsPanel == null) {
 			this.boundConstraintsPanel = new BoundsConstraintsPanel();
@@ -52,6 +84,11 @@ public class ConfigurationPanel extends JPanel {
 		return this.boundConstraintsPanel;
 	}
 
+	/**
+	 * Accesseur de l'attribut campusConstraintsPanel.
+	 *
+	 * @return Le panel campusConstraintsPanel.
+	 */
 	public CampusConstraintsPanel getCampusConstraintsPanel() {
 		if (this.campusConstraintsPanel == null) {
 			this.campusConstraintsPanel = new CampusConstraintsPanel();
@@ -60,6 +97,11 @@ public class ConfigurationPanel extends JPanel {
 		return this.campusConstraintsPanel;
 	}
 
+	/**
+	 * Accesseur de l'attribut dataSelectionPanel.
+	 *
+	 * @return Le panel dataSelectionPanel.
+	 */
 	public DataSelectionPanel getDataSelectionPanel() {
 		if (this.dataSelectionPanel == null) {
 			this.dataSelectionPanel = new DataSelectionPanel();
@@ -83,6 +125,9 @@ public class ConfigurationPanel extends JPanel {
 		return jbNext;
 	}
 
+	/**
+	 * Cette méthode privée appelée par le constructeur initialise la vue.
+	 */
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(9, 9, 9, 9));

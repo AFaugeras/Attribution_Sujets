@@ -11,10 +11,9 @@ import models.parser.AbstractParser;
 import models.parser.DataCleaner;
 
 /**
- * classe qui s'occupe de parser un fichier csv pour generer des objets réponse
- * (Answer)
- *
- */
+ * Classe qui s'occupe de parser un fichier csv pour generer des objets réponse
+ * (Answer).
+*/
 public class ParserCsvAnswer extends AbstractParser {
 
 	private List<I_Answer> answerlist; // resultat du parsing sans netoyage

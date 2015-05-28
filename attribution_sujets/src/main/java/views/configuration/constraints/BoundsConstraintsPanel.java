@@ -11,21 +11,38 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Panel de saisie des nombres maximums de choix et de rejets pris en compte.
+ */
 public class BoundsConstraintsPanel extends JPanel {
 
+	// Constantes :
 	private static final long serialVersionUID = 1L;
 
-	// private static final Dimension PREFERED_SIZE = new Dimension(375, 140);
-
+	/**
+	 * Spinner de saisie du nombre maximal de choix pris en compte.
+	 */
 	private JSpinner jsMaxChoice;
+	
+	/**
+	 * Spinner de saisie du nombre maximal de rejets pris en compte.
+	 */
 	private JSpinner jsMaxReject;
 
+	/**
+	 * Constructeur.
+	 */
 	public BoundsConstraintsPanel() {
 		super();
 
 		this.initializeView();
 	}
 
+	/**
+	 * Accesseur de l'attribut jsMaxChoice.
+	 * 
+	 * @return Le spinner jsMaxChoice.
+	 */
 	public JSpinner getJsMaxChoice() {
 		if (jsMaxChoice == null) {
 			this.jsMaxChoice = new JSpinner(
@@ -35,6 +52,11 @@ public class BoundsConstraintsPanel extends JPanel {
 		return jsMaxChoice;
 	}
 
+	/**
+	 * Accesseur de l'attribut jsMaxChoice.
+	 * 
+	 * @return Le spinner jsMaxChoice.
+	 */
 	public JSpinner getJsMaxReject() {
 		if (jsMaxReject == null) {
 			this.jsMaxReject = new JSpinner(
@@ -44,6 +66,9 @@ public class BoundsConstraintsPanel extends JPanel {
 		return jsMaxReject;
 	}
 
+	/**
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la vue.
+	 */
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 

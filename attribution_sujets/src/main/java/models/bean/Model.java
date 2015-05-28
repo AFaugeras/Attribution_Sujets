@@ -2,11 +2,28 @@ package models.bean;
 
 import java.util.List;
 
+/**
+ * Model de donnees permettant de representer le probleme d'attribution de sujets 
+ * a un ensemble de personnes s'appuyant sur les preferences
+ */
 public class Model {
 
+	/**
+	 * Contraintes generales du problemes
+	 */
 	private Constraints constraint;
+	
+	/**
+	 * Liste des participants
+	 */
 	private List<Person> persons;
+	
+	/**
+	 * Liste des sujets a assignes
+	 */
 	private List<Subject> subjects;
+	
+	//TODO A deplacer dans le package controller
 	public static String fileChoserPath = "";
 
 	public Model(Constraints constraint, List<Person> persons,

@@ -22,13 +22,12 @@ import javax.swing.border.Border;
  */
 public class SubjectPanel extends JPanel {
 
+	// Constantes :
 	public static final String JB_DELETE_ACTION = "DELETE";
 
 	private static final long serialVersionUID = 1L;
-
 	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class
 			.getClassLoader().getResource("ihm/img/delete_subject.png"));
-
 	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5,
 			5, 5);
 	private static final Border LINE_BORDER = BorderFactory.createEmptyBorder(
@@ -36,15 +35,44 @@ public class SubjectPanel extends JPanel {
 	private static final Dimension PREFERED_SIZE = new Dimension(375, 120);
 	private static final Dimension JB_DELETE_SIZE = new Dimension(30, 30);
 
+	/**
+	 * Champ de saisie du libellé du sujet.
+	 */
 	private JTextField jtfSubjectLabel;
+
+	/**
+	 * Champ de saisie de l'id.
+	 */
 	private JTextField jtfID;
 
+	/**
+	 * Spinner nombre d'élèves maximum.
+	 */
 	private JSpinner jsMaxSize;
+	
+	/**
+	 * Spinner nombre d'élèves minimum.
+	 */
 	private JSpinner jsMinSize;
+	
+	/**
+	 * Spinner cardinalité minimale.
+	 */
 	private JSpinner jsMaxCard;
+	
+	/**
+	 * Spinner cardinalité maximale.
+	 */
 	private JSpinner jsMinCard;
+	
+	/**
+	 * Spinner multiplicité.
+	 */
 	private JSpinner jsMultiplicity;
 
+	/**
+	 * Button supprimer.
+	 */
 	private JButton jbDelete;
 
 	/**
@@ -166,8 +194,7 @@ public class SubjectPanel extends JPanel {
 	}
 
 	/**
-	 * Cette méthode privée est appellée par le constructeur pour initialiser la
-	 * vue.
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la vue.
 	 */
 	private void initializeView() {
 		this.setLayout(new BorderLayout());
@@ -258,8 +285,7 @@ public class SubjectPanel extends JPanel {
 	 * Cette méthode privée initialise et ajoute au conteneur donné en paramétre
 	 * le champ de saisie de la multiplicité.
 	 * 
-	 * @param container
-	 *            Le conteneur.
+	 * @param container Le conteneur.
 	 */
 	private void initializeMultiplicityLine(JPanel container) {
 		JLabel jlMultiplicity = new JLabel("Multiplicité :");
@@ -283,8 +309,7 @@ public class SubjectPanel extends JPanel {
 	 * Cette méthode privée initialise et ajoute au conteneur donnée en
 	 * paramétre les champs de saisies des cardinalités.
 	 * 
-	 * @param container
-	 *            Le conteneur.
+	 * @param container Le conteneur.
 	 */
 	private void initializeCardLine(JPanel container) {
 		JLabel jlMaxCard = new JLabel("Card max :");
@@ -317,8 +342,7 @@ public class SubjectPanel extends JPanel {
 	 * Cette méthode privée initialise et ajoute au conteneur donnée en
 	 * paramétre les champs de saisies de la taille.
 	 * 
-	 * @param container
-	 *            Le conteneur.
+	 * @param container Le conteneur.
 	 */
 	private void initializeSizeLine(JPanel container) {
 		JLabel jlMaxSize = new JLabel("Taille max :");

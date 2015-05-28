@@ -6,7 +6,6 @@ import java.util.List;
 import models.interfaces.I_Answer;
 /**
  * classe représentant une ligne de réponse extraite du fichier csv resultant du formulaire de campus
- * @author Cédric
  * @implements I_Answer 
  */
 public class Answer implements I_Answer{

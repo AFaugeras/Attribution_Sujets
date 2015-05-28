@@ -12,8 +12,6 @@ import models.parser.DataCleaner;
 
 /**
  * classe permettant de parser un fichier csv representant la liste des utilisateurs
- *
- *
  */
 public class ParserCsvUserList extends AbstractParser {
 

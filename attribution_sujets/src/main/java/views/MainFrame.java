@@ -102,7 +102,7 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Méthode privée qui initialise la vue.
+	 * Méthode privée appelée par le constructeur pour initialiser la vue.
 	 */
 	private void initializeView() {
 		this.cardPanel = new JPanel(new CardLayout());

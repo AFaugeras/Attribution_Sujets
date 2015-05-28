@@ -11,19 +11,62 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Panel de saisie de la configuration campus (nombre de choix et de rejets).
+ */
 public class CampusConstraintsPanel extends JPanel {
 
+	// Constantes :
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Spinner de saisie du nombre de choix.
+	 */
 	private JSpinner jsNbChoice;
+	
+	/**
+	 * Spinner de saisie du nombre de rejet.
+	 */
 	private JSpinner jsNbReject;
 
+	/**
+	 * Constructeur.
+	 */
 	public CampusConstraintsPanel() {
 		super();
 
 		this.initializeView();
 	}
 
+	/**
+	 * Accesseur de l'attribut jsNbChoice.
+	 * 
+	 * @return Le spinner jsNbChoice.
+	 */
+	public JSpinner getJsNbChoice() {
+		if (this.jsNbChoice == null) {
+			this.jsNbChoice = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+		}
+
+		return this.jsNbChoice;
+	}
+
+	/**
+	 * Accesseur de l'attribut jsNbReject.
+	 * 
+	 * @return Le spinner jsNbReject.
+	 */
+	public JSpinner getJsNbReject() {
+		if (this.jsNbReject == null) {
+			this.jsNbReject = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+		}
+
+		return this.jsNbReject;
+	}
+
+	/**
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la vue.
+	 */
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 
@@ -55,21 +98,5 @@ public class CampusConstraintsPanel extends JPanel {
 
 		gbc.gridy = 1;
 		this.add(getJsNbReject(), gbc);
-	}
-
-	public JSpinner getJsNbChoice() {
-		if (jsNbChoice == null) {
-			this.jsNbChoice = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
-		}
-
-		return jsNbChoice;
-	}
-
-	public JSpinner getJsNbReject() {
-		if (jsNbReject == null) {
-			this.jsNbReject = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
-		}
-
-		return jsNbReject;
 	}
 }

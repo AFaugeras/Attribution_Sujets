@@ -12,9 +12,7 @@ import models.parser.AbstractParser;
 
 
 /**
- * classe dédier a la recupération d'une liste de sujet et de son paramétrage sous format CSV
- * 
- *
+ * Classe dédiée a la recupération d'une liste de sujet et de son paramétrage sous format CSV.
  */
 public class ParserCsvSubject extends AbstractParser {
 

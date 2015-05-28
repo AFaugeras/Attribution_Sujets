@@ -3,14 +3,48 @@ package models.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Participant a l'attribution automatique des sujets
+ */
 public class Person {
 
+	/**
+	 * Prenom
+	 */
 	private String firstName;
+	
+	/**
+	 * Nom
+	 */
 	private String FamilyName;
+	
+	/**
+	 * Identifiant Campus.
+	 * Generalement la premiere lettre correspond a la premiere lettre du prenom. Les 5 suivants correspondent les 5 premieres de son nom. Les chiffre correspond a son annee d'integration
+	 * Dupont Alexandra promo 2014 => adupont14
+	 */
 	private String IDcampus;
+	
+	/**
+	 * Choix preferes du participant. 
+	 * Le premier element de la liste correspond a son choix prefere, ...
+	 */
 	private List<Subject> choices;
+	
+	/**
+	 * Rejets du partipant, c'est a dire les sujets auxquels il refuse de participer.
+	 */
 	private List<Subject> rejects;
+	
+	/**
+	 * Sujet attribue suite a l'attribution automatique.
+	 */
 	private Subject assigned;
+	
+	/**
+	 * Commentaire.
+	 * Celui-ci peut par exemple permettre a un participant de preciser les personnes dont il ne souhaite pas travailler avec.
+	 */
 	private String comment;
 
 	public Person() {
