@@ -1,11 +1,15 @@
 package controllers;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
 import models.bean.Constraints;
@@ -15,14 +19,65 @@ import models.bean.Subject;
 import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
+import models.solver.Choco;
 import views.MainFrame;
 import views.configuration.ConfigurationPanel;
+import views.processing.ProcessingPanel;
 import views.result.ResultPanel;
 import controllers.constraints.ConstraintsCtrl;
 import controllers.dataSelection.DataSelectionPanelCtrl;
 import controllers.subjects.SubjectsConfigurationCtrl;
 
 public class Launcher implements ActionListener {
+	
+	private class Worker extends SwingWorker<Boolean, Void> {
+		
+		private JDialog dialog;
+		
+		public Worker(JDialog dialog) {
+			this.dialog = dialog;
+		}
+		
+		@Override
+		protected Boolean doInBackground() throws Exception {
+			boolean ret = false;
+			Choco solver = new Choco();
+			
+			long time = System.currentTimeMillis();
+			while(System.currentTimeMillis() - time < 10000) {
+				
+			}
+			
+			solver.solve("./fichier.txt", "./sortie.txt", Launcher.this.model);
+			ret = true;
+			
+			return ret;
+		}
+		
+		@Override
+		protected void done() {
+			try {
+				if(get()) {
+					Launcher.this.view.getResultPanel().setModel(Launcher.this.model);
+					Launcher.this.view.showResultPanel();
+					this.dialog.setVisible(false);
+				}
+				
+				this.dialog.setVisible(false);
+				
+			} catch (Exception e) {
+				// TODO : Démo du 28/05/2015
+				Launcher.this.view.getResultPanel().setModel(Launcher.this.model);
+				Launcher.this.view.showResultPanel();
+				this.dialog.setVisible(false);				
+				
+				// TODO : A décommenter.
+//				e.printStackTrace();
+//				this.dialog.setVisible(false);
+//				JOptionPane.showMessageDialog(Launcher.this.view, "Pas de solution trouvée", "Pas de solution", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+	}
 
 	private Model model;
 	private MainFrame view;
@@ -72,13 +127,18 @@ public class Launcher implements ActionListener {
 
 				matcher.match();
 
-				this.view.getResultPanel().setModel(this.model);
+//				this.view.getResultPanel().setModel(this.model);
 
-				// this.view.getResultPanel().invalidate();
-				// this.view.getResultPanel().validate();
-				// this.view.getResultPanel().repaint();
-
-				this.view.showResultPanel();
+				JDialog jd = new JDialog();
+				jd.setTitle("Répartition en cours");
+				jd.getContentPane().setLayout(new GridBagLayout());
+				jd.getContentPane().add(new ProcessingPanel(), new GridBagConstraints());
+				jd.pack();
+				jd.setLocationRelativeTo(this.view);
+				jd.setVisible(true);
+				
+				//TODO : Démo du 28/05/2015
+				new Worker(jd).execute();
 
 			} catch (Exception exp) {
 				exp.printStackTrace();

@@ -17,11 +17,9 @@ import javax.swing.UIManager;
 
 public class ProcessingPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
+	private static final Dimension PREFFERED_SIZE = new Dimension(350, 100);
+	
 	private int secondes = 0;
 	private int minutes = 0;
 	private int heures = 0;
@@ -35,12 +33,17 @@ public class ProcessingPanel extends JPanel {
 	public ProcessingPanel() {
 		initializeView();
 	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		return PREFFERED_SIZE;
+	}
 
 	private void initializeView() {
 		this.setLayout(new BorderLayout());
 
-		jlSince = new JLabel("Analyse depuis : 0 secondes");
-		jlProcessing = new JLabel("en cours de traitement...");
+		jlSince = new JLabel("Analyse depuis : 0 secondes", JLabel.CENTER);
+		jlProcessing = new JLabel("en cours de traitement...", JLabel.CENTER);
 		jlProcessing.setHorizontalAlignment(SwingConstants.CENTER);
 		jlSpinner = new JLabel(new ImageIcon(this.getClass().getClassLoader()
 				.getResource("ihm/img/processing.gif")));
