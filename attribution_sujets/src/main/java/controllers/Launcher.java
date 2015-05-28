@@ -44,11 +44,11 @@ public class Launcher implements ActionListener {
 			Choco solver = new Choco();
 			
 			long time = System.currentTimeMillis();
-			while(System.currentTimeMillis() - time < 10000) {
+			while(System.currentTimeMillis() - time < 5000) {
 				
 			}
 			
-			solver.solve("./fichier.txt", "./sortie.txt", Launcher.this.model);
+			solver.solve("./fichier.txt", "./src/test/resources/ChocoSol", Launcher.this.model);
 			ret = true;
 			
 			return ret;

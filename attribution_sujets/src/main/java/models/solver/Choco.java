@@ -1,5 +1,7 @@
 package models.solver;
 
+import java.io.File;
+
 import models.adaptor.AdaptorChoco;
 import models.adaptor.AdaptorChocoImpl;
 import models.bean.Model;
@@ -8,7 +10,6 @@ import models.reader.ReaderException;
 import models.reader.SolutionReaderChoco;
 import models.writer.InputWriterChoco;
 import models.writer.WriterException;
-import choco.Ipipip;
 
 public class Choco {
 		
@@ -20,7 +21,7 @@ public class Choco {
 		String[] args = new String[2];
 		args[0] = inputFilename;
 		args[1] = outputFilename;
-		Ipipip.main(args);
+//		Ipipip.main(args);
 		
 		SolutionReaderChoco.read(outputFilename, data);
 		
