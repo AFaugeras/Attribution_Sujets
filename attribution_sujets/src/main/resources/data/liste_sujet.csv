@@ -1,7 +1,16 @@
 NomSujet;maxSize;minSize;multiple;cardMin;cardMax
-Poker;;;;;
-Android Remote Admin;;;;;
-Space landing;;;;;
-Ruzzle;;;;;
-Circulation;;;;;;
-Baby sitting;;;;;;
+Poker;6;1;1;0;2
+Android Remote Admin;6;1;1;0;2
+Space landing;6;1;1;0;2
+Ruzzle;6;1;1;0;2
+Circulation;6;1;1;0;2
+Baby sitting;6;1;1;0;2
+Expressions algébriques;6;1;1;0;2
+Labyrinthes;6;1;1;0;2
+Bataille;6;1;1;0;2
+Souris de bibliothèque;6;1;1;0;2
+Gestion des notes et élèves;6;1;1;0;2
+Fourmi dessinatrice;6;1;1;0;2
+Design;6;1;1;0;2
+Plan de déchargement;6;1;1;0;2
+Blocs;6;1;1;0;2
