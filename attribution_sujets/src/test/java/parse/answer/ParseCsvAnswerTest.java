@@ -23,6 +23,7 @@ public class ParseCsvAnswerTest extends TestCase {
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		parser.parseAnswer(f);
 		List<I_Answer> answer = parser.getCleanedData();
+		System.out.println(answer);
 		assertEquals(answer.get(0).getDateSoumission(),createKeptAnswerDoublon().getDateSoumission());
 		assertEquals(answer.get(0).getIdRepondant(), createKeptAnswerDoublon().getIdRepondant());
 	}
@@ -31,7 +32,7 @@ public class ParseCsvAnswerTest extends TestCase {
 		String[] data = { "28773", "03/02/2015 21:38:21", "A1", "eleve",
 				"IPIPIP", "	", "4161", "ADAM François", "fadam14",
 				"Labyrinthes", "Space landing", "Poker", "Bataille",
-				"Souris de bibliothèque", "Ruzzle",
+				"", "Ruzzle",
 				"Si possible, j'aimerais bien me mettre avec Maxime Ansquer." };
 
 		return AnswerFactory.createAnswer(data);

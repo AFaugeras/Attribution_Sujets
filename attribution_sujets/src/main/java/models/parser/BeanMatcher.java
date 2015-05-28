@@ -54,13 +54,11 @@ public class BeanMatcher {
 				}
 			}else{
 				int i=0;
-				for(i=i ;i<constraint.getNbChoice();i++){// on enregistre les choix dans le choix de l'objet person
-					person.getChoices().add(
-							getSubjectbyLabel(subject.get(i)
-									));
+				for(i=i ;i<constraint.getNbChoice() && i < subject.size();i++){// on enregistre les choix dans le choix de l'objet person
+				if (!subject.get(i).isEmpty())	person.getChoices().add(getSubjectbyLabel(subject.get(i)));
 				}// puis les rejets
 				for ( i = constraint.getNbChoice(); i < constraint.getNbReject()+constraint.getNbChoice(); i++) {
-					person.getRejects().add(getSubjectbyLabel(subject.get(i)));
+					if (!subject.get(i).isEmpty())person.getRejects().add(getSubjectbyLabel(subject.get(i)));
 				}
 				if(i<subject.size()){
 					person.setComment(subject.get(i));
@@ -81,6 +79,7 @@ public class BeanMatcher {
 			if(subject.getLabel().equals(label))
 				return subject;
 		}
+		System.out.println(label);
 		throw new NoDefineSubjectException();
 	}
 	

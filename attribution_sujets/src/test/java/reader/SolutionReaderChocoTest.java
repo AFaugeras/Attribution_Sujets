@@ -66,6 +66,7 @@ public class SolutionReaderChocoTest {
 		catch(NotFoundSolutionException e){
 			fail(e.getMessage());	
 		}
+		
 			
 	}
 	

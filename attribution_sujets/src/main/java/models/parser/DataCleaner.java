@@ -73,6 +73,11 @@ public class DataCleaner {
 		return sameUserAnswer;
 	}
 
+	/**
+	 * Supprime les doublons d'une liste de personne
+	 * @param data
+	 * @return
+	 */
 	public static List<Person> cleanPerson(List<Person> data) {
 		List<Person> dataCleaned = new ArrayList<Person>();
 
