@@ -3,14 +3,12 @@ package models.parser.helper;
 import java.io.File;
 
 /**
- * classe de chargement d'un fichier CSV
- * 
- * @author Cédric
+ * Classe de chargement d'un fichier CSV.
  *
  */
 public class CsvHelper {
 	/**
-	 * renvoie un objet file correspondant au chemin passé en paramétre
+	 * Renvoie un objet file correspondant au chemin passé en paramétre
 	 * 
 	 * @param Path
 	 * @return

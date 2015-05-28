@@ -7,10 +7,7 @@ import models.bean.Person;
 import models.interfaces.I_Answer;
 
 /**
- * classe chargée de supprimer les doublons d'un jeu de données
- * 
- * @author Cédric
- *
+ * Classe chargée de supprimer les doublons d'un jeu de données.
  */
 public class DataCleaner {
 

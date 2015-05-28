@@ -7,9 +7,7 @@ import java.util.List;
  * Interface représentant une ligne de réponse. L'interface prévoit le format de
  * réponse suivant: Un nombre d'attribut fixes (9): IdReponse DateSoumission:
  * Institution Departement Cours Groupe IDRepondant NomPenom UserName; Et un
- * nombre de choix dynamique Renvoyé sur forme de liste de choix
- * 
- * @author Cédric
+ * nombre de choix dynamique Renvoyé sur forme de liste de choix.
  *
  */
 public interface I_Answer {
