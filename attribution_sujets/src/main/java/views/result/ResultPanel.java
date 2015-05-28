@@ -38,7 +38,6 @@ import models.bean.Subject;
 import com.itextpdf.text.DocumentException;
 
 /**
- * @author Arthur FAUGERAS
  * 
  *         Classe prennant en charge l'affchage des résultats des solveurs
  *
