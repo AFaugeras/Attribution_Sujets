@@ -26,8 +26,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.JTextComponent;
 
 import models.bean.Model;
 import models.bean.Person;
@@ -266,13 +268,17 @@ public class ResultPanel extends JPanel {
 				}
 				resizeColumnWidth(this);
 			}
+			@Override
+			public Component prepareEditor(TableCellEditor editor, int row, int column) {
+			    Component c = super.prepareEditor(editor, row, column);
+			    if (c instanceof JTextComponent) {
+			        ((JTextComponent) c).selectAll();
+			    } 
+			    return c;
+			}
 
 		};
-
-		for (Integer col : disabledCols) {
-			tableau.getColumnModel().getColumn(col)
-					.setCellRenderer(new ResultCellRenderer());
-		}
+		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(disabledCols));
 
 		tableau.getTableHeader().setReorderingAllowed(false);
 		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
