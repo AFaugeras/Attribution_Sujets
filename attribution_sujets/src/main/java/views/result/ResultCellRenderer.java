@@ -15,10 +15,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class ResultCellRenderer extends DefaultTableCellRenderer {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final Color LOCKED_CELL_BACKGROUND = new Color(232, 233, 235);
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
@@ -30,7 +28,12 @@ public class ResultCellRenderer extends DefaultTableCellRenderer {
 
 		// Get the status for the current row.
 		//TableModel tableModel = table.getModel();
-		l.setBackground(Color.LIGHT_GRAY);
+		
+		if(isSelected) {
+			l.setForeground(Color.BLACK);
+		} else {
+			l.setBackground(LOCKED_CELL_BACKGROUND);
+		}
 
 		// Return the JLabel which renders the cell.
 		return l;

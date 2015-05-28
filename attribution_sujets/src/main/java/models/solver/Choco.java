@@ -17,7 +17,7 @@ public class Choco {
 		
 		InputWriterChoco.write(inputFilename, ac);
 		
-		String[] args = new String[1];
+		String[] args = new String[2];
 		args[0] = inputFilename;
 		args[1] = outputFilename;
 		Ipipip.main(args);
