@@ -123,16 +123,25 @@ public class ResultPanel extends JPanel {
 	 */
 	private void initializeView() {
 		this.removeAll();
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridBagLayout());
 
 		JScrollPane jsp = new JScrollPane(getJpPeople(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jsp.setBorder(null);
 		jsp.setPreferredSize(new Dimension(1000, 480));
-
 		jsp.getVerticalScrollBar().setUnitIncrement(15);
-		this.add(jsp, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		this.add(jsp, gbc);
 
-		this.add(getButtonsBar(), BorderLayout.SOUTH);
+		gbc.gridy = 1;
+		gbc.weighty = 0;
+		gbc.fill = GridBagConstraints.NONE;
+		this.add(getButtonsBar(), gbc);
 	}
 
 	/**
