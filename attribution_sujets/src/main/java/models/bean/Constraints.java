@@ -1,17 +1,38 @@
 package models.bean;
 
+/**
+ * Contraintes globales du modeles. Ces contraintes s'appliquent donc a tous les sujets et personnes.
+ */
 public class Constraints {
 
-	private int nbMaxChoice; // nombre de choix que le parseur devra prendre en
-								// compte
-	private int nbChoice; // nombre de choix (on sait ou s'arrete les choix et
-							// ou commence les rejets)
-
-	private int nbMaxReject; // nombre de reject que le parseur devra prendre en
-								// compte
-	private int nbReject; // nombre reject que contient une réponse.
+	/**
+	 * Nombre de choix  pris en compte par l'utilisateur. 
+	 * En effet l'utilisateur a la possibilite de choisir de prendre en compte uniquement les 2 premiers choix 
+	 * alors que les participants ont precises les 3 choix preferes.
+	 */
+	private int nbMaxChoice; 
 	
-	private boolean matchSubjectOnId = false;// permet de savoir si la corelation doit se faire sur l'id ou sur le libéllé du fichier 
+	/**
+	 * Nombre de choix possibles par participants via le questionnaire campus.
+	 */
+	private int nbChoice;
+
+	/**
+	 * Nombre de rejets  pris en compte par l'utilisateur. 
+	 * En effet l'utilisateur a la possibilite de choisir de prendre en compte uniquement les 2 premiers rejets
+	 * alors que les participants ont precises 3 rejets.
+	 */
+	private int nbMaxReject;
+	
+	/**
+	 * Nombre de rejets possibles par participants via le questionnaire campus.
+	 */
+	private int nbReject;
+	
+	/**
+	 * True si la correlation s'appuye sur l'id. False si celle-ci s'appuye sur le libelle
+	 */
+	private boolean matchSubjectOnId = false;
 	
 	public Constraints(int nbMaxChoice, int nbChoice, int nbMaxReject,
 			int nbReject) {

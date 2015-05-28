@@ -1,16 +1,46 @@
 package models.bean;
 
+/**
+ * Sujet propose aux participants.
+ */
 public class Subject {
 
+	/**
+	 * Identifiant.
+	 */
 	private int id;
+	
+	/**
+	 * Libelle precisant le sujet.
+	 */
 	private String label;
 
-	private int maxSize; // Nombre de personne max par sujet
-	private int minSize; // Nombre de personne min par sujet
-	private int multiple; // contrainte de multiplicité par sujet
-	private int cardMin;
+	/**
+	 * Nombre de participants maximum.
+	 */
+	private int maxSize;
+	
+	/**
+	 * Nombre de participants minimum.
+	 */
+	private int minSize;
+	
+	/**
+	 * Multiplicite de l'effectif.
+	 * Utile pour des activites se deroulant en binome, trinome, ...
+	 */
+	private int multiple;
+	
+	/**
+	 * Cardinalite maximum. C'est a dire le nombre d'occurence maximum du sujet minimum
+	 */
 	private int cardMax;
-
+	
+	/**
+	 * Cardinalite minimum. C'est a dire le nombre d'occurence minimum du sujet minimum
+	 */
+	private int cardMin;
+	
 	/**
 	 * Constructeur par défaut.
 	 */
