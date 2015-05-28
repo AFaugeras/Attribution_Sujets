@@ -126,7 +126,7 @@ public class ResultPanel extends JPanel {
 		this.removeAll();
 		this.setLayout(new BorderLayout());
 
-		JScrollPane jsp = new JScrollPane(getJpPeople());
+		JScrollPane jsp = new JScrollPane(getJpPeople(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jsp.setBorder(null);
 		jsp.setPreferredSize(new Dimension(1000, 480));
 
@@ -280,6 +280,8 @@ public class ResultPanel extends JPanel {
 		};
 		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(disabledCols));
 
+		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
 		tableau.getTableHeader().setReorderingAllowed(false);
 		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
 		tableau.setFillsViewportHeight(true);
@@ -305,8 +307,11 @@ public class ResultPanel extends JPanel {
 			for (int row = 0; row < table.getRowCount(); row++) {
 				TableCellRenderer renderer = table.getCellRenderer(row, column);
 				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width, width);
+				width = Math.max(comp.getPreferredSize().width + 5, width);
 			}
+			
+			width = width < 166 ? 166 : width;
+			
 			columnModel.getColumn(column).setPreferredWidth(width);
 		}
 	}
