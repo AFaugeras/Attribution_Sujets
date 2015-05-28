@@ -201,6 +201,7 @@ public class Launcher implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.setProperty("file.encoding", "ANSI");
 
 		Constraints gc = new Constraints(0, 0, 0, 0);
 		List<Subject> subjects = new ArrayList<Subject>();
