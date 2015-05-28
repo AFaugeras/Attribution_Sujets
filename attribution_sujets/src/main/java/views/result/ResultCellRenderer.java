@@ -23,7 +23,7 @@ public class ResultCellRenderer extends DefaultTableCellRenderer {
 	private ArrayList<Integer> disabledCols;
 	
 	public ResultCellRenderer(ArrayList<Integer> disabledCols) {
-		this.disabledCols = disabledCols;System.out.println("nouh");
+		this.disabledCols = disabledCols;
 	}
 
 	@Override
