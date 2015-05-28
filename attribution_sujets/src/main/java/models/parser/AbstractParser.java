@@ -6,7 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Methodes communes a tout les parsers
+ * 
+ *
+ */
 public abstract class AbstractParser {
 	/**
 	 * permet de renvoyer les données d'un fichier ligne a ligne dans un tableau

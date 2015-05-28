@@ -9,7 +9,7 @@ import models.interfaces.I_Answer;
 /**
  * classe chargée de supprimer les doublons d'un jeu de données
  * 
- * @author Cédric
+ * 
  *
  */
 public class DataCleaner {
@@ -19,7 +19,7 @@ public class DataCleaner {
 	 * la plus récente est gardée, les autres sont supprimées
 	 * 
 	 * @param listSource
-	 * @return
+	 * @return List<I_Answer>
 	 */
 	public static List<I_Answer> cleanAnswers(List<I_Answer> listSource) {
 		List<I_Answer> datacleaned = new ArrayList<I_Answer>();

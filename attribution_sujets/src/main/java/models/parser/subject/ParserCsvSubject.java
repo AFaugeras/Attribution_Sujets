@@ -13,7 +13,7 @@ import models.parser.AbstractParser;
 
 /**
  * classe dédier a la recupération d'une liste de sujet et de son paramétrage sous format CSV
- * @author Cédric
+ * 
  *
  */
 public class ParserCsvSubject extends AbstractParser {
@@ -24,7 +24,11 @@ public class ParserCsvSubject extends AbstractParser {
 		this.subjectList= new ArrayList<Subject>();
 	}
 	
-	
+	/**
+	 * Demande de Parse d'une liste CSV de Sujet avec leur paramétrage
+	 * @param sourceFile
+	 * @throws IOException
+	 */
 	public void ParseSubjectList(File sourceFile) throws IOException{
 		List<String> datas = this.readfile(sourceFile);
 		

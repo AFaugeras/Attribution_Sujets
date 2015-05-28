@@ -12,7 +12,7 @@ import models.parser.DataCleaner;
 
 /**
  * classe permettant de parser un fichier csv representant la liste des utilisateurs
- * @author Cédric
+ *
  *
  */
 public class ParserCsvUserList extends AbstractParser {
@@ -22,6 +22,12 @@ public class ParserCsvUserList extends AbstractParser {
 	public ParserCsvUserList() {
 		this.UserList= new ArrayList<Person>();
 	}
+	
+	/**
+	 * Methode demandant a la classe de pasrer une liste de user
+	 * @param sourceFile
+	 * @throws IOException
+	 */
 	public void ParseUserList(File sourceFile) throws IOException{
 		List<String> datas = this.readfile(sourceFile);
 		
@@ -47,7 +53,7 @@ public class ParserCsvUserList extends AbstractParser {
 	}
 	
 	/**
-	 * donne le nombre d'utilisateur 
+	 * donne le nombre d'utilisateurs 
 	 */
 	public int getNbUser(){
 		return UserList.size();

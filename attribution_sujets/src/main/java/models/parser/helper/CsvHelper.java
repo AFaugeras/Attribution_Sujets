@@ -4,8 +4,6 @@ import java.io.File;
 
 /**
  * classe de chargement d'un fichier CSV
- * 
- * @author Cédric
  *
  */
 public class CsvHelper {

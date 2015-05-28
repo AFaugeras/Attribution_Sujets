@@ -11,8 +11,8 @@ import models.exception.NoUserFoundedException;
 import models.interfaces.I_Answer;
 
 /**
- * classe chargée de faire la corélation entre les personnes les responses et les sujets.
- * @author Cédric
+ * Classe chargée de faire la corélation entre les personnes, les responses et les sujets.
+ * 
  *
  */
 public class BeanMatcher {
