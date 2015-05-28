@@ -274,7 +274,7 @@ public class ResultPanel extends JPanel {
 				} else {
 					super.setValueAt(aValue, rowIndex, columnIndex);
 				}
-				resizeColumnWidth(this);
+//				resizeColumnWidth(this);
 			}
 			@Override
 			public Component prepareEditor(TableCellEditor editor, int row, int column) {
@@ -288,12 +288,12 @@ public class ResultPanel extends JPanel {
 		};
 		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(disabledCols));
 
-		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		
 		tableau.getTableHeader().setReorderingAllowed(false);
 		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
 		tableau.setFillsViewportHeight(true);
-		resizeColumnWidth(tableau);
+//		resizeColumnWidth(tableau);
 		this.jpPeople = tableau;
 		// }
 
