@@ -108,8 +108,6 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		int nbPersons = persons.size();
 		int nbSubjects = subjects.size();
 		
-
-		
 		for(int i = 0; i < nbPersons; i++){
 			current = persons.get(i);
 			
@@ -117,7 +115,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 			List<Subject> choices = current.getChoices();
 			int nbChoices = choices.size();
 			ret.append("\t" + nbChoices);
-			int defaultRank = nbSubjects - nbChoices;
+			int defaultRank = nbChoices + 1;
 			
 			Subject currentSubject = null;
 			for(int j = 0; j < nbSubjects; j++){

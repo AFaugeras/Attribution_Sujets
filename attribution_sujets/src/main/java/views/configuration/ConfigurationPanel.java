@@ -14,6 +14,9 @@ import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.dataselection.DataSelectionPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
 
+/**
+ * Panel de configuration.
+ */
 public class ConfigurationPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;

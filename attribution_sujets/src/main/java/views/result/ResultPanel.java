@@ -26,8 +26,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.JTextComponent;
 
 import models.bean.Model;
 import models.bean.Person;
@@ -36,7 +38,6 @@ import models.bean.Subject;
 import com.itextpdf.text.DocumentException;
 
 /**
- * @author Arthur FAUGERAS
  * 
  *         Classe prennant en charge l'affchage des résultats des solveurs
  *
@@ -122,16 +123,25 @@ public class ResultPanel extends JPanel {
 	 */
 	private void initializeView() {
 		this.removeAll();
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridBagLayout());
 
-		JScrollPane jsp = new JScrollPane(getJpPeople());
+		JScrollPane jsp = new JScrollPane(getJpPeople(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jsp.setBorder(null);
 		jsp.setPreferredSize(new Dimension(1000, 480));
-
 		jsp.getVerticalScrollBar().setUnitIncrement(15);
-		this.add(jsp, BorderLayout.CENTER);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		this.add(jsp, gbc);
 
-		this.add(getButtonsBar(), BorderLayout.SOUTH);
+		gbc.gridy = 1;
+		gbc.weighty = 0;
+		gbc.fill = GridBagConstraints.NONE;
+		this.add(getButtonsBar(), gbc);
 	}
 
 	/**
@@ -266,14 +276,20 @@ public class ResultPanel extends JPanel {
 				}
 				resizeColumnWidth(this);
 			}
+			@Override
+			public Component prepareEditor(TableCellEditor editor, int row, int column) {
+			    Component c = super.prepareEditor(editor, row, column);
+			    if (c instanceof JTextComponent) {
+			        ((JTextComponent) c).selectAll();
+			    } 
+			    return c;
+			}
 
 		};
+		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(disabledCols));
 
-		for (Integer col : disabledCols) {
-			tableau.getColumnModel().getColumn(col)
-					.setCellRenderer(new ResultCellRenderer());
-		}
-
+		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
 		tableau.getTableHeader().setReorderingAllowed(false);
 		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
 		tableau.setFillsViewportHeight(true);
@@ -299,8 +315,11 @@ public class ResultPanel extends JPanel {
 			for (int row = 0; row < table.getRowCount(); row++) {
 				TableCellRenderer renderer = table.getCellRenderer(row, column);
 				Component comp = table.prepareRenderer(renderer, row, column);
-				width = Math.max(comp.getPreferredSize().width, width);
+				width = Math.max(comp.getPreferredSize().width + 5, width);
 			}
+			
+			width = width < 166 ? 166 : width;
+			
 			columnModel.getColumn(column).setPreferredWidth(width);
 		}
 	}

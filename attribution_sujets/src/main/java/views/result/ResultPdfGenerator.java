@@ -20,7 +20,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 /**
  * Classe prennant en charge la génération du pdf d'export de l'affichage des résultats
  * 
- * @author Arthur FAUGERAS
  *
  */
 public class ResultPdfGenerator {

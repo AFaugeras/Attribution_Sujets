@@ -11,8 +11,12 @@ import models.reader.SolutionReaderChoco;
 import models.writer.InputWriterChoco;
 import models.writer.WriterException;
 
-public class Choco {
-		
+/**
+ * Classe d'implementation de resolution via le solveur Choco.
+ */
+public class Choco implements Solver {
+	
+	@Override
 	public Model solve(String inputFilename, String outputFilename, Model data) throws WriterException, ReaderException, NotFoundSolutionException{
 		AdaptorChoco ac = new AdaptorChocoImpl(data);
 		
