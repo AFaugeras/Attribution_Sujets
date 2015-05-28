@@ -11,15 +11,21 @@ import javax.swing.text.PlainDocument;
  */
 public class IntegerTextField extends JTextField {
 
-	/**
-	 * SerialVersionUID.
-	 */
+	// Constantes :
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructeur par défaut.
+	 */
 	public IntegerTextField() {
 		super();
 	}
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param cols Nombre de colonnes.
+	 */
 	public IntegerTextField(int cols) {
 		super(cols);
 	}

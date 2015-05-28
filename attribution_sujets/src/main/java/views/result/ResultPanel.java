@@ -1,6 +1,5 @@
 package views.result;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -118,7 +117,7 @@ public class ResultPanel extends JPanel {
 	}
 
 	/**
-	 * Cette méthode privée est appellée par le constructeur pour initialiser la
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la
 	 * vue.
 	 */
 	private void initializeView() {

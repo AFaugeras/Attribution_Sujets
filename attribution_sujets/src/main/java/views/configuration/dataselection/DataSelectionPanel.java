@@ -12,25 +12,51 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Panel de sélection des fichier campus et de la liste de personnes.
+ */
 public class DataSelectionPanel extends JPanel {
 
+	// Constantes :
 	public static final String JB_CAMPUS_SELECTION = "CAMPUS_SELECTION";
 	public static final String JB_PERSON_SELECTION = "PERSON_SELECTION";
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Champ de texte non éditable où est affiché le fichier campus sélectionné.
+	 */
 	private JTextField jtfCampusFile;
+	
+	/**
+	 * Champ de texte non éditable où est affiché le fichier de personnes sélectionné.
+	 */
 	private JTextField jtfPersonsFile;
 
+	/**
+	 * Bouton qui ouvre l'explorateur de fichier pour sélectionner le fichier campus.
+	 */
 	private JButton jbCampusFile;
+	
+	/**
+	 * Bouton qui ouvre l'explorateur de fichier pour sélectionner le fichier de personnes. 
+	 */
 	private JButton jbPersonsFile;
 
+	/**
+	 * Constructeur.
+	 */
 	public DataSelectionPanel() {
 		super();
 
 		initializeView();
 	}
 
+	/**
+	 * Accesseur de l'attribut jtfCampusFile.
+	 * 
+	 * @return Le JTextField jtfCampusFile.
+	 */
 	public JTextField getJtfCampusFile() {
 		if (this.jtfCampusFile == null) {
 			this.jtfCampusFile = new JTextField();
@@ -41,6 +67,11 @@ public class DataSelectionPanel extends JPanel {
 		return this.jtfCampusFile;
 	}
 
+	/**
+	 * Accesseur de l'attribut jtfPersonsFile.
+	 * 
+	 * @return Le JTextField jtfPersonsFile.
+	 */
 	public JTextField getJtfPersonsFile() {
 		if (this.jtfPersonsFile == null) {
 			this.jtfPersonsFile = new JTextField();
@@ -51,6 +82,11 @@ public class DataSelectionPanel extends JPanel {
 		return this.jtfPersonsFile;
 	}
 
+	/**
+	 * Accesseur de l'attribut jbCampusFile.
+	 * 
+	 * @return Le bouton jbCampusFile.
+	 */
 	public JButton getJbCampusFile() {
 		if (this.jbCampusFile == null) {
 			this.jbCampusFile = new JButton("...");
@@ -60,6 +96,11 @@ public class DataSelectionPanel extends JPanel {
 		return this.jbCampusFile;
 	}
 
+	/**
+	 * Accesseur de l'attribut jbPersonsFile.
+	 * 
+	 * @return Le bouton jbPersonsFile.
+	 */
 	public JButton getJbPersonsFile() {
 		if (this.jbPersonsFile == null) {
 			this.jbPersonsFile = new JButton("...");
@@ -69,6 +110,9 @@ public class DataSelectionPanel extends JPanel {
 		return this.jbPersonsFile;
 	}
 
+	/**
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la vue.
+	 */
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 

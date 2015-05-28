@@ -2,19 +2,15 @@ package views.processing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
+// TODO : Faire la javadoc de cette classe.
 public class ProcessingPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -62,7 +58,8 @@ public class ProcessingPanel extends JPanel {
 	    this.timer = new Timer();
 
 	    TimerTask action = new TimerTask() {
-	        public void run() {
+	        @Override
+			public void run() {
 	            addOneSecond();
 	            refreshTimer();
 	        }
@@ -95,32 +92,5 @@ public class ProcessingPanel extends JPanel {
 		content += " " + secondes + " seconde(s)";
 		
 		this.jlSince.setText("Analyse depuis : " + content);
-	}
-
-	// TODO Development method to delete.
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-
-		}
-
-		JFrame frameTest = new JFrame();
-		frameTest.setLayout(new GridBagLayout());
-
-		ProcessingPanel tmp = new ProcessingPanel();
-		JPanel aux = new JPanel(new GridBagLayout());
-		aux.add(tmp);
-		frameTest.add(aux, new GridBagConstraints(0, 0, 1, 1, 1, 1,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(
-						0, 0, 0, 0), 0, 0));
-		frameTest.setPreferredSize(new Dimension(400, 200));
-		frameTest.pack();
-		frameTest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frameTest.setLocationRelativeTo(null);
-		frameTest.setVisible(true);
-
-		System.out.println(tmp.getSize());
-
 	}
 }
