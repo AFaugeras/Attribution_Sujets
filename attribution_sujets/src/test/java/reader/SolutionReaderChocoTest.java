@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import models.adaptor.AdaptorChocoImpl;
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
@@ -18,9 +17,10 @@ import models.parser.answer.ParserCsvAnswer;
 import models.parser.helper.CsvHelper;
 import models.parser.subject.ParserCsvSubject;
 import models.parser.user.ParserCsvUserList;
-import models.reader.NotFoundSolutionException;
-import models.reader.ReaderException;
-import models.reader.SolutionReaderChoco;
+import models.solver.adaptor.AdaptorChocoImpl;
+import models.solver.reader.NotFoundSolutionException;
+import models.solver.reader.ReaderException;
+import models.solver.reader.SolutionReaderChoco;
 
 import org.easymock.EasyMock;
 import org.junit.Before;

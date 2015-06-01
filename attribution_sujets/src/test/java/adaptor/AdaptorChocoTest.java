@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import models.adaptor.AdaptorChocoImpl;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.solver.adaptor.AdaptorChocoImpl;
 
 import org.easymock.EasyMock;
 import org.junit.Before;

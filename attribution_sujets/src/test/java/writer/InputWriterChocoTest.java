@@ -5,10 +5,10 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import models.adaptor.AdaptorChocoImpl;
 import models.bean.Model;
-import models.writer.InputWriterChoco;
-import models.writer.WriterException;
+import models.solver.adaptor.AdaptorChocoImpl;
+import models.solver.writer.InputWriterChoco;
+import models.solver.writer.WriterException;
 
 import org.easymock.EasyMock;
 import org.junit.After;
