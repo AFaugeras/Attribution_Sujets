@@ -13,6 +13,7 @@ import views.configuration.constraints.BoundsConstraintsPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.dataselection.DataSelectionPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
+import views.configuration.weights.WeightsConfigurationPanel;
 
 /**
  * Panel de configuration.
@@ -43,6 +44,11 @@ public class ConfigurationPanel extends JPanel {
 	 * Panel de selection du fichier campus et de la liste de personnes.
 	 */
 	private DataSelectionPanel dataSelectionPanel;
+	
+	/**
+	 * Panel de configuration des poids.
+	 */
+	private WeightsConfigurationPanel weightsConfigurationPanel;
 
 	/**
 	 * Bouton suivant.
@@ -111,6 +117,19 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	/**
+	 * Accesseur de l'attribut weightsConfigurationPanel.
+	 *
+	 * @return Le panel weightsConfigurationPanel.
+	 */
+	public WeightsConfigurationPanel getWeightsConfigurationPanel() {
+		if (this.weightsConfigurationPanel == null) {
+			this.weightsConfigurationPanel = new WeightsConfigurationPanel();
+		}
+
+		return this.weightsConfigurationPanel;
+	}
+
+	/**
 	 * Accesseur de l'attribut jbNext.
 	 *
 	 * @return Le JButton jbNext.
@@ -154,10 +173,10 @@ public class ConfigurationPanel extends JPanel {
 
 		gbc.gridy = 2;
 		this.add(getDataSelectionPanel(), gbc);
-
+		
 		gbc.gridy = 3;
 		gbc.fill = GridBagConstraints.BOTH;
-		this.add(new JPanel(), gbc);
+		this.add(getWeightsConfigurationPanel(), gbc);
 
 		gbc.gridx = 0;
 		gbc.gridy = 4;
