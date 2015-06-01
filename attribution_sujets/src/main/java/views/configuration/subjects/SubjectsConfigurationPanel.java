@@ -1,6 +1,7 @@
 package views.configuration.subjects;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -10,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -21,6 +22,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	// Constantes :
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
+	public static final String JB_SAVE_ACTION = "SAVE";
 
 	private static final long serialVersionUID = 1L;
 	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
@@ -39,6 +41,11 @@ public class SubjectsConfigurationPanel extends JPanel {
 	 * Bouton importer.
 	 */
 	private JButton jbImport;
+	
+	/**
+	 * Bouton exporter.
+	 */
+	private JButton jbExport;
 
 	/**
 	 * Constructeur.
@@ -93,6 +100,22 @@ public class SubjectsConfigurationPanel extends JPanel {
 		return jbImport;
 	}
 
+	/**
+	 * Accesseur de l'attribut jbExport.
+	 * 
+	 * @return Le JButton jbExport.
+	 */
+	public JButton getJbExport() {
+		if (jbExport == null) {
+			jbExport = new JButton("Exporter", new ImageIcon(this.getClass()
+					.getClassLoader()
+					.getResource("ihm/img/import_subjects.png")));
+			jbExport.setActionCommand(JB_IMPORT_ACTION);
+		}
+
+		return jbExport;
+	}
+
 	@Override
 	public Dimension getPreferredSize() {
 		return PREFERED_SIZE;
@@ -107,11 +130,12 @@ public class SubjectsConfigurationPanel extends JPanel {
 		TitledBorder border = BorderFactory.createTitledBorder("Sujets");
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
+		border.setBorder(new LineBorder(Color.BLACK));
 		this.setBorder(border);
 
 		JScrollPane jsp = new JScrollPane(getJpSubjects());
 		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		jsp.setBorder(UIManager.getBorder("TitledBorder.border"));
+		jsp.setBorder(null);
 		jsp.getVerticalScrollBar().setUnitIncrement(15);
 		this.add(jsp, BorderLayout.CENTER);
 
@@ -129,6 +153,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 
 		ret.add(getJbAddSubject());
 		ret.add(getJbImport());
+		ret.add(getJbExport());
 
 		return ret;
 	}
