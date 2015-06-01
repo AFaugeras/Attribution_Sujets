@@ -11,6 +11,7 @@ import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileFormatException;
 import models.interfaces.I_Answer;
 import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
@@ -37,7 +38,7 @@ public class SolutionReaderChocoTest {
 	}
 	
 	@Test
-	public void testGetNbPersons() 
+	public void testGetNbPersons() throws FileFormatException 
 	{
 		try{
 			
@@ -70,7 +71,7 @@ public class SolutionReaderChocoTest {
 			
 	}
 	
-	private Model generateModel() throws IOException{
+	private Model generateModel() throws IOException,FileFormatException{
 		Model ret = null;
 		
 		File f = new File("");

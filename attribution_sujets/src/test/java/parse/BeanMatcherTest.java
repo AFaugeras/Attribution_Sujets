@@ -10,6 +10,7 @@ import models.bean.Answer;
 import models.bean.Constraints;
 import models.bean.Person;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 import models.parser.BeanMatcher;
@@ -108,6 +109,8 @@ public class BeanMatcherTest extends TestCase{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			fail();
+		}catch(FileFormatException e2){
+			fail("Probléme de format du fichier d'entrée");
 		}
 		listAnswer=parser.getCleanedData();
 		

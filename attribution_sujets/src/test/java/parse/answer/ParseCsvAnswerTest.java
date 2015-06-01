@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import junit.framework.TestCase;
+import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 import models.parser.answer.ParserCsvAnswer;
@@ -21,7 +22,12 @@ public class ParseCsvAnswerTest extends TestCase {
 				+ f.separator + "test"+ f.separator+ "resources"
 				+ f.separator+ "Choix_avec_doublon.csv");
 		ParserCsvAnswer parser = new ParserCsvAnswer();
-		parser.parseAnswer(f);
+		try {
+			parser.parseAnswer(f);
+		} catch (FileFormatException e) {
+			fail("Probleme de format d'entrée");
+			e.printStackTrace();
+		}
 		List<I_Answer> answer = parser.getCleanedData();
 		System.out.println(answer);
 		assertEquals(answer.get(0).getDateSoumission(),createKeptAnswerDoublon().getDateSoumission());

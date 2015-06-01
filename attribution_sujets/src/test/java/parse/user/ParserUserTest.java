@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import models.bean.Person;
+import models.exception.fileformatexception.FileFormatException;
 import models.factory.UserFactory;
 import models.parser.helper.CsvHelper;
 import models.parser.user.ParserCsvUserList;
@@ -21,7 +22,12 @@ public class ParserUserTest extends TestCase {
 				+ f.separator + "test"+ f.separator+ "resources"
 				+ f.separator+ "liste_1eleve.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
-		parser.ParseUserList(f);
+		try {
+			parser.ParseUserList(f);
+		} catch (FileFormatException e) {
+			fail("Probléme de format du fichier d'entrée");
+			e.printStackTrace();
+		}
 		List<Person> personList = parser.getUserList();
 		Person UserOfFile = personList.get(0);
 		Person UserHeavy = createUser();
@@ -36,7 +42,12 @@ public class ParserUserTest extends TestCase {
 				+ f.separator + "test"+ f.separator+ "resources"
 				+ f.separator+ "liste_195eleves.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
-		parser.ParseUserList(f);
+		try {
+			parser.ParseUserList(f);
+		} catch (FileFormatException e) {
+			fail("Probléme de format du fichier d'entrée");
+			e.printStackTrace();
+		}
 		List<Person> personList = parser.getUserList();
 		int nbUser = personList.size();
 		assertEquals(nbUser, 195);
@@ -50,7 +61,12 @@ public class ParserUserTest extends TestCase {
 				+ f.separator + "test"+ f.separator+ "resources"
 				+ f.separator+ "liste_195eleves_plus_1doublon.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
-		parser.ParseUserList(f);
+		try {
+			parser.ParseUserList(f);
+		} catch (FileFormatException e) {
+			e.printStackTrace();
+			fail("Probléme de format du fichier d'entrée");
+		}
 		List<Person> personList = parser.getUserList();
 		int nbUser = personList.size();
 		assertEquals(nbUser, 195);

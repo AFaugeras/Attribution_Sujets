@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.bean.Subject;
+import models.exception.fileformatexception.FileFormatException;
 import models.factory.SubjectFactory;
 import models.parser.AbstractParser;
 
@@ -26,13 +27,14 @@ public class ParserCsvSubject extends AbstractParser {
 	 * Demande de Parse d'une liste CSV de Sujet avec leur paramétrage
 	 * @param sourceFile
 	 * @throws IOException
+	 * @throws FileFormatException 
 	 */
-	public void ParseSubjectList(File sourceFile) throws IOException{
+	public void ParseSubjectList(File sourceFile) throws IOException, FileFormatException{
 		List<String> datas = this.readfile(sourceFile);
-		
 		int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
 		int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse
 		String[] line = new String[datas.get(0).split(";").length]; // donne la taille max du tableau
+		checkFormat(SUBJECT, datas.get(0).split(";"));
 		// on va parcourir chaque lignes et creer un objet Subject contenant les informations adéquates
 		for (index = 1; index < size; index++) {
 			String data = datas.get(index);

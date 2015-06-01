@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import models.bean.Model;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileFormatException;
 import models.parser.subject.ParserCsvSubject;
 import models.utils.CSVXLSFileFilter;
 import views.configuration.subjects.SubjectPanel;
@@ -134,6 +135,8 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 				JOptionPane.showMessageDialog(null,
 						"Erreur à l'ouverture du fichier.", "Error",
 						JOptionPane.ERROR_MESSAGE);
+			}catch(FileFormatException eFile){
+				JOptionPane.showMessageDialog(null, eFile.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} else if (returnVal != JFileChooser.CANCEL_OPTION) {

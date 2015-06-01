@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 import models.parser.AbstractParser;
@@ -29,7 +30,7 @@ public class ParserCsvAnswer extends AbstractParser {
 	 * @param sourceFile
 	 * @throws IOException
 	 */
-	public void parseAnswer(File sourceFile) throws IOException {
+	public void parseAnswer(File sourceFile) throws IOException,FileFormatException {
 		List<String> datas = this.readfile(sourceFile); // recuperation des
 														// données sous forme
 														// tableau de string
@@ -38,7 +39,7 @@ public class ParserCsvAnswer extends AbstractParser {
 		int index; // pour se deplacer dans le tableau de données source nombre
 					// de champ maximum d'une réponse
 		String[] line = new String[datas.get(0).split("	").length]; // donne la
-																	// taille
+			checkFormat(ANSWER, datas.get(0).split("	"));	// on verifie que le format du fichier est correct												// taille
 																	// max du
 																	// tableau
 		// on va parcourir chaque lignes et creer un objet reponse contenant les
