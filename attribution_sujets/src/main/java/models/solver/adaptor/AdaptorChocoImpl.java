@@ -1,4 +1,4 @@
-package models.adaptor;
+package models.solver.adaptor;
 
 import java.util.List;
 
