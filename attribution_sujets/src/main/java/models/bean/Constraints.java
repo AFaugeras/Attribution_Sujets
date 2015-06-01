@@ -32,6 +32,9 @@ public class Constraints {
 	 */
 	private int nbReject;
 	
+	/**
+	 * Cout de repartition ordonne par choix
+	 */
 	private List<Integer> weights;
 	
 	/**
