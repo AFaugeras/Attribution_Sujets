@@ -27,9 +27,11 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
 	private Model model;
+	
 	private SubjectsConfigurationPanel view;
+	
 	private List<SubjectPanel> subjectsPanels;
-
+	
 	public SubjectsConfigurationCtrl(Model model,
 			SubjectsConfigurationPanel view) {
 		this.model = model;
@@ -101,7 +103,7 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 
 	private void addNewSubject() {
 		this.subjectsPanels.add(createSubjectPanel(generateId()));
-		repaintSubjects();
+		this.repaintSubjects();
 	}
 
 	private void deleteSubject(JButton src) {

@@ -25,56 +25,61 @@ import views.configuration.ConfigurationPanel;
 import views.processing.ProcessingPanel;
 import views.result.ResultPanel;
 import controllers.constraints.ConstraintsCtrl;
-import controllers.dataSelection.DataSelectionPanelCtrl;
+import controllers.dataselection.DataSelectionPanelCtrl;
 import controllers.subjects.SubjectsConfigurationCtrl;
 
 public class Launcher implements ActionListener {
-	
+
 	private class Worker extends SwingWorker<Boolean, Void> {
-		
+
 		private JDialog dialog;
-		
+
 		public Worker(JDialog dialog) {
 			this.dialog = dialog;
 		}
-		
+
 		@Override
 		protected Boolean doInBackground() throws Exception {
 			boolean ret = false;
 			Choco solver = new Choco();
-			
+
 			long time = System.currentTimeMillis();
-			while(System.currentTimeMillis() - time < 5000) {
-				
+			while (System.currentTimeMillis() - time < 5000) {
+
 			}
-			
-			solver.solve("./fichier.txt", "./src/test/resources/ChocoSol", Launcher.this.model);
+
+			solver.solve("./fichier.txt", "./src/test/resources/ChocoSol",
+					Launcher.this.model);
 			ret = true;
-			
+
 			return ret;
 		}
-		
+
 		@Override
 		protected void done() {
 			try {
-				if(get()) {
-					Launcher.this.view.getResultPanel().setModel(Launcher.this.model);
+				if (get()) {
+					Launcher.this.view.getResultPanel().setModel(
+							Launcher.this.model);
 					Launcher.this.view.showResultPanel();
 					this.dialog.setVisible(false);
 				}
-				
+
 				this.dialog.setVisible(false);
-				
+
 			} catch (Exception e) {
 				// TODO : Démo du 28/05/2015
-				Launcher.this.view.getResultPanel().setModel(Launcher.this.model);
+				Launcher.this.view.getResultPanel().setModel(
+						Launcher.this.model);
 				Launcher.this.view.showResultPanel();
-				this.dialog.setVisible(false);				
-				
+				this.dialog.setVisible(false);
+
 				// TODO : A décommenter.
-//				e.printStackTrace();
-//				this.dialog.setVisible(false);
-//				JOptionPane.showMessageDialog(Launcher.this.view, "Pas de solution trouvée", "Pas de solution", JOptionPane.WARNING_MESSAGE);
+				// e.printStackTrace();
+				// this.dialog.setVisible(false);
+				// JOptionPane.showMessageDialog(Launcher.this.view,
+				// "Pas de solution trouvée", "Pas de solution",
+				// JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}
@@ -127,17 +132,18 @@ public class Launcher implements ActionListener {
 
 				matcher.match();
 
-//				this.view.getResultPanel().setModel(this.model);
+				// this.view.getResultPanel().setModel(this.model);
 
 				JDialog jd = new JDialog();
 				jd.setTitle("Répartition en cours");
 				jd.getContentPane().setLayout(new GridBagLayout());
-				jd.getContentPane().add(new ProcessingPanel(), new GridBagConstraints());
+				jd.getContentPane().add(new ProcessingPanel(),
+						new GridBagConstraints());
 				jd.pack();
 				jd.setLocationRelativeTo(this.view);
 				jd.setVisible(true);
-				
-				//TODO : Démo du 28/05/2015
+
+				// TODO : Démo du 28/05/2015
 				new Worker(jd).execute();
 
 			} catch (Exception exp) {
@@ -156,13 +162,16 @@ public class Launcher implements ActionListener {
 	}
 
 	private void initializeReactions() {
+		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, 
+				this.view.getConfigurationPanel().getSubjectsPanel());
+		
 		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
 				this.view.getConfigurationPanel().getBoundConstraintsPanel(),
-				this.view.getConfigurationPanel().getCampusConstraintsPanel());
-		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, this.view
-				.getConfigurationPanel().getSubjectsPanel());
-		this.dataSelectionCtrl = new DataSelectionPanelCtrl(this.view
-				.getConfigurationPanel().getDataSelectionPanel());
+				this.view.getConfigurationPanel().getCampusConstraintsPanel(),
+				this.view.getConfigurationPanel().getWeightsConfigurationPanel());
+		
+		this.dataSelectionCtrl = new DataSelectionPanelCtrl(
+				this.view.getConfigurationPanel().getDataSelectionPanel());
 
 		this.view.getConfigurationPanel().getJbNext().addActionListener(this);
 		this.view.getResultPanel().getJbBack().addActionListener(this);
