@@ -1,5 +1,8 @@
 package models.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Contraintes globales du modeles. Ces contraintes s'appliquent donc a tous les sujets et personnes.
  */
@@ -29,6 +32,8 @@ public class Constraints {
 	 */
 	private int nbReject;
 	
+	private List<Integer> weights;
+	
 	/**
 	 * True si la correlation s'appuye sur l'id. False si celle-ci s'appuye sur le libelle
 	 */
@@ -36,11 +41,11 @@ public class Constraints {
 	
 	public Constraints(int nbMaxChoice, int nbChoice, int nbMaxReject,
 			int nbReject) {
-		super();
 		this.nbMaxChoice = nbMaxChoice;
 		this.nbChoice = nbChoice;
 		this.nbMaxReject = nbMaxReject;
 		this.nbReject = nbReject;
+		this.weights = new ArrayList<Integer>();		
 	}
 
 	public int getNbMaxChoice() {
@@ -82,10 +87,19 @@ public class Constraints {
 		this.matchSubjectOnId = matchSubjectOnId;
 	}
 
+	public List<Integer> getWeights() {
+		return weights;
+	}
+
+	public void setWeights(List<Integer> weights) {
+		this.weights = weights;
+	}
+
 	@Override
 	public String toString() {
-		return "GeneralConstraints [nbMaxChoice=" + nbMaxChoice + ", nbChoice="
+		return "Constraints [nbMaxChoice=" + nbMaxChoice + ", nbChoice="
 				+ nbChoice + ", nbMaxReject=" + nbMaxReject + ", nbReject="
-				+ nbReject + "]";
+				+ nbReject + ", weights=" + weights + ", matchSubjectOnId="
+				+ matchSubjectOnId + "]";
 	}
 }
