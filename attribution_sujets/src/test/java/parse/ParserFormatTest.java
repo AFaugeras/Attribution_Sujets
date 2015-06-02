@@ -105,7 +105,7 @@ public void testFormatPersonOK(){
 			 	"Nom",
 				"Prénom 1",
 				"Mèl (EMN)",
-				"Compte d'accès="};
+				"Compte d'accès"};
 	try {
 		AbstractParser.checkFormat(AbstractParser.PERSON, format);
 	} catch (FileFormatException e) {
@@ -123,7 +123,7 @@ public void testFormatPersonKO(){
 			 	"Nom",
 				//"Prénom 1",
 				"Mèl (EMN)",
-				"Compte d'accès="};
+				"Compte d'accès"};
 	try {
 		AbstractParser.checkFormat(AbstractParser.PERSON, format);
 	} catch (FileFormatException e) {

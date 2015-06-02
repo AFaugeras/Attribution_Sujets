@@ -39,7 +39,7 @@ public abstract class AbstractParser {
 	public static final String[] PERSONFORMAT={		"Nom",
 													"Prénom 1",
 													"Mèl (EMN)",
-													"Compte d'accès="};
+													"Compte d'accès"};
 	/**
 	 * permet de renvoyer les données d'un fichier ligne a ligne dans un tableau
 	 * de chaine de caractéres
@@ -85,6 +85,7 @@ public abstract class AbstractParser {
 			break;
 		}
 		case PERSON:{
+			
 			for (int i = 0; i < PERSONFORMAT.length; i++) {
 				if(!PERSONFORMAT[i].equals(format[i])) throw new PersonFormatException();
 			}

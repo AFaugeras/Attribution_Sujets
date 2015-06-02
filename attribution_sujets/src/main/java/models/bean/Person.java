@@ -137,4 +137,11 @@ public class Person {
 				+ ", rejects=" + rejects + ", assigned=" + assigned
 				+ ", comment=" + comment + "]";
 	}
+	
+	public boolean isThisSubjectAssigned(Subject Subject){
+		if (Subject == null) return false;
+		else if(Subject.equals(this.assigned)) return true;
+		else return false;
+		
+	}
 }

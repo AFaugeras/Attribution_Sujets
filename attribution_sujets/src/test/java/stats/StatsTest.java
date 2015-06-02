@@ -83,8 +83,6 @@ public class StatsTest extends TestCase {
 		try {
 			Model model = initModel();
 			Statistic stat = new Statistic(model);
-			System.out.println(model);
-		
 			double portionfirstChoice = 50;
 			double portionSecondChoice = 25;
 			double portionFirdChoice = 25;
