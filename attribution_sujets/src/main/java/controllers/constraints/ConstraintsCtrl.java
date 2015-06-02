@@ -78,7 +78,8 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		this.model.getWeights().clear();
 		for (WeightLine wp : weightPanels) {
-			this.model.getWeights().add((Long) wp.getJsValue().getValue());
+			System.out.println(wp.getJsValue().getValue());
+			this.model.getWeights().add(((Double) wp.getJsValue().getValue()).longValue());
 		}
 	}
 
