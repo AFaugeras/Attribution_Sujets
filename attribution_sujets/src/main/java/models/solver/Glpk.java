@@ -23,7 +23,7 @@ public class Glpk implements Solver{
 		
 		InputWriterGlpk.write(inputFilename, ag);
 			
-		String[] cmd = { "C:\\Users\\lulu2_000\\Desktop\\glpk-4.55\\w64\\glpsol", "-m", "C:\\Users\\lulu2_000\\Desktop\\intersemestre-modele.mod", "-d", inputFilename, "-w", outputFilename };
+		String[] cmd = { "C:\\Users\\lulu2_000\\Desktop\\glpk-4.55\\w64\\glpsol", "-m", "C:\\Users\\lulu2_000\\Desktop\\intersemestre-modele.mod", "-d", inputFilename, "-o", "./solution.txt", "-w", outputFilename };
 		
 		Process p;
 		try {

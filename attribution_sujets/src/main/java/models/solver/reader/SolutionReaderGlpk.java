@@ -27,6 +27,7 @@ public class SolutionReaderGlpk {
 		
 		int nbUselessLine = 3;
 		
+		int read = 0;
 		
 		try {
 			FileReader fr = new FileReader(filename);
@@ -35,29 +36,31 @@ public class SolutionReaderGlpk {
 			String line = "";
 			
 			for(int i = 0; i < nbUselessLine; i++){
+				read ++;
 				br.readLine();
 			}
 			
 			for(Person p : persons){
 				line = br.readLine();
-				
+				read ++;
 				if(Integer.parseInt(line) == 0){
 					throw new NotFoundSolutionException();
 				}
 			}
 			
-			nbUselessLine = 4 * nbSubjects + 1;
+			nbUselessLine = 5 * nbSubjects + 1;
 			
 			for(int i = 0; i < nbUselessLine; i++){
 				br.readLine();
+				read ++;
 			}
-			
-			for(Person current : persons){
-				for(Subject subj : subjects){
+
+			for(Subject currentSubj : subjects){
+				for(Person currentPers : persons){
 					line = br.readLine();
 					
 					if(Integer.parseInt(line) == 1){
-						current.setAssigned(subj);
+						currentPers.setAssigned(currentSubj);
 					}
 				}
 			}
