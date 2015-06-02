@@ -20,6 +20,7 @@ import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
 import models.solver.Choco;
+import models.solver.Glpk;
 import views.MainFrame;
 import views.configuration.ConfigurationPanel;
 import views.processing.ProcessingPanel;
@@ -41,7 +42,7 @@ public class Launcher implements ActionListener {
 		@Override
 		protected Boolean doInBackground() throws Exception {
 			boolean ret = false;
-			Choco solver = new Choco();
+			Glpk solver = new Glpk();
 
 			long time = System.currentTimeMillis();
 			while (System.currentTimeMillis() - time < 5000) {
@@ -134,17 +135,27 @@ public class Launcher implements ActionListener {
 
 				// this.view.getResultPanel().setModel(this.model);
 
-				JDialog jd = new JDialog();
-				jd.setTitle("Répartition en cours");
-				jd.getContentPane().setLayout(new GridBagLayout());
-				jd.getContentPane().add(new ProcessingPanel(),
-						new GridBagConstraints());
-				jd.pack();
-				jd.setLocationRelativeTo(this.view);
-				jd.setVisible(true);
+//				JDialog jd = new JDialog();
+//				jd.setTitle("Répartition en cours");
+//				jd.getContentPane().setLayout(new GridBagLayout());
+//				jd.getContentPane().add(new ProcessingPanel(),
+//						new GridBagConstraints());
+//				jd.pack();
+//				jd.setLocationRelativeTo(this.view);
+//				jd.setVisible(true);
+//
+//				// TODO : Démo du 28/05/2015
+//				new Worker(jd).execute();
+				
 
-				// TODO : Démo du 28/05/2015
-				new Worker(jd).execute();
+				Glpk solver = new Glpk();
+				
+				solver.solve("./fichier.txt", "./src/test/resources/ChocoSol",
+						Launcher.this.model);
+				
+				Launcher.this.view.getResultPanel().setModel(
+						Launcher.this.model);
+				Launcher.this.view.showResultPanel();
 
 			} catch (Exception exp) {
 				exp.printStackTrace();
