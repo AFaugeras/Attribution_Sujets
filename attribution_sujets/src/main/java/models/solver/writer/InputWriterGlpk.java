@@ -24,23 +24,42 @@ public class InputWriterGlpk{
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			bw.write("data;");
-			bw.newLine();
-			
-			bw.write("\n" + data.getSubjects().toString());
-			bw.write("\n" + data.getPersons().toString());
 			
 			bw.newLine();
+			bw.newLine();
 			
-			bw.write("\n" + data.getMinCardSubjects().toString());
-			bw.write("\n" + data.getMaxCardSubjects().toString());
+			bw.write(data.getSubjects().toString());
+			bw.newLine();
+			
+			bw.write(data.getPersons().toString());
+			bw.newLine();
+			bw.newLine();
 						
-			bw.write("\n" + data.getMinSizeSubjects().toString());
-			bw.write("\n" + data.getMaxSizeSubjects().toString());
-			
+			bw.write(data.getMinCardSubjects().toString());
 			bw.newLine();
 			
-			bw.write("\n" + data.getMinimumAssignedSubject().toString());
-			bw.write("\n" + data.getChoices().toString());
+			bw.write(data.getMaxCardSubjects().toString());
+			bw.newLine();
+			
+//			bw.write(data.getMultiplicity().toString());
+//			bw.newLine();
+			
+			bw.write(data.getMinSizeSubjects().toString());
+			bw.newLine();
+			
+			bw.write(data.getMaxSizeSubjects().toString());
+			bw.newLine();
+						
+			bw.write(data.getMinimumAssignedSubject().toString());
+			bw.newLine();
+			
+			bw.write(data.getChoices().toString());
+			
+			bw.newLine();
+			bw.newLine();
+			bw.newLine();
+			
+			bw.write("end;");
 			
 			bw.close();
 			fw.close();
@@ -49,5 +68,4 @@ public class InputWriterGlpk{
 			throw new WriterException("Erreur : Ecriture du fichier entree de choco");
 		}				
 	}
-
 }
