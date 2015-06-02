@@ -12,8 +12,8 @@ import javax.swing.event.ChangeListener;
 import models.bean.Constraints;
 import views.configuration.constraints.BoundsConstraintsPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
+import views.configuration.weights.WeightLine;
 import views.configuration.weights.WeightsConfigurationPanel;
-import views.configuration.weights.WeightsConfigurationPanel.WeightLine;
 
 public class ConstraintsCtrl implements ChangeListener {
 
@@ -39,25 +39,26 @@ public class ConstraintsCtrl implements ChangeListener {
 		this.weightPanels = new ArrayList<WeightLine>();
 
 		this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
-		
+
 		this.initializeReactions();
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource() == this.boundsView.getJsMaxChoice()) {
-			int tmp = (int) this.boundsView.getJsMaxChoice()
-					.getValue() - this.maxChoiceValue;
-			
-			this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
+			int tmp = (int) this.boundsView.getJsMaxChoice().getValue()
+					- this.maxChoiceValue;
+
+			this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice()
+					.getValue();
 
 			if (tmp > 0) {
-				for(int i = 0; i < tmp; i++) {
+				for (int i = 0; i < tmp; i++) {
 					this.addNewWeightPanel();
 				}
 			} else if (tmp < 0) {
 				int breakValue = this.weightPanels.size() + tmp;
-				for(int i = this.weightPanels.size() - 1; i >= breakValue; i--){
+				for (int i = this.weightPanels.size() - 1; i >= breakValue; i--) {
 					this.removeLastWeightPanel();
 				}
 			}
@@ -77,7 +78,7 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		this.model.getWeights().clear();
 		for (WeightLine wp : weightPanels) {
-			this.model.getWeights().add((Integer) wp.getJsValue().getValue());
+			this.model.getWeights().add((Long) wp.getJsValue().getValue());
 		}
 	}
 
@@ -85,19 +86,27 @@ public class ConstraintsCtrl implements ChangeListener {
 		this.boundsView.getJsMaxChoice().addChangeListener(this);
 	}
 
-	private void clearWeights() {
-		this.weightPanels.clear();
-		this.repaintWeights();
-	}
-
 	private void addNewWeightPanel() {
-		this.weightPanels.add(new WeightLine(this.weightPanels.size() + 1));
+		this.weightPanels.add(new WeightLine(this.weightPanels.size() + 1, this
+				.generateWeight()));
 		this.repaintWeights();
 	}
 
 	private void removeLastWeightPanel() {
 		this.weightPanels.remove(this.weightPanels.size() - 1);
 		this.repaintWeights();
+	}
+
+	private long generateWeight() {
+		long ret;
+		
+		if(this.weightPanels.size() == 0) {
+			ret = 1;
+		} else {
+			ret = (long) Math.exp(Math.pow(2, this.weightPanels.size()));
+		}
+		
+		return ret;
 	}
 
 	private void repaintWeights() {

@@ -35,7 +35,7 @@ public class Constraints {
 	/**
 	 * Cout de repartition ordonne par choix
 	 */
-	private List<Integer> weights;
+	private List<Long> weights;
 	
 	/**
 	 * True si la correlation s'appuye sur l'id. False si celle-ci s'appuye sur le libelle
@@ -48,7 +48,7 @@ public class Constraints {
 		this.nbChoice = nbChoice;
 		this.nbMaxReject = nbMaxReject;
 		this.nbReject = nbReject;
-		this.weights = new ArrayList<Integer>();		
+		this.weights = new ArrayList<Long>();		
 	}
 
 	public int getNbMaxChoice() {
@@ -90,11 +90,11 @@ public class Constraints {
 		this.matchSubjectOnId = matchSubjectOnId;
 	}
 
-	public List<Integer> getWeights() {
+	public List<Long> getWeights() {
 		return weights;
 	}
 
-	public void setWeights(List<Integer> weights) {
+	public void setWeights(List<Long> weights) {
 		this.weights = weights;
 	}
 

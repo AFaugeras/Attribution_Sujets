@@ -12,6 +12,7 @@ import javax.swing.JSeparator;
 import views.configuration.constraints.BoundsConstraintsPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.dataselection.DataSelectionPanel;
+import views.configuration.solver.SolverSelectionPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
 import views.configuration.weights.WeightsConfigurationPanel;
 
@@ -29,6 +30,11 @@ public class ConfigurationPanel extends JPanel {
 	 * Panel de configuration des sujets.
 	 */
 	private SubjectsConfigurationPanel subjectsPanel;
+	
+	/**
+	 * Panel de sélection du solveur.
+	 */
+	private SolverSelectionPanel solverSelectionPanel;
 
 	/**
 	 * Panel bornes min et max.
@@ -75,6 +81,19 @@ public class ConfigurationPanel extends JPanel {
 		}
 
 		return this.subjectsPanel;
+	}
+
+	/**
+	 * Accesseur de l'attribut subjectsPanel.
+	 *
+	 * @return Le panel subjectsPanel.
+	 */
+	public SolverSelectionPanel getSolverSelectionPanel() {
+		if (this.solverSelectionPanel == null) {
+			this.solverSelectionPanel = new SolverSelectionPanel();
+		}
+
+		return this.solverSelectionPanel;
 	}
 
 	/**
@@ -158,7 +177,8 @@ public class ConfigurationPanel extends JPanel {
 		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridheight = 4;
+		gbc.gridheight = 5;
+		gbc.insets.right = 9;
 		this.add(getSubjectsPanel(), gbc);
 
 		gbc.gridx = 1;
@@ -166,26 +186,30 @@ public class ConfigurationPanel extends JPanel {
 		gbc.weighty = 0;
 		gbc.gridheight = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets.right = 0;
+		this.add(getSolverSelectionPanel(), gbc);
+		
+		gbc.gridy = 1;
 		this.add(getBoundConstraintsPanel(), gbc);
 
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		this.add(getCampusConstraintsPanel(), gbc);
 
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		this.add(getDataSelectionPanel(), gbc);
 		
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(getWeightsConfigurationPanel(), gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.weighty = 0;
 		gbc.gridwidth = 2;
 		gbc.insets.top = 9;
 		this.add(new JSeparator(), gbc);
 
-		gbc.gridy = 5;
+		gbc.gridy = 6;
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.NONE;
 		this.add(getJbNext(), gbc);
