@@ -30,7 +30,7 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("set eleves :=");
 		
 		for(int i = 0; i < nbPersons; i++){
-			ret.append("\te" + i);
+			ret.append(" \te" + i);
 		}
 		
 		ret.append("\t;");
@@ -48,7 +48,7 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("set projets :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\tp" + i);
+			ret.append(" \tp" + i);
 		}
 		
 		ret.append("\t;");
@@ -66,10 +66,10 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("param nbMinGpes :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\t" + i + "\t" + subjects.get(i).getCardMin());
+			ret.append("\tp" + i + " \t" + subjects.get(i).getCardMin());
 		}
 		
-		ret.append("\t\t;");
+		ret.append("\t;");
 		
 		return ret;
 	}
@@ -84,14 +84,19 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("param nbMaxGpes :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\t" + i + "\t" + subjects.get(i).getCardMax());
+			ret.append("\tp" + i + " \t" + subjects.get(i).getCardMax());
 		}
 		
-		ret.append("\t\t;");
+		ret.append("\t;");
 		
 		return ret;
 	}
 
+	@Override
+	public StringBuilder getMultiplicity() {
+		return new StringBuilder("param tailleEquipe:=\t0\t;");
+	}
+	
 	@Override
 	public StringBuilder getMinSizeSubjects() {
 		StringBuilder ret = new StringBuilder();
@@ -102,10 +107,10 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("param nMin :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\t" + i + "\t" + subjects.get(i).getMinSize());
+			ret.append("\tp" + i + " \t" + subjects.get(i).getMinSize());
 		}
 		
-		ret.append("\t\t;");
+		ret.append("\t;");
 		
 		return ret;
 	}
@@ -120,10 +125,10 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("param nMax :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\t" + i + "\t" + subjects.get(i).getMaxSize());
+			ret.append("\tp" + i + " \t" + subjects.get(i).getMaxSize());
 		}
 		
-		ret.append("\t\t;");
+		ret.append("\t;");
 		
 		return ret;
 	}
@@ -147,16 +152,46 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		
 		List<Subject> subjects = this.data.getSubjects();
 		int nbSubjects = subjects.size();
+		List<Person> persons = this.data.getPersons();
+		int nbPersons = persons.size();
+		List<Long> costs = data.getConstraint().getWeights();
+		Subject current = null;
+		List<Subject> choices = null;
 		
-		ret.append("param c :=");
+		ret.append("param c :");
 		
-		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\t" + i + "\t" + subjects.get(i).getMaxSize());
+		for(int i = 0; i < nbPersons; i++){
+			ret.append("\te" + i);
 		}
 		
-		ret.append("\t\t;");
+		ret.append("\t\t:=");
+				
+		for(int i = 0; i < nbSubjects; i++){
+			current = subjects.get(i);
+			
+			ret.append("\n\tp" + i);
+			
+			for(Person p : persons){
+				ret.append("\t");
+				
+				choices = p.getChoices();
+				
+				long defaultCost = costs.get(choices.size());
+				int rang = p.getChoices().indexOf(current) + 1;
+				
+				if(rang == 0){
+					ret.append(defaultCost);
+				}
+				else{
+					ret.append(costs.get(rang));
+				}
+			}
+			
+			ret.append("\t\t");
+		}
+		
+		ret.append("\n\t;");
 		
 		return ret;
 	}
-
 }

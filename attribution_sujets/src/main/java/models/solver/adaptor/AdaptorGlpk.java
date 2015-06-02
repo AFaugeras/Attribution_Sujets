@@ -32,6 +32,12 @@ public interface AdaptorGlpk extends Adaptor{
 	public StringBuilder getMaxCardSubjects();
 	
 	/**
+	 * Accesseur de la multiplicite des groupes. Ceci est un parametre global
+	 * @return Chaines de caractere representant la multiplicité des effectifs reel des groupes.
+	 */
+	public StringBuilder getMultiplicity();
+	
+	/**
 	 * Accesseur des bornes inferieures des effectifs des sujets.
 	 * @return Chaines de caractere representant les bornes inferieures des effectifs.
 	 */
