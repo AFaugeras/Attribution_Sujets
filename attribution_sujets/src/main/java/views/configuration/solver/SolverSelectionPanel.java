@@ -15,9 +15,12 @@ import javax.swing.border.TitledBorder;
 public class SolverSelectionPanel extends JPanel {
 
 	// Constantes :
+	public static final String CHOCO_SOLVER = "Choco";
+	public static final String GLPK_SOLVER = "GLPK";
+	
 	private static final long serialVersionUID = 1L;
 
-	private static final String[] SOLVER_NAMES = { "Choco", "GLPK" };
+	private static final String[] SOLVER_NAMES = { CHOCO_SOLVER, GLPK_SOLVER };
 
 	private JComboBox<String> jcbSolvers;
 

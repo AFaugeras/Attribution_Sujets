@@ -30,8 +30,9 @@ public class BeanMatcher {
 	
 	/**
 	 * methode mettant a jour la liste des choix et des rejets 
+	 * @throws NoUserFoundedException 
 	 */
-	public void match() throws Exception{
+	public void match() throws NoDefineSubjectException, NoUserFoundedException {
 		// on met les reponses dans les case choice ou rejet selon le parametrage
 		for (I_Answer answer : answerList) {
 			List<String> subject = answer.getChoix();// liste des sujets choisis par un utilisateur.
