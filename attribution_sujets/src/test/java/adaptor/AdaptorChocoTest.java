@@ -1,10 +1,8 @@
 package adaptor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
+import junit.framework.TestCase;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
@@ -14,7 +12,7 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AdaptorChocoTest {
+public class AdaptorChocoTest extends TestCase{
 
 	private Model modelMock;
 	

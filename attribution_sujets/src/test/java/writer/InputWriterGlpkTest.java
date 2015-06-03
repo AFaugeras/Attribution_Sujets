@@ -41,7 +41,7 @@ public class InputWriterGlpkTest {
 	public void setUp() throws Exception{	
 		Model data = this.generateModel();
 		
-		List<Long> costs = new ArrayList();
+		List<Long> costs = new ArrayList<Long>();
 		
 		costs.add(1L);
 		costs.add(5L);
@@ -92,14 +92,14 @@ public class InputWriterGlpkTest {
 		
 		File f = new File("");
 		f = CsvHelper.getRessource(f.getAbsolutePath()  + File.separator + "src"
-				+ File.separator + "main"+ File.separator+ "resources" + File.separator + "data"
-				+ File.separator + "save" + File.separator+ "Choix_des_sujets_2015.csv");
+				+ File.separator + "test"+ File.separator+ "resources" + File.separator + "data"
+				+ File.separator+ "Choix_des_sujets_2015.csv");
 		ParserCsvAnswer answer = new ParserCsvAnswer();
 		answer.parseAnswer(f);
 		
 		File g = new File("");
 		g = CsvHelper.getRessource(g.getAbsolutePath() + File.separator + "src"
-				+ File.separator + "main"+ File.separator+ "resources" + File.separator+ "data"
+				+ File.separator + "test"+ File.separator+ "resources" + File.separator+ "data"
 				+ File.separator+ "liste_sujet.csv");
 		ParserCsvSubject subject = new ParserCsvSubject();
 		subject.ParseSubjectList(g);
@@ -107,8 +107,8 @@ public class InputWriterGlpkTest {
 		
 		File h = new File("");
 		h = CsvHelper.getRessource(h.getAbsolutePath() + File.separator + "src"
-				+ File.separator + "main"+ File.separator+ "resources" + File.separator+ "data"
-				+ File.separator + "save" + File.separator+ "liste_eleves.csv");
+				+ File.separator + "test"+ File.separator+ "resources" + File.separator+ "data"
+				+ File.separator+ "liste_eleves.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		parser.ParseUserList(h);
 		
