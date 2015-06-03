@@ -1,11 +1,10 @@
 package writer;
 
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +19,8 @@ import models.parser.answer.ParserCsvAnswer;
 import models.parser.helper.CsvHelper;
 import models.parser.subject.ParserCsvSubject;
 import models.parser.user.ParserCsvUserList;
-import models.solver.Glpk;
 import models.solver.adaptor.AdaptorGlpk;
 import models.solver.adaptor.AdaptorGlpkImpl;
-import models.solver.reader.NotFoundSolutionException;
-import models.solver.reader.ReaderException;
-import models.solver.reader.SolutionReaderChoco;
-import models.solver.writer.InputWriterChoco;
 import models.solver.writer.InputWriterGlpk;
 import models.solver.writer.WriterException;
 
@@ -55,7 +49,6 @@ public class InputWriterGlpkTest {
 		
 		data.getConstraint().setWeights(costs);
 		
-		System.out.println(data.getPersons().get(19).getChoices().size());
 		this.adaptorGlpk = new AdaptorGlpkImpl(data);
 		
 		assertNotNull("Erreur lors de la preparation", this.adaptorGlpk);

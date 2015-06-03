@@ -1,6 +1,6 @@
 package reader;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,12 +17,10 @@ import models.parser.answer.ParserCsvAnswer;
 import models.parser.helper.CsvHelper;
 import models.parser.subject.ParserCsvSubject;
 import models.parser.user.ParserCsvUserList;
-import models.solver.adaptor.AdaptorChocoImpl;
 import models.solver.reader.NotFoundSolutionException;
 import models.solver.reader.ReaderException;
 import models.solver.reader.SolutionReaderChoco;
 
-import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,16 +44,7 @@ public class SolutionReaderChocoTest {
 			List<Person> persons = data.getPersons();
 			List<Subject> subjects = data.getSubjects();
 		
-			SolutionReaderChoco.read(path, data);		
-			
-			System.out.println("-------Sujets-------");
-			for (int i = 0; i < subjects.size(); i++) {
-				System.out.println(i + " : " + subjects.get(i).getId() + " : " + subjects.get(i).getLabel());
-			}
-			System.out.println("-------Attribution-------");
-			for (Person p : persons) {
-				System.out.println(p.getAssigned().getId());
-			}
+			SolutionReaderChoco.read(path, data);
 
 		}
 		catch(IOException e){

@@ -1,24 +1,17 @@
 package parse.subject;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import javax.security.auth.login.FailedLoginException;
 
 import junit.framework.TestCase;
 import models.bean.Subject;
 import models.exception.fileformatexception.FileFormatException;
 import models.factory.SubjectFactory;
-import models.interfaces.I_Answer;
-import models.parser.answer.ParserCsvAnswer;
 import models.parser.helper.CsvHelper;
 import models.parser.subject.ParserCsvSubject;
 
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
 
 public class ParserCsvSubjectTest extends TestCase {
 
@@ -32,8 +25,6 @@ public class ParserCsvSubjectTest extends TestCase {
 		try {
 			parser.ParseSubjectList(f);
 		} catch (FileFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			fail("Probléme de format");
 		}
 		List<Subject> subject = parser.getSubjectList();
