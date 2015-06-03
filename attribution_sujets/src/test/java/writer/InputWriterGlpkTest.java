@@ -68,19 +68,6 @@ public class InputWriterGlpkTest {
 		try{
 			InputWriterGlpk.write(this.path, this.adaptorGlpk);
 			
-			String[] cmd = { "C:\\Users\\lulu2_000\\Desktop\\glpk-4.55\\w64\\glpsol", "-m", "C:\\Users\\lulu2_000\\Desktop\\intersemestre-modele.mod", "-d", "C:\\Users\\lulu2_000\\Desktop\\inputGlpk.txt", "-o", "C:\\Users\\lulu2_000\\Desktop\\test5.txt", "-w", "C:\\Users\\lulu2_000\\Desktop\\test6.txt" };
-			
-			//glpk-4.55/w64/glpsol.exe -m ipipip-modele-binomes.mod -d inputGlpk.txt -o test.txt -w test2.txt
-			Process p = Runtime.getRuntime().exec(cmd);
-			p.waitFor();
-			
-			System.out.println(p.exitValue());
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		catch(IOException e){
-			fail(e.getMessage());
 		}
 		catch(WriterException e){
 			fail("Echec ecriture");
