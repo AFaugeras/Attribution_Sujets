@@ -1,6 +1,5 @@
 package models.solver;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -19,9 +18,6 @@ public class Glpk implements Solver{
 	@Override
 	public Model solve(String inputFilename, String outputFilename, Model data)
 			throws WriterException, ReaderException, NotFoundSolutionException {
-
-		//TODO Supprimer cette contrainte forcee
-		data.getConstraint().getWeights().add(1000000L);
 		
 		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
 		
