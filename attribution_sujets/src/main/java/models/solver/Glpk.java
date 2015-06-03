@@ -1,6 +1,8 @@
 package models.solver;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import models.bean.Model;
 import models.solver.adaptor.AdaptorGlpk;
@@ -11,19 +13,23 @@ import models.solver.reader.SolutionReaderGlpk;
 import models.solver.writer.InputWriterGlpk;
 import models.solver.writer.WriterException;
 
-public class Glpk implements Solver{
 
+public class Glpk implements Solver{
+	
 	@Override
 	public Model solve(String inputFilename, String outputFilename, Model data)
 			throws WriterException, ReaderException, NotFoundSolutionException {
 
 		//TODO Supprimer cette contrainte forcee
 		data.getConstraint().getWeights().add(1000000L);
+		
 		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
 		
 		InputWriterGlpk.write(inputFilename, ag);
-			
-		String[] cmd = { "C:\\Users\\lulu2_000\\Desktop\\glpk-4.55\\w64\\glpsol", "-m", "C:\\Users\\lulu2_000\\Desktop\\intersemestre-modele.mod", "-d", inputFilename, "-o", "./solution.txt", "-w", outputFilename };
+		
+		URL modelFile = this.getClass().getClassLoader().getResource("glpk/intersemestre-modele.mod");
+	
+		String[] cmd = {"cmd", "/c", "glpsol", "-m", modelFile.getPath().substring(1), "-d", inputFilename, "-w", outputFilename };
 		
 		Process p;
 		try {
@@ -34,7 +40,6 @@ public class Glpk implements Solver{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		
 		SolutionReaderGlpk.read(outputFilename, data);
 		

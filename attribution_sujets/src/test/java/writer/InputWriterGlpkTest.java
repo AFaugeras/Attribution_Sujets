@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import models.parser.answer.ParserCsvAnswer;
 import models.parser.helper.CsvHelper;
 import models.parser.subject.ParserCsvSubject;
 import models.parser.user.ParserCsvUserList;
+import models.solver.Glpk;
 import models.solver.adaptor.AdaptorGlpk;
 import models.solver.adaptor.AdaptorGlpkImpl;
 import models.solver.reader.NotFoundSolutionException;
@@ -63,7 +65,7 @@ public class InputWriterGlpkTest {
 	}
 	
 	@Test
-	public void testGetNbPersons() throws FileFormatException 
+	public void testwrite() throws FileFormatException 
 	{
 		try{
 			InputWriterGlpk.write(this.path, this.adaptorGlpk);
