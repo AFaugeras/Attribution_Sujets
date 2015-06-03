@@ -193,6 +193,8 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		subjectPanel.getJbDelete().addActionListener(this);
 		subjectPanel.getJbDelete().setActionCommand(
 				SubjectPanel.JB_DELETE_ACTION);
+		
+//		subjectPanel.getJsMinSize().addChangeListener(listener);
 
 		return subjectPanel;
 	}

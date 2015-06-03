@@ -8,14 +8,14 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-public class WeightLine extends JPanel {
+public class WeightPanel extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
 		private JLabel jlLabel;
 		private JSpinner jsValue;
 
-		public WeightLine() {
+		public WeightPanel() {
 			super();
 
 			this.jlLabel = new JLabel();
@@ -33,10 +33,10 @@ public class WeightLine extends JPanel {
 			return jsValue;
 		}
 
-		public WeightLine(int index, long value) {
+		public WeightPanel(int index, long value) {
 			super();
 
-			this.jlLabel = new JLabel("Choix " + index + " : ");
+			this.jlLabel = new JLabel("Poid " + index + " : ");
 			this.jsValue = new JSpinner(new SpinnerNumberModel(value, 0,
 					Long.MAX_VALUE, 1));
 

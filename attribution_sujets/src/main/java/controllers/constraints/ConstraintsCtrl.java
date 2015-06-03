@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 import models.bean.Constraints;
 import views.configuration.constraints.BoundsConstraintsPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
-import views.configuration.weights.WeightLine;
+import views.configuration.weights.WeightPanel;
 import views.configuration.weights.WeightsConfigurationPanel;
 
 public class ConstraintsCtrl implements ChangeListener {
@@ -23,7 +23,7 @@ public class ConstraintsCtrl implements ChangeListener {
 	private CampusConstraintsPanel campusView;
 	private WeightsConfigurationPanel weightsView;
 
-	private List<WeightLine> weightPanels;
+	private List<WeightPanel> weightPanels;
 
 	private int maxChoiceValue;
 
@@ -36,11 +36,13 @@ public class ConstraintsCtrl implements ChangeListener {
 		this.campusView = campusView;
 		this.weightsView = weightsView;
 
-		this.weightPanels = new ArrayList<WeightLine>();
+		this.weightPanels = new ArrayList<WeightPanel>();
 
 		this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
 
 		this.initializeReactions();
+		
+		this.addNewWeightPanel();
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class ConstraintsCtrl implements ChangeListener {
 				.setNbReject((int) this.campusView.getJsNbReject().getValue());
 
 		this.model.getWeights().clear();
-		for (WeightLine wp : weightPanels) {
+		for (WeightPanel wp : weightPanels) {
 			System.out.println(wp.getJsValue().getValue());
 			this.model.getWeights().add(((Double) wp.getJsValue().getValue()).longValue());
 		}
@@ -88,7 +90,7 @@ public class ConstraintsCtrl implements ChangeListener {
 	}
 
 	private void addNewWeightPanel() {
-		this.weightPanels.add(new WeightLine(this.weightPanels.size() + 1, this
+		this.weightPanels.add(new WeightPanel(this.weightPanels.size() + 1, this
 				.generateWeight()));
 		this.repaintWeights();
 	}
