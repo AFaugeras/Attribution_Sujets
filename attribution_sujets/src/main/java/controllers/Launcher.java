@@ -1,16 +1,12 @@
 package controllers;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
 import models.bean.Constraints;
@@ -23,11 +19,11 @@ import models.exception.fileformatexception.FileFormatException;
 import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
-import models.solver.Choco;
-import models.solver.Glpk;
+import models.solver.reader.NotFoundSolutionException;
+import models.solver.reader.ReaderException;
+import models.solver.writer.WriterException;
 import views.MainFrame;
 import views.configuration.ConfigurationPanel;
-import views.processing.ProcessingPanel;
 import views.result.ResultPanel;
 import controllers.constraints.ConstraintsCtrl;
 import controllers.dataselection.DataSelectionPanelCtrl;
@@ -85,37 +81,23 @@ public class Launcher implements ActionListener {
 
 					matcher.match();
 					
+					this.solverCtrl.getSelectedSolver().solve("input.txt", "output.txt", this.model);
+					
 				} catch (IOException e) {
 					displayErrorMessage("Erreur à la lecture du fichier.");
 				} catch (FileFormatException e) {
+					displayErrorMessage("Erreur CSV :\n" + e.getMessage());
 				} catch (NoDefineSubjectException e) {
+					displayErrorMessage("Un ou plusieurs sujets ne sont pas définis :\n" + e.getMessage());
 				} catch (NoUserFoundedException e) {
+					displayErrorMessage(/*"L'utilisateur " + */e.getMessage()/* + " n'est pas présent dans le fichier d'élèves."*/);
+				} catch (WriterException e) {
+					displayErrorMessage("Erreur lors de la génération du fichier d'entrée.");
+				} catch (ReaderException e) {
+					displayErrorMessage("Erreur lors de la lecture du fichier solution.");
+				} catch (NotFoundSolutionException e) {
+					displayErrorMessage("Aucune solution trouvée.");
 				}
-
-				// this.view.getResultPanel().setModel(this.model);
-
-//				JDialog jd = new JDialog();
-//				jd.setTitle("Répartition en cours");
-//				jd.getContentPane().setLayout(new GridBagLayout());
-//				jd.getContentPane().add(new ProcessingPanel(),
-//						new GridBagConstraints());
-//				jd.pack();
-//				jd.setLocationRelativeTo(this.view);
-//				jd.setVisible(true);
-//
-//				// TODO : Démo du 28/05/2015
-//				new Worker(jd).execute();
-				
-
-//				Glpk solver = new Glpk();
-//				
-//				solver.solve("./fichier.txt", "./src/test/resources/ChocoSol",
-//						Launcher.this.model);
-//				
-//				Launcher.this.view.getResultPanel().setModel(
-//						Launcher.this.model);
-//				Launcher.this.view.showResultPanel();
-
 		}
 	}
 
