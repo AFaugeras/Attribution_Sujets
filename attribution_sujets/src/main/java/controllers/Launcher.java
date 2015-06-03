@@ -83,6 +83,9 @@ public class Launcher implements ActionListener {
 					
 					this.solverCtrl.getSelectedSolver().solve("input.txt", "output.txt", this.model);
 					
+					this.view.getResultPanel().setModel(this.model);
+					this.view.showResultPanel();
+					
 				} catch (IOException e) {
 					displayErrorMessage("Erreur à la lecture du fichier.");
 				} catch (FileFormatException e) {
