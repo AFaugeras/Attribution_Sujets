@@ -33,13 +33,13 @@ public class ParserCsvSubject extends AbstractParser {
 		List<String> datas = this.readfile(sourceFile);
 		int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
 		int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse
-		String[] line = new String[datas.get(0).split(";").length]; // donne la taille max du tableau
-		checkFormat(SUBJECT, datas.get(0).split(";"));
+		String[] line = new String[datas.get(0).split(SUBJECTSPLIT).length]; // donne la taille max du tableau
+		checkFormat(SUBJECT, datas.get(0).split(SUBJECTSPLIT));
 		// on va parcourir chaque lignes et creer un objet Subject contenant les informations adéquates
 		for (index = 1; index < size; index++) {
 			String data = datas.get(index);
-			line = data.split(";");
-			Subject subject = SubjectFactory.createSubject(line, index);// on creer un objet Subject
+			line = data.split(SUBJECTSPLIT);
+			Subject subject = SubjectFactory.createSubject(line, Integer.valueOf(line[0]));// on creer un objet Subject
 			subjectList.add(subject); 
 		}
 	}

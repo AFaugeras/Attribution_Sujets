@@ -1,5 +1,10 @@
 package models.bean;
 
+import java.sql.Savepoint;
+import java.util.List;
+
+import models.parser.AbstractParser;
+
 /**
  * Sujet propose aux participants.
  */
@@ -48,14 +53,13 @@ public class Subject {
 		this.label = "";
 	}
 
-	public Subject(int id, String label, int maxSize, int minSize,
-			int multiple, int cardMin, int cardMax) {
+	public Subject(int id, String label, int minSize, int maxSize, 
+			 int cardMin, int cardMax) {
 		super();
 		this.id = id;
 		this.label = label;
 		this.maxSize = maxSize;
 		this.minSize = minSize;
-		this.multiple = multiple;
 		this.cardMin = cardMin;
 		this.cardMax = cardMax;
 	}
@@ -121,5 +125,26 @@ public class Subject {
 		return "Subject [id=" + id + ", label=" + label + ", maxSize="
 				+ maxSize + ", minSize=" + minSize + ", multiple=" + multiple
 				+ ", cardMin=" + cardMin + ", cardMax=" + cardMax + "]";
+	}
+	public String save(){
+		String split=AbstractParser.SUBJECTSPLIT;
+		return this.getId()+split+this.getLabel()+split+getMinSize()+split+getMaxSize()+split+getCardMin()+split+getCardMax();
+	}
+	public static String save(List<Subject> list){
+		String retour="";
+		int i = 0;
+		for (String column : AbstractParser.SUBJECTFORMAT) {
+			retour+=column;
+			if(i<AbstractParser.SUBJECTFORMAT.length-1)
+				retour+=AbstractParser.SUBJECTSPLIT;
+			
+		}
+		retour+="\n";
+		for (Subject subject : list) {
+			retour+=subject.save()+"\n";
+		}
+		
+		
+		return retour;
 	}
 }

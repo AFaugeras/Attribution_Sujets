@@ -66,7 +66,7 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 					Integer.parseInt(sp.getJtfID().getText()), sp
 							.getJtfSubjectLabel().getText(), (int) sp
 							.getJsMaxSize().getValue(), (int) sp.getJsMinSize()
-							.getValue(), 0, (int) sp.getJsMinCard().getValue(),
+							.getValue(), (int) sp.getJsMinCard().getValue(),
 					(int) sp.getJsMaxCard().getValue());
 			this.model.add(tmp);
 		}
