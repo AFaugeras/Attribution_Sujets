@@ -58,9 +58,9 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		
 		for(int i = 0; i < subjects.size(); i++){
 			current = subjects.get(i);
-			ret.append(current.getCardMin());
+			ret.append(current.getMinCard());
 			ret.append("\t");
-			ret.append(current.getCardMax());
+			ret.append(current.getMaxCard());
 			ret.append("\n");
 		}
 		ret.deleteCharAt(ret.length()-1);
