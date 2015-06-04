@@ -1,7 +1,7 @@
-NomSujet;maxSize;minSize;multiple;cardMin;cardMax
-Poker;2;2;2;2;2
-Android Remote Admin;;2;;;
-Space landing;;;;;
-Ruzzle;;;;;
-Circulation;;;;;
-Baby sitting;;;;;
+id;NomSujet;minSize;maxSize;cardMin;cardMax
+1;Poker;2;2;2;2
+2;Android Remote Admin;;2;;
+3;Space landing;;;;
+4;Ruzzle;;;;
+5;Circulation;;;;
+6;Baby sitting;;;;

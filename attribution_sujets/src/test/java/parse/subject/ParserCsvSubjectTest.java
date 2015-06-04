@@ -35,15 +35,35 @@ public class ParserCsvSubjectTest extends TestCase {
 		assertEquals(subject.get(0).getMinSize(),heavySubject.getMinSize());
 		assertEquals(subject.get(0).getCardMax(),heavySubject.getCardMax());
 		assertEquals(subject.get(0).getCardMin(),heavySubject.getCardMin());
-		assertEquals(subject.get(0).getMultiple(),heavySubject.getMultiple());
+		
 		
 		
 	}
 	
 	
 	private Subject createSubject(){
-		String[] data = {"Poker","2","2","2","2","2"};
-		return SubjectFactory.createSubject(data, 1);
+		String[] data = {"1","Poker","2","2","2","2","2"};
+		return SubjectFactory.createSubject(data, Integer.valueOf(data[0]));
+		
+	}
+	
+	@Test
+	public void testParseCsvSubjectWithParametrageSave() throws IOException{
+		File f = new File("");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
+				+ f.separator + "test"+ f.separator+ "resources"
+				+ f.separator+ "liste_sujet.csv");
+		ParserCsvSubject parser = new ParserCsvSubject();
+		try {
+			parser.ParseSubjectList(f);
+		} catch (FileFormatException e) {
+			fail("Probléme de format");
+		}
+		List<Subject> subject = parser.getSubjectList();
+		Subject heavySubject = createSubject();
+		System.out.println(Subject.save(subject));
+		
+		
 		
 	}
 }

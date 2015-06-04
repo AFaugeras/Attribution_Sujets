@@ -17,6 +17,10 @@ import models.exception.fileformatexception.SubjectFormatException;
  *
  */
 public abstract class AbstractParser {
+	public static final String ANSWERSPLIT ="\t";
+	public static final String SUBJECTSPLIT =";";
+	public static final String PERSONSPLIT ="\t";
+	
 	public static final String ANSWER =  "Answer";
 	public static final String SUBJECT = "Subject";
 	public static final String PERSON =  "Person";
@@ -29,10 +33,10 @@ public abstract class AbstractParser {
 												"ID",	
 												"Nom complet",
 												"Nom d'utilisateur"};
-	public static final String[] SUBJECTFORMAT={	"NomSujet",
-													"maxSize",
+	public static final String[] SUBJECTFORMAT={	"id",
+													"NomSujet",
 													"minSize",
-													"multiple",
+													"maxSize",
 													"cardMin",
 													"cardMax"};
 	
@@ -94,4 +98,5 @@ public abstract class AbstractParser {
 		}
 		
 	}
+
 }
