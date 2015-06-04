@@ -33,8 +33,8 @@ public class ParserCsvSubjectTest extends TestCase {
 		assertEquals(subject.get(0).getLabel(),heavySubject.getLabel());
 		assertEquals(subject.get(0).getMaxSize(),heavySubject.getMaxSize());
 		assertEquals(subject.get(0).getMinSize(),heavySubject.getMinSize());
-		assertEquals(subject.get(0).getCardMax(),heavySubject.getCardMax());
-		assertEquals(subject.get(0).getCardMin(),heavySubject.getCardMin());
+		assertEquals(subject.get(0).getMaxCard(),heavySubject.getMaxCard());
+		assertEquals(subject.get(0).getMinCard(),heavySubject.getMinCard());
 		
 		
 		

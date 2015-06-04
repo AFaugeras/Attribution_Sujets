@@ -3,16 +3,11 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import models.bean.Constraints;
 import models.bean.Model;
-import models.bean.Person;
-import models.bean.Subject;
 import models.exception.NoDefineSubjectException;
 import models.exception.NoUserFoundedException;
 import models.exception.fileformatexception.FileFormatException;
@@ -163,12 +158,6 @@ public class Launcher implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		Constraints gc = new Constraints(0, 0, 0, 0);
-		List<Subject> subjects = new ArrayList<Subject>();
-		List<Person> persons = new ArrayList<Person>();
-		Model mockModel = new Model(gc, persons, subjects);
-
-		new Launcher(mockModel, new MainFrame());
+		new Launcher(new Model(), new MainFrame());
 	}
 }

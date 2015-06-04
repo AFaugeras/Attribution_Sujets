@@ -62,12 +62,15 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		this.model.getSubjects().clear();
 
 		for (SubjectPanel sp : this.subjectsPanels) {
-			Subject tmp = new Subject(
-					Integer.parseInt(sp.getJtfID().getText()), sp
-							.getJtfSubjectLabel().getText(), (int) sp
-							.getJsMaxSize().getValue(), (int) sp.getJsMinSize()
-							.getValue(), (int) sp.getJsMinCard().getValue(),
-					(int) sp.getJsMaxCard().getValue());
+			int id = Integer.parseInt(sp.getJtfID().getText());
+			String label = sp.getJtfSubjectLabel().getText();
+			int minSize = (int) sp.getJsMinSize().getValue();
+			int maxSize = (int) sp.getJsMaxSize().getValue();
+			int minCard = (int) sp.getJsMinCard().getValue();
+			int maxCard = (int) sp.getJsMaxCard().getValue();
+			
+			Subject tmp = new Subject(id, label, minSize, maxSize, minCard, maxCard);
+			
 			this.model.add(tmp);
 		}
 		// } else {
@@ -152,9 +155,8 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		ret.getJtfSubjectLabel().setText(model.getLabel());
 		ret.getJsMaxSize().setValue(model.getMaxSize());
 		ret.getJsMinSize().setValue(model.getMinSize());
-		ret.getJsMaxCard().setValue(model.getCardMax());
-		ret.getJsMinCard().setValue(model.getCardMin());
-//		ret.getJsMultiplicity().setValue(model.getMultiple());
+		ret.getJsMaxCard().setValue(model.getMaxCard());
+		ret.getJsMinCard().setValue(model.getMinCard());
 
 		return ret;
 	}
