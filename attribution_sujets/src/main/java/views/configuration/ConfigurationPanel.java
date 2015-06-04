@@ -190,13 +190,13 @@ public class ConfigurationPanel extends JPanel {
 		this.add(getSolverSelectionPanel(), gbc);
 		
 		gbc.gridy = 1;
-		this.add(getBoundConstraintsPanel(), gbc);
-
-		gbc.gridy = 2;
 		this.add(getCampusConstraintsPanel(), gbc);
 
-		gbc.gridy = 3;
+		gbc.gridy = 2;
 		this.add(getDataSelectionPanel(), gbc);
+
+		gbc.gridy = 3;
+		this.add(getBoundConstraintsPanel(), gbc);
 		
 		gbc.gridy = 4;
 		gbc.fill = GridBagConstraints.BOTH;

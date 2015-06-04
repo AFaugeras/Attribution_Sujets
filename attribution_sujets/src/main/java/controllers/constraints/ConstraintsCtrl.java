@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -40,51 +42,60 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
 
-		this.initializeReactions();
-		
 		this.addNewWeightPanel();
+		
+		this.initializeReactions();
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		if (e.getSource() == this.boundsView.getJsMaxChoice()) {
-			int tmp = (int) this.boundsView.getJsMaxChoice().getValue()
-					- this.maxChoiceValue;
+		JSpinner src = (JSpinner) e.getSource();
+		
+		if(src == this.campusView.getJsNbChoice()){
+			((SpinnerNumberModel) this.boundsView.getJsMaxChoice().getModel()).setMaximum((int) src.getValue());
+		}
+		else if(src == this.campusView.getJsNbReject()){
+			((SpinnerNumberModel) this.boundsView.getJsMaxReject().getModel()).setMaximum((int) src.getValue());
+		}
+		else if (src == this.boundsView.getJsMaxChoice()) {
+			manageWeights();
+		}
+	}
 
-			this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice()
-					.getValue();
+	private void manageWeights() {
+		int tmp = (int) this.boundsView.getJsMaxChoice().getValue() - this.maxChoiceValue;
 
-			if (tmp > 0) {
-				for (int i = 0; i < tmp; i++) {
-					this.addNewWeightPanel();
-				}
-			} else if (tmp < 0) {
-				int breakValue = this.weightPanels.size() + tmp;
-				for (int i = this.weightPanels.size() - 1; i >= breakValue; i--) {
-					this.removeLastWeightPanel();
-				}
+		this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
+
+		if (tmp > 0) {
+			for (int i = 0; i < tmp; i++) {
+				this.addNewWeightPanel();
+			}
+		} else if (tmp < 0) {
+			int breakValue = this.weightPanels.size() + tmp;
+			for (int i = this.weightPanels.size() - 1; i >= breakValue; i--) {
+				this.removeLastWeightPanel();
 			}
 		}
 	}
 
 	public void saveToModel() {
-		this.model.setNbMaxChoice((int) this.boundsView.getJsMaxChoice()
-				.getValue());
-		this.model.setNbMaxReject((int) this.boundsView.getJsMaxReject()
-				.getValue());
+		this.model.setNbMaxChoice((int) this.boundsView.getJsMaxChoice().getValue());
+		this.model.setNbMaxReject((int) this.boundsView.getJsMaxReject().getValue());
 
-		this.model
-				.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
-		this.model
-				.setNbReject((int) this.campusView.getJsNbReject().getValue());
+		this.model.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
+		this.model.setNbReject((int) this.campusView.getJsNbReject().getValue());
 
 		this.model.getWeights().clear();
+		
 		for (WeightPanel wp : weightPanels) {
 			this.model.getWeights().add(((Double) wp.getJsValue().getValue()).longValue());
 		}
 	}
 
 	private void initializeReactions() {
+		this.campusView.getJsNbChoice().addChangeListener(this);
+		this.campusView.getJsNbReject().addChangeListener(this);
 		this.boundsView.getJsMaxChoice().addChangeListener(this);
 	}
 

@@ -66,8 +66,7 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 					Integer.parseInt(sp.getJtfID().getText()), sp
 							.getJtfSubjectLabel().getText(), (int) sp
 							.getJsMaxSize().getValue(), (int) sp.getJsMinSize()
-							.getValue(), (int) sp.getJsMultiplicity()
-							.getValue(), (int) sp.getJsMinCard().getValue(),
+							.getValue(), 0, (int) sp.getJsMinCard().getValue(),
 					(int) sp.getJsMaxCard().getValue());
 			this.model.add(tmp);
 		}
@@ -155,7 +154,7 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		ret.getJsMinSize().setValue(model.getMinSize());
 		ret.getJsMaxCard().setValue(model.getCardMax());
 		ret.getJsMinCard().setValue(model.getCardMin());
-		ret.getJsMultiplicity().setValue(model.getMultiple());
+//		ret.getJsMultiplicity().setValue(model.getMultiple());
 
 		return ret;
 	}
@@ -193,6 +192,8 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		subjectPanel.getJbDelete().addActionListener(this);
 		subjectPanel.getJbDelete().setActionCommand(
 				SubjectPanel.JB_DELETE_ACTION);
+		
+		new SubjectPanelCtrl(subjectPanel);
 		
 //		subjectPanel.getJsMinSize().addChangeListener(listener);
 
