@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 
+import views.configuration.IntegerTextField;
+
 /**
  * Ce widget permet de représenter un sujet.
  */

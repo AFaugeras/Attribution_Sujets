@@ -85,6 +85,8 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		this.model.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
 		this.model.setNbReject((int) this.campusView.getJsNbReject().getValue());
+		
+		this.model.setMultiplicity(Integer.parseInt(this.boundsView.getJtfMultiplicity().getText()));
 
 		this.model.getWeights().clear();
 		
