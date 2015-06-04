@@ -66,7 +66,7 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("param nbMinGpes :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\tp" + i + " \t" + subjects.get(i).getCardMin());
+			ret.append("\tp" + i + " \t" + subjects.get(i).getMinCard());
 		}
 		
 		ret.append("\t;");
@@ -84,7 +84,7 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		ret.append("param nbMaxGpes :=");
 		
 		for(int i = 0; i < nbSubjects; i++){
-			ret.append("\tp" + i + " \t" + subjects.get(i).getCardMax());
+			ret.append("\tp" + i + " \t" + subjects.get(i).getMaxCard());
 		}
 		
 		ret.append("\t;");

@@ -58,9 +58,9 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		
 		for(int i = 0; i < subjects.size(); i++){
 			current = subjects.get(i);
-			ret.append(current.getCardMin());
+			ret.append(current.getMinCard());
 			ret.append("\t");
-			ret.append(current.getCardMax());
+			ret.append(current.getMaxCard());
 			ret.append("\n");
 		}
 		ret.deleteCharAt(ret.length()-1);
@@ -77,22 +77,14 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	public StringBuilder getRepartitionCost(){
 		StringBuilder ret = new StringBuilder();
 		
-		ret.append(7);
-		ret.append("\t");
-		ret.append(1);
-		ret.append("\t");
-		ret.append(5);
-		ret.append("\t");
-		ret.append(25);
-		ret.append("\t");
-		ret.append(1000);
-		ret.append("\t");
-		ret.append(20000);
-		ret.append("\t");
-		ret.append(150000);
-		ret.append("\t");
-		ret.append(1200000);
-
+		List<Long> costs = this.data.getConstraint().getWeights();
+		ret.append(costs.size());
+		
+		for(Long cost : costs){
+			ret.append("\t");
+			ret.append(cost);
+		}
+		
 		return ret;
 	}
 	

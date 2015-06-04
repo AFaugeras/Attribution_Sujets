@@ -1,8 +1,10 @@
 package adaptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
+import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
@@ -18,6 +20,7 @@ public class AdaptorChocoTest extends TestCase{
 	
 	private AdaptorChocoImpl ac;
 
+	@Override
 	@Before
 	public void setUp() throws Exception{
 		this.modelMock = EasyMock.createMock(Model.class);
@@ -103,13 +106,13 @@ public class AdaptorChocoTest extends TestCase{
 		
 		EasyMock.expect(listMock.size()).andReturn(2);	
 		EasyMock.expect(listMock.get(0)).andReturn(subj);
-		EasyMock.expect(subj.getCardMin()).andReturn(0);
-		EasyMock.expect(subj.getCardMax()).andReturn(2);
+		EasyMock.expect(subj.getMinCard()).andReturn(0);
+		EasyMock.expect(subj.getMaxCard()).andReturn(2);
 		
 		EasyMock.expect(listMock.size()).andReturn(2);
 		EasyMock.expect(listMock.get(1)).andReturn(subj);
-		EasyMock.expect(subj.getCardMin()).andReturn(1);
-		EasyMock.expect(subj.getCardMax()).andReturn(2);
+		EasyMock.expect(subj.getMinCard()).andReturn(1);
+		EasyMock.expect(subj.getMaxCard()).andReturn(2);
 		
 		EasyMock.expect(listMock.size()).andReturn(2);
 		
@@ -133,7 +136,19 @@ public class AdaptorChocoTest extends TestCase{
 	@Test
 	public void testGetRepartitionCost()
 	{
-		assertEquals(this.ac.getRepartitionCost().toString(), new StringBuilder("7\t1\t5\t25\t1000\t20000\t150000\t1200000").toString());
+		Constraints consMock = EasyMock.createMock(Constraints.class);
+		List<Long> costs = new ArrayList<Long>();
+		costs.add(1L);
+		costs.add(5L);
+		costs.add(25L);
+		
+		EasyMock.expect(this.modelMock.getConstraint()).andReturn(consMock);
+		EasyMock.expect(consMock.getWeights()).andReturn(costs);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(consMock);
+		
+		assertEquals(this.ac.getRepartitionCost().toString(), new StringBuilder("3\t1\t5\t25").toString());
 	}
 	
 	@Test

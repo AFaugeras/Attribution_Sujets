@@ -1,6 +1,4 @@
 package models.factory;
-import javax.xml.crypto.Data;
-
 import models.bean.Subject;
 
 public class SubjectFactory {
@@ -15,15 +13,20 @@ public class SubjectFactory {
 	public static Subject createSubject(String[] data, int id){
 		 Subject subject= new Subject();
 		 subject.setId(id);
+		 
 		 int i=1;
 		 subject.setLabel(data[i++]) ;// obligatoire
-		if(notNull(data, i)) subject.setMinSize(Integer.valueOf(data[i]));else subject.setMinSize(0);
-		i++;
-		if(notNull(data, i))subject.setMaxSize(Integer.valueOf(data[i]));else subject.setMaxSize(0) ;
-		i++;
-		if(notNull(data, i)) subject.setCardMin(Integer.valueOf(data[i]));else subject.setCardMin(0);
-		i++;
-		if(notNull(data, i)) subject.setCardMax(Integer.valueOf(data[i]));else subject.setCardMax(0);
+		 
+		 if(notNull(data, i)) subject.setMinSize(Integer.valueOf(data[i]));else subject.setMinSize(0);
+		 
+		 i++;
+		 if(notNull(data, i))subject.setMaxSize(Integer.valueOf(data[i]));else subject.setMaxSize(0) ;
+		 
+		 i++;
+		 if(notNull(data, i)) subject.setMinCard(Integer.valueOf(data[i]));else subject.setMinCard(0);
+		 
+		 i++;
+		 if(notNull(data, i)) subject.setMaxCard(Integer.valueOf(data[i]));else subject.setMaxCard(0);
 		 
 		 return subject;
 		
