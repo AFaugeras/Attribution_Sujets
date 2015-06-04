@@ -20,7 +20,6 @@ public class AdaptorChocoTest extends TestCase{
 	
 	private AdaptorChocoImpl ac;
 
-	@Override
 	@Before
 	public void setUp() throws Exception{
 		this.modelMock = EasyMock.createMock(Model.class);
@@ -106,13 +105,13 @@ public class AdaptorChocoTest extends TestCase{
 		
 		EasyMock.expect(listMock.size()).andReturn(2);	
 		EasyMock.expect(listMock.get(0)).andReturn(subj);
-//		EasyMock.expect(subj.getCardMin()).andReturn(0);
-//		EasyMock.expect(subj.getCardMax()).andReturn(2);
-//		
-//		EasyMock.expect(listMock.size()).andReturn(2);
-//		EasyMock.expect(listMock.get(1)).andReturn(subj);
-//		EasyMock.expect(subj.getCardMin()).andReturn(1);
-//		EasyMock.expect(subj.getCardMax()).andReturn(2);
+		EasyMock.expect(subj.getCardMin()).andReturn(0);
+		EasyMock.expect(subj.getCardMax()).andReturn(2);
+		
+		EasyMock.expect(listMock.size()).andReturn(2);
+		EasyMock.expect(listMock.get(1)).andReturn(subj);
+		EasyMock.expect(subj.getCardMin()).andReturn(1);
+		EasyMock.expect(subj.getCardMax()).andReturn(2);
 		
 		EasyMock.expect(listMock.size()).andReturn(2);
 		
