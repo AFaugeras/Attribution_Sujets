@@ -1,5 +1,6 @@
 package models.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class Model {
 	
 	//TODO A deplacer dans le package controller
 	public static String fileChoserPath = "";
+	
+	public Model() {
+		this.constraint = new Constraints(0, 0, 0, 0, 0);
+		this.persons = new ArrayList<Person>();
+		this.subjects = new ArrayList<Subject>();
+	}
 
 	public Model(Constraints constraint, List<Person> persons,
 			List<Subject> subjects) {
