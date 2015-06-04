@@ -1,4 +1,4 @@
-package models.adaptor;
+package models.solver.adaptor;
 
 /**
  * Adaptateur pour le solveur Choco.

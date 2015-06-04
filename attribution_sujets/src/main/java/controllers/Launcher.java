@@ -1,87 +1,41 @@
 package controllers;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.exception.NoDefineSubjectException;
+import models.exception.NoUserFoundedException;
+import models.exception.fileformatexception.FileFormatException;
 import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
-import models.solver.Choco;
+import models.solver.reader.NotFoundSolutionException;
+import models.solver.reader.ReaderException;
+import models.solver.writer.WriterException;
 import views.MainFrame;
 import views.configuration.ConfigurationPanel;
-import views.processing.ProcessingPanel;
 import views.result.ResultPanel;
 import controllers.constraints.ConstraintsCtrl;
-import controllers.dataSelection.DataSelectionPanelCtrl;
+import controllers.dataselection.DataSelectionPanelCtrl;
+import controllers.solver.SolverSelectionPanelCtrl;
 import controllers.subjects.SubjectsConfigurationCtrl;
 
 public class Launcher implements ActionListener {
-	
-	private class Worker extends SwingWorker<Boolean, Void> {
-		
-		private JDialog dialog;
-		
-		public Worker(JDialog dialog) {
-			this.dialog = dialog;
-		}
-		
-		@Override
-		protected Boolean doInBackground() throws Exception {
-			boolean ret = false;
-			Choco solver = new Choco();
-			
-			long time = System.currentTimeMillis();
-			while(System.currentTimeMillis() - time < 5000) {
-				
-			}
-			
-			solver.solve("./fichier.txt", "./src/test/resources/ChocoSol", Launcher.this.model);
-			ret = true;
-			
-			return ret;
-		}
-		
-		@Override
-		protected void done() {
-			try {
-				if(get()) {
-					Launcher.this.view.getResultPanel().setModel(Launcher.this.model);
-					Launcher.this.view.showResultPanel();
-					this.dialog.setVisible(false);
-				}
-				
-				this.dialog.setVisible(false);
-				
-			} catch (Exception e) {
-				// TODO : Démo du 28/05/2015
-				Launcher.this.view.getResultPanel().setModel(Launcher.this.model);
-				Launcher.this.view.showResultPanel();
-				this.dialog.setVisible(false);				
-				
-				// TODO : A décommenter.
-//				e.printStackTrace();
-//				this.dialog.setVisible(false);
-//				JOptionPane.showMessageDialog(Launcher.this.view, "Pas de solution trouvée", "Pas de solution", JOptionPane.WARNING_MESSAGE);
-			}
-		}
-	}
 
 	private Model model;
 	private MainFrame view;
 
+	private SolverSelectionPanelCtrl solverCtrl;
 	private ConstraintsCtrl constraintsCtrl;
 	private SubjectsConfigurationCtrl subjectsCtrl;
 	private DataSelectionPanelCtrl dataSelectionCtrl;
@@ -113,41 +67,40 @@ public class Launcher implements ActionListener {
 			ParserCsvUserList parserPerson = new ParserCsvUserList();
 			BeanMatcher matcher;
 
-			try {
-				parserAwnser
-						.parseAnswer(this.dataSelectionCtrl.getCampusFile());
-				parserPerson.ParseUserList(this.dataSelectionCtrl
-						.getPersonsFile());
+			
+				try {
+					parserAwnser.parseAnswer(this.dataSelectionCtrl.getCampusFile());
+					parserPerson.ParseUserList(this.dataSelectionCtrl.getPersonsFile());
 
-				this.model.setPersons(parserPerson.getUserList());
+					matcher = new BeanMatcher(parserPerson.getUserList(),
+							parserAwnser.getCleanedData(),
+							this.model.getSubjects(),
+							this.model.getConstraint());
+					
+					this.model.setPersons(parserPerson.getUserList());
 
-				matcher = new BeanMatcher(parserPerson.getUserList(),
-						parserAwnser.getCleanedData(),
-						this.model.getSubjects(), this.model.getConstraint());
-
-				matcher.match();
-
-//				this.view.getResultPanel().setModel(this.model);
-
-				JDialog jd = new JDialog();
-				jd.setTitle("Répartition en cours");
-				jd.getContentPane().setLayout(new GridBagLayout());
-				jd.getContentPane().add(new ProcessingPanel(), new GridBagConstraints());
-				jd.pack();
-				jd.setLocationRelativeTo(this.view);
-				jd.setVisible(true);
-				
-				//TODO : Démo du 28/05/2015
-				new Worker(jd).execute();
-
-			} catch (Exception exp) {
-				exp.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						"erreur : " + exp.getMessage(), "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-
-			System.out.println(this.model);
+					matcher.match();
+					
+					this.solverCtrl.getSelectedSolver().solve("input.txt", "output.txt", this.model);
+					
+					this.view.getResultPanel().setModel(this.model);
+					this.view.showResultPanel();
+					
+				} catch (IOException e) {
+					displayErrorMessage("Erreur à la lecture du fichier.");
+				} catch (FileFormatException e) {
+					displayErrorMessage("Erreur CSV :\n" + e.getMessage());
+				} catch (NoDefineSubjectException e) {
+					displayErrorMessage("Un ou plusieurs sujets ne sont pas définis :\n" + e.getMessage());
+				} catch (NoUserFoundedException e) {
+					displayErrorMessage(/*"L'utilisateur " + */e.getMessage()/* + " n'est pas présent dans le fichier d'élèves."*/);
+				} catch (WriterException e) {
+					displayErrorMessage("Erreur lors de la génération du fichier d'entrée.");
+				} catch (ReaderException e) {
+					displayErrorMessage("Erreur lors de la lecture du fichier solution.");
+				} catch (NotFoundSolutionException e) {
+					displayErrorMessage("Aucune solution trouvée.");
+				}
 		}
 	}
 
@@ -156,13 +109,18 @@ public class Launcher implements ActionListener {
 	}
 
 	private void initializeReactions() {
+		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, 
+				this.view.getConfigurationPanel().getSubjectsPanel());
+		
+		this.solverCtrl = new SolverSelectionPanelCtrl(this.view.getConfigurationPanel().getSolverSelectionPanel());
+		
 		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
 				this.view.getConfigurationPanel().getBoundConstraintsPanel(),
-				this.view.getConfigurationPanel().getCampusConstraintsPanel());
-		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, this.view
-				.getConfigurationPanel().getSubjectsPanel());
-		this.dataSelectionCtrl = new DataSelectionPanelCtrl(this.view
-				.getConfigurationPanel().getDataSelectionPanel());
+				this.view.getConfigurationPanel().getCampusConstraintsPanel(),
+				this.view.getConfigurationPanel().getWeightsConfigurationPanel());
+		
+		this.dataSelectionCtrl = new DataSelectionPanelCtrl(
+				this.view.getConfigurationPanel().getDataSelectionPanel());
 
 		this.view.getConfigurationPanel().getJbNext().addActionListener(this);
 		this.view.getResultPanel().getJbBack().addActionListener(this);
@@ -193,6 +151,10 @@ public class Launcher implements ActionListener {
 		}
 
 		return ret;
+	}
+	
+	private void displayErrorMessage(String message) {
+		JOptionPane.showMessageDialog(this.view, message, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
 
 	public static void main(String[] args) {

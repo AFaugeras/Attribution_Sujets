@@ -12,7 +12,9 @@ import javax.swing.JSeparator;
 import views.configuration.constraints.BoundsConstraintsPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.dataselection.DataSelectionPanel;
+import views.configuration.solver.SolverSelectionPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
+import views.configuration.weights.WeightsConfigurationPanel;
 
 /**
  * Panel de configuration.
@@ -28,6 +30,11 @@ public class ConfigurationPanel extends JPanel {
 	 * Panel de configuration des sujets.
 	 */
 	private SubjectsConfigurationPanel subjectsPanel;
+	
+	/**
+	 * Panel de sélection du solveur.
+	 */
+	private SolverSelectionPanel solverSelectionPanel;
 
 	/**
 	 * Panel bornes min et max.
@@ -43,6 +50,11 @@ public class ConfigurationPanel extends JPanel {
 	 * Panel de selection du fichier campus et de la liste de personnes.
 	 */
 	private DataSelectionPanel dataSelectionPanel;
+	
+	/**
+	 * Panel de configuration des poids.
+	 */
+	private WeightsConfigurationPanel weightsConfigurationPanel;
 
 	/**
 	 * Bouton suivant.
@@ -69,6 +81,19 @@ public class ConfigurationPanel extends JPanel {
 		}
 
 		return this.subjectsPanel;
+	}
+
+	/**
+	 * Accesseur de l'attribut subjectsPanel.
+	 *
+	 * @return Le panel subjectsPanel.
+	 */
+	public SolverSelectionPanel getSolverSelectionPanel() {
+		if (this.solverSelectionPanel == null) {
+			this.solverSelectionPanel = new SolverSelectionPanel();
+		}
+
+		return this.solverSelectionPanel;
 	}
 
 	/**
@@ -111,6 +136,19 @@ public class ConfigurationPanel extends JPanel {
 	}
 
 	/**
+	 * Accesseur de l'attribut weightsConfigurationPanel.
+	 *
+	 * @return Le panel weightsConfigurationPanel.
+	 */
+	public WeightsConfigurationPanel getWeightsConfigurationPanel() {
+		if (this.weightsConfigurationPanel == null) {
+			this.weightsConfigurationPanel = new WeightsConfigurationPanel();
+		}
+
+		return this.weightsConfigurationPanel;
+	}
+
+	/**
 	 * Accesseur de l'attribut jbNext.
 	 *
 	 * @return Le JButton jbNext.
@@ -139,7 +177,8 @@ public class ConfigurationPanel extends JPanel {
 		gbc.weighty = 1;
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridheight = 4;
+		gbc.gridheight = 5;
+		gbc.insets.right = 9;
 		this.add(getSubjectsPanel(), gbc);
 
 		gbc.gridx = 1;
@@ -147,8 +186,9 @@ public class ConfigurationPanel extends JPanel {
 		gbc.weighty = 0;
 		gbc.gridheight = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(getBoundConstraintsPanel(), gbc);
-
+		gbc.insets.right = 0;
+		this.add(getSolverSelectionPanel(), gbc);
+		
 		gbc.gridy = 1;
 		this.add(getCampusConstraintsPanel(), gbc);
 
@@ -156,17 +196,20 @@ public class ConfigurationPanel extends JPanel {
 		this.add(getDataSelectionPanel(), gbc);
 
 		gbc.gridy = 3;
+		this.add(getBoundConstraintsPanel(), gbc);
+		
+		gbc.gridy = 4;
 		gbc.fill = GridBagConstraints.BOTH;
-		this.add(new JPanel(), gbc);
+		this.add(getWeightsConfigurationPanel(), gbc);
 
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.weighty = 0;
 		gbc.gridwidth = 2;
 		gbc.insets.top = 9;
 		this.add(new JSeparator(), gbc);
 
-		gbc.gridy = 5;
+		gbc.gridy = 6;
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.NONE;
 		this.add(getJbNext(), gbc);

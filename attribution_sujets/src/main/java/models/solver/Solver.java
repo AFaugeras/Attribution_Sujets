@@ -1,9 +1,9 @@
 package models.solver;
 
 import models.bean.Model;
-import models.reader.NotFoundSolutionException;
-import models.reader.ReaderException;
-import models.writer.WriterException;
+import models.solver.reader.NotFoundSolutionException;
+import models.solver.reader.ReaderException;
+import models.solver.writer.WriterException;
 
 /**
  * Interface d'un solver. Celui-ci est capable de resoudre le probleme d'attribution de sujet.

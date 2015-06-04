@@ -1,10 +1,10 @@
-package models.writer;
+package models.solver.writer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import models.adaptor.AdaptorChoco;
+import models.solver.adaptor.AdaptorChoco;
 
 /**
  * Classe d'ecriture du fichier d'entree du Solver Choco.

@@ -30,8 +30,9 @@ public class BeanMatcher {
 	
 	/**
 	 * methode mettant a jour la liste des choix et des rejets 
+	 * @throws NoUserFoundedException 
 	 */
-	public void match() throws Exception{
+	public void match() throws NoDefineSubjectException, NoUserFoundedException {
 		// on met les reponses dans les case choice ou rejet selon le parametrage
 		for (I_Answer answer : answerList) {
 			List<String> subject = answer.getChoix();// liste des sujets choisis par un utilisateur.
@@ -51,7 +52,7 @@ public class BeanMatcher {
 				}
 			}else{
 				int i=0;
-				for(i=i ;i<constraint.getNbChoice() && i < subject.size();i++){// on enregistre les choix dans le choix de l'objet person
+				for(i=i ;i < constraint.getNbMaxChoice() && i < subject.size();i++){// on enregistre les choix dans le choix de l'objet person
 				if (!subject.get(i).isEmpty())	person.getChoices().add(getSubjectbyLabel(subject.get(i)));
 
 				}// puis les rejets
@@ -77,7 +78,6 @@ public class BeanMatcher {
 			if(subject.getLabel().equals(label))
 				return subject;
 		}
-		System.out.println(label);
 		throw new NoDefineSubjectException();
 	}
 	

@@ -6,10 +6,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -89,7 +91,9 @@ public class DataSelectionPanel extends JPanel {
 	 */
 	public JButton getJbCampusFile() {
 		if (this.jbCampusFile == null) {
-			this.jbCampusFile = new JButton("...");
+			this.jbCampusFile = new JButton(new ImageIcon(this.getClass()
+					.getClassLoader()
+					.getResource("ihm/img/import_mini.png")));
 			this.jbCampusFile.setActionCommand(JB_CAMPUS_SELECTION);
 		}
 
@@ -103,7 +107,9 @@ public class DataSelectionPanel extends JPanel {
 	 */
 	public JButton getJbPersonsFile() {
 		if (this.jbPersonsFile == null) {
-			this.jbPersonsFile = new JButton("...");
+			this.jbPersonsFile = new JButton(new ImageIcon(this.getClass()
+					.getClassLoader()
+					.getResource("ihm/img/import_mini.png")));
 			this.jbPersonsFile.setActionCommand(JB_PERSON_SELECTION);
 		}
 
@@ -119,6 +125,7 @@ public class DataSelectionPanel extends JPanel {
 		TitledBorder border = BorderFactory.createTitledBorder("Données");
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
+		border.setBorder(new LineBorder(Color.BLACK));
 		this.setBorder(border);
 
 		JLabel jlCampusFile = new JLabel("Fichier campus :");
@@ -137,18 +144,22 @@ public class DataSelectionPanel extends JPanel {
 
 		gbc.gridy = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets.right = 3;
 		this.add(getJtfCampusFile(), gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 0;
+		gbc.insets.right = 0;
 		this.add(getJbCampusFile(), gbc);
 
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets.right = 3;
 		this.add(getJtfPersonsFile(), gbc);
 
 		gbc.gridx = 1;
+		gbc.insets.right = 0;
 		this.add(getJbPersonsFile(), gbc);
 
 		gbc.gridy = 4;

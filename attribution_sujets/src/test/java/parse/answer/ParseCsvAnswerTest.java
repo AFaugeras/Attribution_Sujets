@@ -29,7 +29,6 @@ public class ParseCsvAnswerTest extends TestCase {
 			e.printStackTrace();
 		}
 		List<I_Answer> answer = parser.getCleanedData();
-		System.out.println(answer);
 		assertEquals(answer.get(0).getDateSoumission(),createKeptAnswerDoublon().getDateSoumission());
 		assertEquals(answer.get(0).getIdRepondant(), createKeptAnswerDoublon().getIdRepondant());
 	}

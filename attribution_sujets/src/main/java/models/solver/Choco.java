@@ -1,15 +1,15 @@
 package models.solver;
 
-import java.io.File;
-
-import models.adaptor.AdaptorChoco;
-import models.adaptor.AdaptorChocoImpl;
+import resolution.Ipipip;
 import models.bean.Model;
-import models.reader.NotFoundSolutionException;
-import models.reader.ReaderException;
-import models.reader.SolutionReaderChoco;
-import models.writer.InputWriterChoco;
-import models.writer.WriterException;
+import models.solver.adaptor.AdaptorChoco;
+import models.solver.adaptor.AdaptorChocoImpl;
+import models.solver.reader.NotFoundSolutionException;
+import models.solver.reader.ReaderException;
+import models.solver.reader.SolutionReaderChoco;
+import models.solver.writer.InputWriterChoco;
+import models.solver.writer.WriterException;
+
 
 /**
  * Classe d'implementation de resolution via le solveur Choco.
@@ -25,7 +25,7 @@ public class Choco implements Solver {
 		String[] args = new String[2];
 		args[0] = inputFilename;
 		args[1] = outputFilename;
-//		Ipipip.main(args);
+		Ipipip.main(args);
 		
 		SolutionReaderChoco.read(outputFilename, data);
 		

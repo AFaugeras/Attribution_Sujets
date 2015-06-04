@@ -1,20 +1,20 @@
 package adaptor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import java.util.ArrayList;
 import java.util.List;
 
-import models.adaptor.AdaptorChocoImpl;
+import junit.framework.TestCase;
+import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.solver.adaptor.AdaptorChocoImpl;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AdaptorChocoTest {
+public class AdaptorChocoTest extends TestCase{
 
 	private Model modelMock;
 	
@@ -135,7 +135,19 @@ public class AdaptorChocoTest {
 	@Test
 	public void testGetRepartitionCost()
 	{
-		assertEquals(this.ac.getRepartitionCost().toString(), new StringBuilder("7\t1\t5\t25\t1000\t20000\t150000\t1200000").toString());
+		Constraints consMock = EasyMock.createMock(Constraints.class);
+		List<Long> costs = new ArrayList<Long>();
+		costs.add(1L);
+		costs.add(5L);
+		costs.add(25L);
+		
+		EasyMock.expect(this.modelMock.getConstraint()).andReturn(consMock);
+		EasyMock.expect(consMock.getWeights()).andReturn(costs);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(consMock);
+		
+		assertEquals(this.ac.getRepartitionCost().toString(), new StringBuilder("3\t1\t5\t25").toString());
 	}
 	
 	@Test

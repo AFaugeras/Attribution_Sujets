@@ -1,5 +1,6 @@
 package views.configuration.constraints;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -76,6 +78,7 @@ public class BoundsConstraintsPanel extends JPanel {
 				.createTitledBorder("Choix pris en compte");
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
+		border.setBorder(new LineBorder(Color.BLACK));
 		this.setBorder(border);
 
 		JLabel jlMaxChoices = new JLabel("Nombre de choix maximum : ");
@@ -96,6 +99,7 @@ public class BoundsConstraintsPanel extends JPanel {
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.weightx = 1;
+		gbc.insets.bottom = 3;
 		this.add(getJsMaxChoice(), gbc);
 
 		gbc.gridy = 1;

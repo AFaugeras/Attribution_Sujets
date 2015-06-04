@@ -38,15 +38,15 @@ public class ParserCsvAnswer extends AbstractParser {
 									// fichier
 		int index; // pour se deplacer dans le tableau de données source nombre
 					// de champ maximum d'une réponse
-		String[] line = new String[datas.get(0).split("	").length]; // donne la
-			checkFormat(ANSWER, datas.get(0).split("	"));	// on verifie que le format du fichier est correct												// taille
+		String[] line = new String[datas.get(0).split(ANSWERSPLIT).length]; // donne la
+			checkFormat(ANSWER, datas.get(0).split(ANSWERSPLIT));	// on verifie que le format du fichier est correct												// taille
 																	// max du
 																	// tableau
 		// on va parcourir chaque lignes et creer un objet reponse contenant les
 		// informations adéquates
 		for (index = 1; index < size; index++) {
 			String data = datas.get(index);
-			line = data.split("	");
+			line = data.split(ANSWERSPLIT);
 			I_Answer response = AnswerFactory.createAnswer(line);// on creer un
 																	// objet
 																	// reponse

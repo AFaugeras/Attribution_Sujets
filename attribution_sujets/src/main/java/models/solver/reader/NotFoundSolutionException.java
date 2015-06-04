@@ -1,4 +1,4 @@
-package models.reader;
+package models.solver.reader;
 
 /**
  * Exception pour signifier l'impossibilite pour le solver de déterminer une solution

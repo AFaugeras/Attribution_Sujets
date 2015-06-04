@@ -191,13 +191,13 @@ public class ResultPanel extends JPanel {
 
 		ArrayList<Subject> subjects = new ArrayList<Subject>();
 
-		Subject subject1 = new Subject(1, "Stark", 0, 0, 0, 0, 0);
+		Subject subject1 = new Subject(1, "Stark", 0, 0,  0, 0);
 		subjects.add(subject1);
-		Subject subject2 = new Subject(2, "Lannister", 0, 0, 0, 0, 0);
+		Subject subject2 = new Subject(2, "Lannister", 0, 0,  0, 0);
 		subjects.add(subject2);
-		Subject subject3 = new Subject(3, "Baratheon", 0, 0, 0, 0, 0);
+		Subject subject3 = new Subject(3, "Baratheon", 0, 0,  0, 0);
 		subjects.add(subject3);
-		Subject subject4 = new Subject(4, "Targaryen", 0, 0, 0, 0, 0);
+		Subject subject4 = new Subject(4, "Targaryen", 0, 0,  0, 0);
 		subjects.add(subject4);
 
 		ArrayList<Person> people = new ArrayList<Person>();

@@ -82,10 +82,10 @@ public class ParserFormatTest extends TestCase{
 	@Test
 	public void testFormatSubjectOK(){
 		boolean failed=false;
-		 String[] format ={	"NomSujet",
-					"maxSize",
+		 String[] format ={	"id","NomSujet",
 					"minSize",
-					"multiple",
+					"maxSize",
+					
 					"cardMin",
 					"cardMax"};
 		try {
@@ -105,7 +105,7 @@ public void testFormatPersonOK(){
 			 	"Nom",
 				"Prénom 1",
 				"Mèl (EMN)",
-				"Compte d'accès="};
+				"Compte d'accès"};
 	try {
 		AbstractParser.checkFormat(AbstractParser.PERSON, format);
 	} catch (FileFormatException e) {
@@ -123,7 +123,7 @@ public void testFormatPersonKO(){
 			 	"Nom",
 				//"Prénom 1",
 				"Mèl (EMN)",
-				"Compte d'accès="};
+				"Compte d'accès"};
 	try {
 		AbstractParser.checkFormat(AbstractParser.PERSON, format);
 	} catch (FileFormatException e) {

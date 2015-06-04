@@ -28,7 +28,13 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/lib/Choco.jar</systemPath>
 		</dependency>
-
+	
+		<dependency>
+			<groupId>org.choco-solver</groupId>
+			<artifactId>choco-solver</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+	    
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import models.bean.Answer;
 import models.bean.Constraints;
 import models.bean.Person;
 import models.bean.Subject;
@@ -106,8 +105,6 @@ public class BeanMatcherTest extends TestCase{
 		try {
 			parser.parseAnswer(f);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 			fail();
 		}catch(FileFormatException e2){
 			fail("Probléme de format du fichier d'entrée");

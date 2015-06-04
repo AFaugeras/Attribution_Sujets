@@ -33,12 +33,12 @@ public class ParserCsvUserList extends AbstractParser {
 		
 		int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
 		int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse
-		String[] line = new String[datas.get(0).split("	").length]; // donne la taille max du tableau
-		checkFormat(PERSON, datas.get(0).split("	"));
+		String[] line = new String[datas.get(0).split(PERSONSPLIT).length]; // donne la taille max du tableau
+		checkFormat(PERSON, datas.get(0).split(PERSONSPLIT));
 		// on va parcourir chaque lignes et creer un objet Person contenant les informations adéquates
 		for (index = 1; index < size; index++) {
 			String data = datas.get(index);
-			line = data.split("	");
+			line = data.split(PERSONSPLIT);
 			Person person = UserFactory.createUser(line);// on creer un objet User
 			UserList.add(person); 
 		}
@@ -59,7 +59,5 @@ public class ParserCsvUserList extends AbstractParser {
 	public int getNbUser(){
 		return UserList.size();
 	}
-	
-	
 	
 }

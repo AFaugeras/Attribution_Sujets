@@ -1,4 +1,4 @@
-package models.adaptor;
+package models.solver.adaptor;
 
 /**
  * Interface permettant d'adapter notre model de donnees (classe Model) au modele des solvers d'attribution de sujets.

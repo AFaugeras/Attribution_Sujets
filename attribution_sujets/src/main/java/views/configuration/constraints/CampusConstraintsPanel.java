@@ -1,5 +1,6 @@
 package views.configuration.constraints;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -77,6 +79,7 @@ public class CampusConstraintsPanel extends JPanel {
 				.createTitledBorder("Configuration campus");
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
+		border.setBorder(new LineBorder(Color.BLACK));
 		this.setBorder(border);
 
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -94,6 +97,7 @@ public class CampusConstraintsPanel extends JPanel {
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.weightx = 1;
+		gbc.insets.bottom = 3;
 		this.add(getJsNbChoice(), gbc);
 
 		gbc.gridy = 1;

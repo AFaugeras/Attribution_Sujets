@@ -1,9 +1,9 @@
-package models.reader;
+package models.solver.writer;
 
 /**
- * Exception permettant de signifier une erreur lors de la lecture de solutions des solveurs Choco ou GLPK
+ * Exception permettant de signifier une erreur lors de l'ecriture de fichiers d'entree pour Choco ou GLPK.
  */
-public class ReaderException extends Exception{
+public class WriterException extends Exception {
 
 	/**
 	 * Message precisant l'erreur
@@ -20,7 +20,7 @@ public class ReaderException extends Exception{
 	 * Constructeur
 	 * @param message erreur
 	 */
-	public ReaderException(String message){
+	public WriterException(String message){
 		this.message = message;
 	}
 }
