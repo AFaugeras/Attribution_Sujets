@@ -74,7 +74,7 @@ public class MainFrame extends JFrame {
 	 */
 	public ResultPanel getResultPanel() {
 		if (this.resultPanel == null) {
-			this.resultPanel = new ResultPanel(null);
+			this.resultPanel = new ResultPanel();
 		}
 
 		return this.resultPanel;

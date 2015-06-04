@@ -5,26 +5,17 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -33,8 +24,7 @@ import javax.swing.text.JTextComponent;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
-
-import com.itextpdf.text.DocumentException;
+import controllers.result.ResultConfigurationCtrl;
 
 /**
  * 
@@ -50,7 +40,7 @@ public class ResultPanel extends JPanel {
 	/**
 	 * Notre modèle de données
 	 */
-	private Model model;
+	private ResultConfigurationCtrl controller;
 	/**
 	 * La Jtable contenant l'affchage des résultats
 	 */
@@ -64,46 +54,14 @@ public class ResultPanel extends JPanel {
 	private JButton jbExportPdf;
 	private JButton jbBack;
 
-	/**
-	 * La liste des entrées du tableau
-	 */
-	private String[] entete = { "Prénom", "Nom", "Identifiant Campus",
-			"Identifiant sujet", "Sujet", "Commentaires" };
-	/**
-	 * Les colonnes qui ne seront pas éditables
-	 */
-	private ArrayList<Integer> disabledCols = new ArrayList<Integer>();
-	/**
-	 * L'index de la colonne contenant les identifiants des sujets
-	 */
-	private Integer subjectIdColNumber = 3;
-	/**
-	 * L'index de la colonne contenant les libellés des sujets
-	 */
-	private Integer subjectLabelColNumber = 4;
 
-	/**
-	 * Le tableau des résultats
-	 */
-	private Object[][] donnees;
-
-	/**
-	 * @param model
-	 *            notre modèle de données contenant le résultat du solveur
-	 */
-	public ResultPanel(Model model) {
-		setModel(model);
+	public ResultPanel() {
+		super();
 	}
-
+	
 	public void setModel(Model model) {
-		this.model = model;
-		if (model != null) {
-			disabledCols.add(0);
-			disabledCols.add(1);
-			disabledCols.add(2);
-			disabledCols.add(4);
-			initializeView();
-		}
+		controller = new ResultConfigurationCtrl(model, this);
+		this.initializeView();
 	}
 
 	public JButton getJbBack() {
@@ -158,52 +116,28 @@ public class ResultPanel extends JPanel {
 	}
 
 	/**
-	 * @return le bouton d'export PDF
+	 * @return le bouton d'export CSV
 	 */
-	private JButton getJbExportPdf() {
+	public JButton getJbExportCsv() {
 		if (jbExportCsv == null) {
-			jbExportCsv = new JButton("Export PDF", new ImageIcon(this
+			jbExportCsv = new JButton("Export CSV", new ImageIcon(this
 					.getClass().getClassLoader()
-					.getResource("ihm/img/export_pdf.png")));
+					.getResource("ihm/img/export_csv.png")));
 			jbExportCsv.setActionCommand(JB_EXPORT_CSV_ACTION);
-			jbExportCsv.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						exportPDF();
-					} catch (FileNotFoundException | DocumentException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
 		}
 
 		return jbExportCsv;
 	}
 
 	/**
-	 * @return le bouton d'export CSV
+	 * @return le bouton d'export PDF
 	 */
-	private JButton getJbExportCsv() {
+	public JButton getJbExportPdf() {
 		if (jbExportPdf == null) {
-			jbExportPdf = new JButton("Export CSV", new ImageIcon(this
+			jbExportPdf = new JButton("Export PDF", new ImageIcon(this
 					.getClass().getClassLoader()
-					.getResource("ihm/img/export_csv.png")));
+					.getResource("ihm/img/export_pdf.png")));
 			jbExportPdf.setActionCommand(JB_EXPORT_PDF_ACTION);
-			jbExportPdf.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						exportCSV();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
 		}
 
 		return jbExportPdf;
@@ -215,87 +149,8 @@ public class ResultPanel extends JPanel {
 	private JTable getJpPeople() {
 		// if (jpPeople == null) {
 		// this.jpPeople = new JPanel();
-
-		List<Person> people = this.model.getPersons();
-
-		donnees = new Object[people.size()][];
-
-		for (int i = 0; i < people.size(); i++) {
-			Person someone = people.get(i);
-
-			String subjectId = "-1";
-			String subjectLabel = "N/A";
-			if (someone.getAssigned() != null) {
-				subjectId = String.valueOf(someone.getAssigned().getId());
-				subjectLabel = someone.getAssigned().getLabel();
-			}
-
-			String[] data = { someone.getFirstName(), someone.getFamilyName(),
-					someone.getIDcampus(), subjectId, subjectLabel,
-					someone.getComment() };
-			donnees[i] = data;
-		}
-
-		JTable tableau = new JTable(donnees, entete) {
-			/**
-				 * 
-				 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isCellEditable(int row, int col) {
-				if (disabledCols.contains(col)) {
-					return false;
-				}
-				return true;
-			}
-
-			// Override pour permettre le contrôle de la saisie
-			// Ainsi que l'actualisation dynamique du libellé des sujets
-			@Override
-			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-				if (subjectIdColNumber.equals(columnIndex)) {
-					try {
-						if (Integer.valueOf(aValue.toString()) <= model
-								.getSubjects().size()
-								&& Integer.valueOf(aValue.toString()) > 0) {
-							setValueAt(
-									model.getSubjects()
-											.get(Integer.valueOf(aValue
-													.toString()) - 1)
-											.getLabel(), rowIndex,
-									subjectLabelColNumber);
-							super.setValueAt(aValue, rowIndex, columnIndex);
-						}
-					} catch (NumberFormatException e) {
-
-					}
-				} else {
-					super.setValueAt(aValue, rowIndex, columnIndex);
-				}
-//				resizeColumnWidth(this);
-			}
-			@Override
-			public Component prepareEditor(TableCellEditor editor, int row, int column) {
-			    Component c = super.prepareEditor(editor, row, column);
-			    if (c instanceof JTextComponent) {
-			        ((JTextComponent) c).selectAll();
-			    } 
-			    return c;
-			}
-
-		};
-		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(disabledCols));
-
-		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		this.jpPeople = this.controller.getTable();
 		
-		tableau.getTableHeader().setReorderingAllowed(false);
-		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
-		tableau.setFillsViewportHeight(true);
-//		resizeColumnWidth(tableau);
-		this.jpPeople = tableau;
-		// }
-
 		return jpPeople;
 	}
 
@@ -320,196 +175,6 @@ public class ResultPanel extends JPanel {
 			width = width < 166 ? 166 : width;
 			
 			columnModel.getColumn(column).setPreferredWidth(width);
-		}
-	}
-
-	/**
-	 * Exporte le tableau de résultats en fichier CSV
-	 * 
-	 * @throws IOException
-	 */
-	public void exportCSV() throws IOException {
-		JFileChooser c = new JFileChooser() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void approveSelection() {
-				File f = getSelectedFile();
-				if (!f.getName().endsWith(".csv"))
-					f = new File(f.getAbsolutePath() + ".csv");
-				if (f.exists() && getDialogType() == SAVE_DIALOG) {
-					int result = JOptionPane.showConfirmDialog(this,
-							"Ce fichier existe déjà, le remplacer ?",
-							"Fichier existant",
-							JOptionPane.YES_NO_CANCEL_OPTION);
-					switch (result) {
-					case JOptionPane.YES_OPTION:
-						super.approveSelection();
-						return;
-					case JOptionPane.NO_OPTION:
-						return;
-					case JOptionPane.CLOSED_OPTION:
-						return;
-					case JOptionPane.CANCEL_OPTION:
-						cancelSelection();
-						return;
-					}
-				}
-				super.approveSelection();
-			}
-		};
-		c.setCurrentDirectory(new File(Model.getFileChoserPath()));
-		c.setFileFilter(new FileFilter() {
-
-			@Override
-			public String getDescription() {
-				return ".csv";
-			}
-
-			@Override
-			public boolean accept(File f) {
-				String[] extensions = { "csv" };
-				if (f.isDirectory()) {
-					return true;
-				} else {
-					String path = f.getAbsolutePath().toLowerCase();
-					for (int i = 0, n = extensions.length; i < n; i++) {
-						String extension = extensions[i];
-						if ((path.endsWith(extension) && (path.charAt(path
-								.length() - extension.length() - 1)) == '.')) {
-							return true;
-						}
-					}
-				}
-				return false;
-			}
-		});
-
-		c.setDialogTitle("Export CSV");
-
-		int rVal = c.showSaveDialog(this.jpPeople);
-		if (rVal == JFileChooser.APPROVE_OPTION) {
-			Model.setFileChoserPath(c.getSelectedFile().getParent());
-			String filename = c.getSelectedFile().getAbsolutePath();
-
-			if (!filename.endsWith(".csv"))
-				filename += ".csv";
-
-			System.out.println("FILENAME CHOSEN : " + filename);
-
-			FileWriter fileWriter = new FileWriter(filename);
-
-			String line = "";
-
-			for (Object object : entete) {
-				line += object + ";";
-			}
-			line += '\n';
-			fileWriter.append(line);
-
-			for (Object[] objects : donnees) {
-				line = "";
-				for (Object object : objects) {
-					line += (object == null ? "" : object) + ";";
-				}
-				line += '\n';
-				fileWriter.append(line);
-			}
-
-			fileWriter.close();
-		}
-		if (rVal == JFileChooser.CANCEL_OPTION) {
-			System.out.println("CANCEL CHOSING FILENAME FOR CSV EXPORT");
-		}
-	}
-
-	/**
-	 * Exporte les résultats dans un fichier PDF
-	 * 
-	 * @throws FileNotFoundException
-	 * @throws DocumentException
-	 */
-	public void exportPDF() throws FileNotFoundException, DocumentException {
-		ResultPdfGenerator generator = new ResultPdfGenerator(this.entete,
-				this.donnees);
-
-		JFileChooser c = new JFileChooser() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void approveSelection() {
-				File f = getSelectedFile();
-				if (!f.getName().endsWith(".pdf"))
-					f = new File(f.getAbsolutePath() + ".pdf");
-				if (f.exists() && getDialogType() == SAVE_DIALOG) {
-					int result = JOptionPane.showConfirmDialog(this,
-							"Ce fichier existe déjà, le remplacer ?",
-							"File existant", JOptionPane.YES_NO_CANCEL_OPTION);
-					switch (result) {
-					case JOptionPane.YES_OPTION:
-						super.approveSelection();
-						return;
-					case JOptionPane.NO_OPTION:
-						return;
-					case JOptionPane.CLOSED_OPTION:
-						return;
-					case JOptionPane.CANCEL_OPTION:
-						cancelSelection();
-						return;
-					}
-				}
-				super.approveSelection();
-			}
-		};
-		c.setCurrentDirectory(new File(Model.getFileChoserPath()));
-		c.setFileFilter(new FileFilter() {
-
-			@Override
-			public String getDescription() {
-				return ".pdf";
-			}
-
-			@Override
-			public boolean accept(File f) {
-				String[] extensions = { "pdf" };
-				if (f.isDirectory()) {
-					return true;
-				} else {
-					String path = f.getAbsolutePath().toLowerCase();
-					for (int i = 0, n = extensions.length; i < n; i++) {
-						String extension = extensions[i];
-						if ((path.endsWith(extension) && (path.charAt(path
-								.length() - extension.length() - 1)) == '.')) {
-							return true;
-						}
-					}
-				}
-				return false;
-			}
-		});
-
-		c.setDialogTitle("Export PDF");
-
-		int rVal = c.showSaveDialog(this.jpPeople);
-		if (rVal == JFileChooser.APPROVE_OPTION) {
-			Model.setFileChoserPath(c.getSelectedFile().getParent());
-			String filename = c.getSelectedFile().getAbsolutePath();
-
-			if (!filename.endsWith(".pdf"))
-				filename += ".pdf";
-
-			System.out.println("FILENAME CHOSEN : " + filename);
-
-			generator.buildPDF(filename);
-		}
-		if (rVal == JFileChooser.CANCEL_OPTION) {
-			System.out.println("CANCEL CHOSING FILENAME FOR PDF EXPORT");
 		}
 	}
 
@@ -549,7 +214,8 @@ public class ResultPanel extends JPanel {
 
 		Model model = new Model(null, people, subjects);
 
-		ResultPanel tmp = new ResultPanel(model);
+		ResultPanel tmp = new ResultPanel();
+		tmp.setModel(model);
 		JPanel aux = new JPanel(new GridBagLayout());
 		aux.add(tmp);
 		frameTest.add(aux, new GridBagConstraints(0, 0, 1, 1, 1, 1,
