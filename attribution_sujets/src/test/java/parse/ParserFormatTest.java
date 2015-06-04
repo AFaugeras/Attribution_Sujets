@@ -82,10 +82,10 @@ public class ParserFormatTest extends TestCase{
 	@Test
 	public void testFormatSubjectOK(){
 		boolean failed=false;
-		 String[] format ={	"NomSujet",
-					"maxSize",
+		 String[] format ={	"id","NomSujet",
 					"minSize",
-					"multiple",
+					"maxSize",
+					
 					"cardMin",
 					"cardMax"};
 		try {
