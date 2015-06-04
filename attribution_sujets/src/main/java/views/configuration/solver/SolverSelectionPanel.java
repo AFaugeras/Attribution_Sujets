@@ -20,7 +20,7 @@ public class SolverSelectionPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static final String[] SOLVER_NAMES = { CHOCO_SOLVER, GLPK_SOLVER };
+	private static final String[] SOLVER_NAMES = { GLPK_SOLVER, CHOCO_SOLVER };
 
 	private JComboBox<String> jcbSolvers;
 

@@ -82,11 +82,10 @@ public class ConstraintsCtrl implements ChangeListener {
 	public void saveToModel() {
 		this.model.setNbMaxChoice((int) this.boundsView.getJsMaxChoice().getValue());
 		this.model.setNbMaxReject((int) this.boundsView.getJsMaxReject().getValue());
+		this.model.setMultiplicity((int) this.boundsView.getJsMultiplicity().getValue());
 
 		this.model.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
 		this.model.setNbReject((int) this.campusView.getJsNbReject().getValue());
-		
-		this.model.setMultiplicity(Integer.parseInt(this.boundsView.getJtfMultiplicity().getText()));
 
 		this.model.getWeights().clear();
 		

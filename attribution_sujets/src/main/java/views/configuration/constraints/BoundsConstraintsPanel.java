@@ -13,8 +13,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import views.configuration.IntegerTextField;
-
 /**
  * Panel de saisie des nombres maximums de choix et de rejets pris en compte.
  */
@@ -36,7 +34,7 @@ public class BoundsConstraintsPanel extends JPanel {
 	/**
 	 * Champ de saisie pour la multiplicité.
 	 */
-	private IntegerTextField jtfMultiplicity;
+	private JSpinner jsMultiplicity;
 
 	/**
 	 * Constructeur.
@@ -78,12 +76,12 @@ public class BoundsConstraintsPanel extends JPanel {
 	 * 
 	 * @return Le textfield jtfMultiplicity.
 	 */
-	public IntegerTextField getJtfMultiplicity() {
-		if (this.jtfMultiplicity == null) {
-			this.jtfMultiplicity = new IntegerTextField();
+	public JSpinner getJsMultiplicity() {
+		if (this.jsMultiplicity == null) {
+			this.jsMultiplicity = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
 		}
 
-		return this.jtfMultiplicity;
+		return this.jsMultiplicity;
 	}
 
 	/**
@@ -128,7 +126,7 @@ public class BoundsConstraintsPanel extends JPanel {
 		
 		gbc.gridy = 2;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(getJtfMultiplicity(), gbc);
+		this.add(getJsMultiplicity(), gbc);
 		
 		gbc.gridx = 2;
 		gbc.weightx = 1;
