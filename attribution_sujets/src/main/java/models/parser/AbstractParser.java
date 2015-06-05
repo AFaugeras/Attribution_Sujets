@@ -52,7 +52,7 @@ public abstract class AbstractParser {
 	 * @return
 	 * @throws IOException
 	 */
-	protected List<String> readfile(File sourceFile) throws IOException {
+	protected static List<String> readfile(File sourceFile) throws IOException {
 
 		List<String> result = new ArrayList<String>();
 		FileReader fr = new FileReader(sourceFile);
@@ -73,7 +73,7 @@ public abstract class AbstractParser {
 	 * @param format
 	 * @throws FileFormatException
 	 */
-	public static void checkFormat(String bean, String[] format)throws FileFormatException{
+	public static boolean checkFormat(String bean, String[] format)throws FileFormatException{
 		switch(bean){
 		case ANSWER:{
 			for (int i = 0; i < AnswerFormat.length; i++) {
@@ -96,7 +96,7 @@ public abstract class AbstractParser {
 			break;
 		}
 		}
-		
+		return true;
 	}
 
 }

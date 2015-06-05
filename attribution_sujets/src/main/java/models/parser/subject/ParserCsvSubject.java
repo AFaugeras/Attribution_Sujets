@@ -48,4 +48,18 @@ public class ParserCsvSubject extends AbstractParser {
 		return subjectList;
 	}
 	
+	public static boolean checkFormat(File file) throws IOException{
+		boolean ok =true;
+		List<String> datas = readfile(file);
+		int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
+		int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse
+		String[] line = new String[datas.get(0).split(SUBJECTSPLIT).length]; 
+		try {
+			checkFormat(SUBJECT, line);
+		} catch (FileFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
 }
