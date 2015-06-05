@@ -30,10 +30,10 @@ public class InputWriterChoco{
 			bw.write(data.getNbSubjects().toString());
 			
 			bw.write("\n/* pour chaque sujet de 1 a n, nb min de groupe puis nb max de groupes */\n");
-			bw.write(data.getSizeRange().toString());
+			bw.write(data.getCardRange().toString());
 			
 			bw.write("\n/* effectif min et effectif max des groupes pour chaque sujet */\n");
-			bw.write(data.getCardRange().toString());
+			bw.write(data.getSizeRange().toString());
 			
 			bw.write("\n/* nb min de sujets effectivement affectés */\n");
 			bw.write(data.getMinimumAssignedSubject().toString());
