@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
@@ -27,7 +28,7 @@ import models.solver.writer.WriterException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InputWriterGlpkTest {
+public class InputWriterGlpkTest extends TestCase{
 
 	private AdaptorGlpk adaptorGlpk;
 	

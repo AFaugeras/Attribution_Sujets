@@ -50,11 +50,11 @@ public class StatsTest extends TestCase {
 	}
 	
 	private List<Subject> initSubject(){
-		String[][] datas ={{"Labyrinthes","0","0","3","4","0"},
-							{"Space landing","0","0","3","4","0"},
-							{"Poker","0","0","3","4","0"},
-							{"Bataille","0","0","3","4","0"},
-							{"Ruzzle","0","0","3","4","0"}
+		String[][] datas ={{"1","Labyrinthes","0","0","3","4"},
+							{"2","Space landing","0","0","3","4"},
+							{"3","Poker","0","0","3","4"},
+							{"4","Bataille","0","0","3","4"},
+							{"5","Ruzzle","0","0","3","4"}
 		};
 		
 		List<Subject> subject = new ArrayList<Subject>();

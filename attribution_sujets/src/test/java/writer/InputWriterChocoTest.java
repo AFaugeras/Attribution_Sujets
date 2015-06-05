@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
+import junit.framework.TestCase;
 import models.bean.Model;
 import models.solver.adaptor.AdaptorChocoImpl;
 import models.solver.writer.InputWriterChoco;
@@ -15,7 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InputWriterChocoTest {
+public class InputWriterChocoTest extends TestCase {
 
 	private AdaptorChocoImpl adaptorChocoMock;
 	

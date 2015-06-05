@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import junit.framework.TestCase;
 import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
@@ -24,7 +25,7 @@ import models.solver.reader.SolutionReaderChoco;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SolutionReaderChocoTest {
+public class SolutionReaderChocoTest extends TestCase {
 	
 	private String path;
 	
