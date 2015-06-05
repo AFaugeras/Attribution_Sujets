@@ -85,7 +85,6 @@ public class ParserFormatTest extends TestCase{
 		 String[] format ={	"id","NomSujet",
 					"minSize",
 					"maxSize",
-					
 					"cardMin",
 					"cardMax"};
 		try {
