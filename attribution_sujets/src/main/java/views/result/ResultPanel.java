@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,17 +13,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.text.JTextComponent;
 
+import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
 import controllers.result.ResultConfigurationCtrl;
+import controllers.result.ResultStatPanelCtrl;
+import controllers.result.ResultSubjectPanelCtrl;
 
 /**
  * 
@@ -45,6 +46,12 @@ public class ResultPanel extends JPanel {
 	 * La Jtable contenant l'affchage des résultats
 	 */
 	private JTable jpPeople;
+	
+	private JPanel jpResultTable;
+	private JPanel jpSubjects;
+	private JPanel jpStats;
+	
+	private JTabbedPane jtContent;
 
 	public static final String JB_EXPORT_CSV_ACTION = "EXPORT CSV";
 	public static final String JB_EXPORT_PDF_ACTION = "EXPORT PDF";
@@ -54,13 +61,19 @@ public class ResultPanel extends JPanel {
 	private JButton jbExportPdf;
 	private JButton jbBack;
 
+	private ResultSubjectPanelCtrl resultSubjectPanelCtrl;
+	private ResultStatPanelCtrl resultStatPanelCtrl;
 
 	public ResultPanel() {
 		super();
+		this.resultSubjectPanelCtrl = new ResultSubjectPanelCtrl();
+		this.resultStatPanelCtrl = new ResultStatPanelCtrl();
 	}
 	
 	public void setModel(Model model) {
 		controller = new ResultConfigurationCtrl(model, this);
+		resultSubjectPanelCtrl.setModel(model);
+		resultStatPanelCtrl.setModel(model);
 		this.initializeView();
 	}
 
@@ -82,6 +95,9 @@ public class ResultPanel extends JPanel {
 		this.removeAll();
 		this.setLayout(new GridBagLayout());
 
+		this.jtContent = new JTabbedPane();
+		
+		this.jpResultTable = new JPanel(new GridBagLayout());
 		JScrollPane jsp = new JScrollPane(getJpPeople(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jsp.setBorder(null);
 		jsp.setPreferredSize(new Dimension(1000, 480));
@@ -93,12 +109,27 @@ public class ResultPanel extends JPanel {
 		gbc.weightx = 1;
 		gbc.weighty = 1;
 		gbc.fill = GridBagConstraints.BOTH;
-		this.add(jsp, gbc);
+		this.jpResultTable.add(jsp, gbc);
 
-		gbc.gridy = 1;
-		gbc.weighty = 0;
-		gbc.fill = GridBagConstraints.NONE;
-		this.add(getButtonsBar(), gbc);
+		GridBagConstraints gbc2 = new GridBagConstraints();
+		gbc2.gridx = 0;
+		gbc2.gridy = 1;
+		gbc2.weightx = 1;
+		gbc2.weighty = 0;
+		gbc2.fill = GridBagConstraints.NONE;
+		this.jpResultTable.add(getButtonsBar(), gbc2);
+		
+		this.jtContent.addTab("Tableau de résultat", null, this.jpResultTable);
+		
+		this.jpSubjects = new JPanel(new GridBagLayout());
+		this.jpSubjects.add(new JScrollPane(resultSubjectPanelCtrl.getJpSubjects()), gbc);
+		this.jtContent.addTab("Détail des sujets", null, this.jpSubjects);
+		
+		this.jpStats = new JPanel(new GridBagLayout());
+		this.jpStats.add(new JScrollPane(resultStatPanelCtrl.getJpStats()), gbc);
+		this.jtContent.addTab("Statistiques", null, this.jpStats);
+		
+		this.add(jtContent, gbc);
 	}
 
 	/**
@@ -191,13 +222,13 @@ public class ResultPanel extends JPanel {
 
 		ArrayList<Subject> subjects = new ArrayList<Subject>();
 
-		Subject subject1 = new Subject(1, "Stark", 0, 0,  0, 0);
+		Subject subject1 = new Subject(1, "Stark", 0, 10, 0, 2);
 		subjects.add(subject1);
-		Subject subject2 = new Subject(2, "Lannister", 0, 0,  0, 0);
+		Subject subject2 = new Subject(2, "Lannister", 0, 10, 0, 1);
 		subjects.add(subject2);
-		Subject subject3 = new Subject(3, "Baratheon", 0, 0,  0, 0);
+		Subject subject3 = new Subject(3, "Baratheon", 0, 10, 0, 2);
 		subjects.add(subject3);
-		Subject subject4 = new Subject(4, "Targaryen", 0, 0,  0, 0);
+		Subject subject4 = new Subject(4, "Targaryen", 0, 10, 0, 1);
 		subjects.add(subject4);
 
 		ArrayList<Person> people = new ArrayList<Person>();
@@ -209,10 +240,20 @@ public class ResultPanel extends JPanel {
 			someone.setFamilyName(String.valueOf(i));
 			someone.setIDcampus(i + "hodor" + 15);
 			someone.setAssigned(subjects.get(random));
+			ArrayList<Subject> choices = new ArrayList<Subject>();
+			choices.add(subject1);
+			choices.add(subject2);
+			choices.add(subject4);
+			someone.setChoices(choices);
+			
 			people.add(someone);
 		}
 
 		Model model = new Model(null, people, subjects);
+		
+		Constraints constraint = new Constraints(3, 0, 0, 0);
+		
+		model.setConstraint(constraint);
 
 		ResultPanel tmp = new ResultPanel();
 		tmp.setModel(model);
