@@ -19,6 +19,8 @@ public class Glpk implements Solver{
 	public Model solve(String inputFilename, String outputFilename, Model data)
 			throws WriterException, ReaderException, NotFoundSolutionException {
 		
+		this.checkMultiplicity(data);
+		
 		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
 		
 		InputWriterGlpk.write(inputFilename, ag);
@@ -40,6 +42,12 @@ public class Glpk implements Solver{
 		SolutionReaderGlpk.read(outputFilename, data);
 		
 		return data;
+	}
+	
+	private void checkMultiplicity(Model data) throws NotFoundSolutionException{
+		if(data.getPersons().size() % data.getConstraint().getMultiplicity() != 0){
+			throw new NotFoundSolutionException("Multiplicité incompatible avec le nombre d'élèves");
+		}
 	}
 
 }
