@@ -45,7 +45,11 @@ public class Glpk implements Solver{
 	}
 	
 	private void checkMultiplicity(Model data) throws NotFoundSolutionException{
-		if(data.getPersons().size() % data.getConstraint().getMultiplicity() != 0){
+		int multiplicity = data.getConstraint().getMultiplicity();
+		
+		System.out.println(multiplicity);
+		System.out.println(multiplicity != 0 && data.getPersons().size() % multiplicity != 0);
+		if(multiplicity != 0 && data.getPersons().size() % multiplicity != 0){
 			throw new NotFoundSolutionException("Multiplicité incompatible avec le nombre d'élèves");
 		}
 	}
