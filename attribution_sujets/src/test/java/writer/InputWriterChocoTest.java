@@ -1,12 +1,8 @@
 package writer;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 import java.io.File;
 
 import junit.framework.TestCase;
-import models.bean.Model;
 import models.solver.adaptor.AdaptorChocoImpl;
 import models.solver.writer.InputWriterChoco;
 import models.solver.writer.WriterException;
@@ -38,7 +34,7 @@ public class InputWriterChocoTest extends TestCase {
 	}
 	
 	@Test
-	public void testGetNbPersons() 
+	public void testwrite() 
 	{
 		
 		EasyMock.expect(this.adaptorChocoMock.getNbPersons()).andReturn(new StringBuilder("4"));
