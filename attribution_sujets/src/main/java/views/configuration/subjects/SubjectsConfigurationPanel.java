@@ -22,7 +22,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	// Constantes :
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
-	public static final String JB_SAVE_ACTION = "SAVE";
+	public static final String JB_EXPORT_ACTION = "SAVE";
 
 	private static final long serialVersionUID = 1L;
 	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
@@ -109,8 +109,8 @@ public class SubjectsConfigurationPanel extends JPanel {
 		if (jbExport == null) {
 			jbExport = new JButton("Exporter", new ImageIcon(this.getClass()
 					.getClassLoader()
-					.getResource("ihm/img/import_subjects.png")));
-			jbExport.setActionCommand(JB_IMPORT_ACTION);
+					.getResource("ihm/img/export_subjects.png")));
+			jbExport.setActionCommand(JB_EXPORT_ACTION);
 		}
 
 		return jbExport;

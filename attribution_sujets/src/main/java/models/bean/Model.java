@@ -24,9 +24,6 @@ public class Model {
 	 */
 	private List<Subject> subjects;
 	
-	//TODO A deplacer dans le package controller
-	public static String fileChoserPath = "";
-	
 	public Model() {
 		this.constraint = new Constraints(0, 0, 0, 0, 0);
 		this.persons = new ArrayList<Person>();
@@ -55,14 +52,6 @@ public class Model {
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
-	}
-
-	public static String getFileChoserPath() {
-		return fileChoserPath;
-	}
-
-	public static void setFileChoserPath(String fileChoserPath) {
-		Model.fileChoserPath = fileChoserPath;
 	}
 
 	public boolean add(Subject e) {

@@ -2,23 +2,16 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import models.bean.Model;
-import models.exception.NoDefineSubjectException;
-import models.exception.NoUserFoundedException;
-import models.exception.fileformatexception.FileFormatException;
-import models.parser.BeanMatcher;
-import models.parser.answer.ParserCsvAnswer;
-import models.parser.user.ParserCsvUserList;
-import models.solver.reader.NotFoundSolutionException;
-import models.solver.reader.ReaderException;
-import models.solver.writer.WriterException;
 import views.MainFrame;
 import views.configuration.ConfigurationPanel;
+import views.processing.ProcessingPanel;
 import views.result.ResultPanel;
 import controllers.constraints.ConstraintsCtrl;
 import controllers.dataselection.DataSelectionPanelCtrl;
@@ -58,44 +51,13 @@ public class Launcher implements ActionListener {
 			this.constraintsCtrl.saveToModel();
 			this.subjectsCtrl.saveToModel();
 
-			ParserCsvAnswer parserAwnser = new ParserCsvAnswer();
-			ParserCsvUserList parserPerson = new ParserCsvUserList();
-			BeanMatcher matcher;
+			JDialog jd = new JDialog(this.view);
+			jd.getContentPane().add(new ProcessingPanel());
+			jd.pack();
+			jd.setLocationRelativeTo(this.view);
+			jd.setVisible(true);
 
-			
-				try {
-					parserAwnser.parseAnswer(this.dataSelectionCtrl.getCampusFile());
-					parserPerson.ParseUserList(this.dataSelectionCtrl.getPersonsFile());
-
-					matcher = new BeanMatcher(parserPerson.getUserList(),
-							parserAwnser.getCleanedData(),
-							this.model.getSubjects(),
-							this.model.getConstraint());
-					
-					this.model.setPersons(parserPerson.getUserList());
-
-					matcher.match();
-					
-					this.solverCtrl.getSelectedSolver().solve("input.txt", "output.txt", this.model);
-					
-					this.view.getResultPanel().setModel(this.model);
-					this.view.showResultPanel();
-					
-				} catch (IOException e) {
-					displayErrorMessage("Erreur à la lecture du fichier.");
-				} catch (FileFormatException e) {
-					displayErrorMessage("Erreur CSV :\n" + e.getMessage());
-				} catch (NoDefineSubjectException e) {
-					displayErrorMessage("Un ou plusieurs sujets ne sont pas définis :\n" + e.getMessage());
-				} catch (NoUserFoundedException e) {
-					displayErrorMessage(/*"L'utilisateur " + */e.getMessage()/* + " n'est pas présent dans le fichier d'élèves."*/);
-				} catch (WriterException e) {
-					displayErrorMessage("Erreur lors de la génération du fichier d'entrée.");
-				} catch (ReaderException e) {
-					displayErrorMessage("Erreur lors de la lecture du fichier solution.");
-				} catch (NotFoundSolutionException e) {
-					displayErrorMessage("Aucune solution trouvée.");
-				}
+			new SolvingWorker(this.solverCtrl.getSelectedSolver(), this.model, this.dataSelectionCtrl.getCampusFile(), this.dataSelectionCtrl.getPersonsFile(), this.view, jd).execute();
 		}
 	}
 
@@ -104,18 +66,16 @@ public class Launcher implements ActionListener {
 	}
 
 	private void initializeReactions() {
-		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, 
-				this.view.getConfigurationPanel().getSubjectsPanel());
-		
+		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, this.view.getConfigurationPanel().getSubjectsPanel());
+
 		this.solverCtrl = new SolverSelectionPanelCtrl(this.view.getConfigurationPanel().getSolverSelectionPanel());
-		
+
 		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
 				this.view.getConfigurationPanel().getBoundConstraintsPanel(),
 				this.view.getConfigurationPanel().getCampusConstraintsPanel(),
 				this.view.getConfigurationPanel().getWeightsConfigurationPanel());
-		
-		this.dataSelectionCtrl = new DataSelectionPanelCtrl(
-				this.view.getConfigurationPanel().getDataSelectionPanel());
+
+		this.dataSelectionCtrl = new DataSelectionPanelCtrl(this.view.getConfigurationPanel().getDataSelectionPanel());
 
 		this.view.getConfigurationPanel().getJbNext().addActionListener(this);
 		this.view.getResultPanel().getJbBack().addActionListener(this);
@@ -147,10 +107,6 @@ public class Launcher implements ActionListener {
 
 		return ret;
 	}
-	
-	private void displayErrorMessage(String message) {
-		JOptionPane.showMessageDialog(this.view, message, "Erreur", JOptionPane.ERROR_MESSAGE);
-	}
 
 	public static void main(String[] args) {
 		try {
@@ -158,6 +114,13 @@ public class Launcher implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		new Launcher(new Model(), new MainFrame());
+
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				new Launcher(new Model(), new MainFrame());
+			}
+		});
 	}
 }
