@@ -12,7 +12,7 @@ public class Model {
 	/**
 	 * Contraintes generales du problemes
 	 */
-	private Constraints constraint;
+	private Constraints constraints;
 	
 	/**
 	 * Liste des participants
@@ -25,7 +25,7 @@ public class Model {
 	private List<Subject> subjects;
 	
 	public Model() {
-		this.constraint = new Constraints(0, 0, 0, 0, 0);
+		this.constraints = new Constraints(0, 0, 0, 0, 0);
 		this.persons = new ArrayList<Person>();
 		this.subjects = new ArrayList<Subject>();
 	}
@@ -33,17 +33,17 @@ public class Model {
 	public Model(Constraints constraint, List<Person> persons,
 			List<Subject> subjects) {
 		super();
-		this.constraint = constraint;
+		this.constraints = constraint;
 		this.persons = persons;
 		this.subjects = subjects;
 	}
 
 	public Constraints getConstraint() {
-		return constraint;
+		return constraints;
 	}
 
 	public void setConstraint(Constraints constraint) {
-		this.constraint = constraint;
+		this.constraints = constraint;
 	}
 
 	public List<Person> getPersons() {
@@ -74,7 +74,7 @@ public class Model {
 
 	@Override
 	public String toString() {
-		return "Model [constraint=" + constraint + ", persons=" + persons
+		return "Model [constraint=" + constraints + ", persons=" + persons
 				+ ", subjects=" + subjects + "]";
 	}
 }
