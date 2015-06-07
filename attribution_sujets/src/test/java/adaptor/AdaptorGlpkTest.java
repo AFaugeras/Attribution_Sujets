@@ -286,7 +286,17 @@ public class AdaptorGlpkTest extends TestCase{
 	@Test
 	public void testGetMultiplicity()
 	{
-		assertEquals(this.ag.getMultiplicity().toString(), new StringBuilder("param tailleEquipe:=\t0\t;").toString());
+		Constraints constraintsMock = EasyMock.createMock(Constraints.class);
+		EasyMock.expect(this.modelMock.getConstraint()).andReturn(constraintsMock);
+		
+		EasyMock.expect(constraintsMock.getMultiplicity()).andReturn(2);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(constraintsMock);
+		
+		assertEquals(this.ag.getMultiplicity().toString(), new StringBuilder("param tailleEquipe:=\t2\t;").toString());
 
+		EasyMock.verify(this.modelMock);
+		EasyMock.verify(constraintsMock);
 	}
 }
