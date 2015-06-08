@@ -1,15 +1,11 @@
 package models.solver.writer;
 
+import models.solver.SolverException;
+
 /**
  * Exception permettant de signifier une erreur lors de l'ecriture de fichiers d'entree pour Choco ou GLPK.
  */
-public class WriterException extends Exception {
-
-	/**
-	 * Message precisant l'erreur
-	 */
-	private String message;
-	
+public class WriterException extends SolverException {
 	
 	/**
 	 * Version
@@ -21,6 +17,6 @@ public class WriterException extends Exception {
 	 * @param message erreur
 	 */
 	public WriterException(String message){
-		this.message = message;
+		super(message);
 	}
 }

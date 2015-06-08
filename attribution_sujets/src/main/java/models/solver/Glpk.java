@@ -4,22 +4,25 @@ import java.io.IOException;
 import java.net.URL;
 
 import models.bean.Model;
+import models.exception.ModelException;
 import models.solver.adaptor.AdaptorGlpk;
 import models.solver.adaptor.AdaptorGlpkImpl;
 import models.solver.reader.NotFoundSolutionException;
-import models.solver.reader.ReaderException;
 import models.solver.reader.SolutionReaderGlpk;
 import models.solver.writer.InputWriterGlpk;
-import models.solver.writer.WriterException;
 
 
 public class Glpk implements Solver{
 	
 	@Override
 	public Model solve(String inputFilename, String outputFilename, Model data)
-			throws WriterException, ReaderException, NotFoundSolutionException {
+			throws SolverException, ModelException {
 		
-		this.checkMultiplicity(data);
+		boolean correct = this.checkMultiplicity(data);
+		
+		if(!correct){
+			throw new ModelException("Multiplicité incompatible avec le nombre d'élèves.");
+		}
 		
 		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
 		
@@ -34,9 +37,9 @@ public class Glpk implements Solver{
 			p = Runtime.getRuntime().exec(cmd);
 			p.waitFor();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new SolverException("commande glpsol introuvable, vérifiez votre PATH");
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			throw new SolverException("processus interrompue");
 		}
 		
 		SolutionReaderGlpk.read(outputFilename, data);
@@ -44,14 +47,14 @@ public class Glpk implements Solver{
 		return data;
 	}
 	
-	private void checkMultiplicity(Model data) throws NotFoundSolutionException{
+	private boolean checkMultiplicity(Model data) throws NotFoundSolutionException{		
 		int multiplicity = data.getConstraint().getMultiplicity();
 		
-		System.out.println(multiplicity);
-		System.out.println(multiplicity != 0 && data.getPersons().size() % multiplicity != 0);
 		if(multiplicity != 0 && data.getPersons().size() % multiplicity != 0){
-			throw new NotFoundSolutionException("Multiplicité incompatible avec le nombre d'élèves");
+			return false;
 		}
+		
+		return true;
 	}
 
 }

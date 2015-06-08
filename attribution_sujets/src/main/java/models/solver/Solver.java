@@ -1,6 +1,7 @@
 package models.solver;
 
 import models.bean.Model;
+import models.exception.ModelException;
 import models.solver.reader.NotFoundSolutionException;
 import models.solver.reader.ReaderException;
 import models.solver.writer.WriterException;
@@ -20,5 +21,5 @@ public interface Solver {
 	 * @throws ReaderException Erreur lors de la lecture de la solution du solver
 	 * @throws NotFoundSolutionException Aucune solution au probleme
 	 */
-	public Model solve(String inputFilename, String outputFilename, Model data) throws WriterException, ReaderException, NotFoundSolutionException;
+	public Model solve(String inputFilename, String outputFilename, Model data) throws SolverException, ModelException;
 }

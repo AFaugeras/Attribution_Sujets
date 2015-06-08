@@ -1,10 +1,12 @@
 package models.solver.reader;
 
+import models.solver.SolverException;
+
 /**
  * Exception pour signifier l'impossibilite pour le solver de déterminer une solution
  *
  */
-public class NotFoundSolutionException extends Exception{
+public class NotFoundSolutionException extends SolverException{
 
 	/**
 	 * Version
@@ -12,16 +14,11 @@ public class NotFoundSolutionException extends Exception{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Message precisant l'erreur
-	 */
-	private String message;
-	
-	/**
 	 * Constructeur
 	 * @param message erreur
 	 */
 	public NotFoundSolutionException(String message){
-		this.message = message;
+		super(message);
 	}
 
 }
