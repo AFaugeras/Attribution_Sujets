@@ -166,8 +166,10 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 			if(!path.equals("")) {
 				System.out.println("OK");				
 				path = path + ".csv";
+				path = fc.getSelectedFile().getParent() + File.separator + path;
 				
 				try {
+					this.saveToModel();
 					Subject.save(this.model, new File(path));
 				} catch (FileException e) {
 					Utils.displayErrorMessage(e.getMessage(), SwingUtilities.getWindowAncestor(this.view));

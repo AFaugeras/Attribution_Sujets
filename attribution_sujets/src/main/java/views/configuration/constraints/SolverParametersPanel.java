@@ -96,7 +96,7 @@ public class SolverParametersPanel extends JPanel {
 	 */
 	public JSpinner getJsMultiplicity() {
 		if (this.jsMultiplicity == null) {
-			this.jsMultiplicity = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMultiplicity = new JSpinner(new SpinnerNumberModel(1, 1, 200, 1));
 		}
 
 		return this.jsMultiplicity;
