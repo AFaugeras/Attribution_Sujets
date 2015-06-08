@@ -119,15 +119,18 @@ public class ResultPanel extends JPanel {
 		gbc2.fill = GridBagConstraints.NONE;
 		this.jpResultTable.add(getButtonsBar(), gbc2);
 		
-		this.jtContent.addTab("Tableau de résultat", null, this.jpResultTable);
+		this.jtContent.addTab("Tableau de résultat", new ImageIcon(this.getClass()
+				.getClassLoader().getResource("ihm/img/list.png")), this.jpResultTable);
 		
 		this.jpSubjects = new JPanel(new GridBagLayout());
 		this.jpSubjects.add(new JScrollPane(resultSubjectPanelCtrl.getJpSubjects()), gbc);
-		this.jtContent.addTab("Détail des sujets", null, this.jpSubjects);
+		this.jtContent.addTab("Détail des sujets", new ImageIcon(this.getClass()
+				.getClassLoader().getResource("ihm/img/table.png")), this.jpSubjects);
 		
 		this.jpStats = new JPanel(new GridBagLayout());
 		this.jpStats.add(new JScrollPane(resultStatPanelCtrl.getJpStats()), gbc);
-		this.jtContent.addTab("Statistiques", null, this.jpStats);
+		this.jtContent.addTab("Statistiques", new ImageIcon(this.getClass()
+				.getClassLoader().getResource("ihm/img/stats.png")), this.jpStats);
 		
 		this.add(jtContent, gbc);
 	}
