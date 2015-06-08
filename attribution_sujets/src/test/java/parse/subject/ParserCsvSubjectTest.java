@@ -51,7 +51,7 @@ public class ParserCsvSubjectTest extends TestCase {
 	@Test
 	public void testParseCsvSubjectWithParametrageSave() throws IOException{
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
+		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src" 
 				+ f.separator + "test"+ f.separator+ "resources"
 				+ f.separator+ "liste_sujet.csv");
 		ParserCsvSubject parser = new ParserCsvSubject();
