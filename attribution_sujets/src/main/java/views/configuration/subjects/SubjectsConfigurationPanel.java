@@ -109,7 +109,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 		if (jbExport == null) {
 			jbExport = new JButton("Exporter", new ImageIcon(this.getClass()
 					.getClassLoader()
-					.getResource("ihm/img/export_subjects.png")));
+					.getResource("ihm/img/export_subjects2.png")));
 			jbExport.setActionCommand(JB_EXPORT_ACTION);
 		}
 
