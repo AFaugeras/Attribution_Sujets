@@ -61,7 +61,7 @@ public class ParserCsvSubjectTest extends TestCase {
 		}
 		List<Subject> subject = parser.getSubjectList();
 		Subject heavySubject = createSubject();
-		System.out.println(Subject.save(subject));
+		Subject.save(subject,new File("testcedric.csv"));
 		
 		
 		

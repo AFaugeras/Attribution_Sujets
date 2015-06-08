@@ -1,5 +1,8 @@
 package models.bean;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import models.parser.AbstractParser;
@@ -157,7 +160,7 @@ public class Subject {
 				+ getMaxCard();
 	}
 
-	public static String save(List<Subject> list) {
+	public static void save(List<Subject> list, File file) throws IOException {
 		String retour = "";
 		int i = 0;
 		for (String column : AbstractParser.SUBJECTFORMAT) {
@@ -171,6 +174,10 @@ public class Subject {
 			retour += subject.save() + "\n";
 		}
 
-		return retour;
+		// ecriture dans le fichier;
+		    FileWriter fw = new FileWriter (file);
+		    fw.write (retour);
+		    fw.close();
+		
 	}
 }
