@@ -81,6 +81,7 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 			ret = false;
 		} catch (ReaderException e) {
 			displayErrorMessage("Erreur lors de la lecture du fichier solution.");
+			e.printStackTrace();
 			ret = false;
 		} catch (NotFoundSolutionException e) {
 			displayErrorMessage("Aucune solution trouvée.");

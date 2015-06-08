@@ -2,14 +2,10 @@ package controllers.subjects;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
-import java.awt.dnd.DropTargetEvent;
-import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -23,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import controllers.Utils;
 import models.bean.Model;
 import models.bean.Subject;
 import models.exception.fileformatexception.FileFormatException;
@@ -31,14 +28,14 @@ import models.utils.CSVXLSFileFilter;
 import views.configuration.subjects.SubjectPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
 
-public class SubjectsConfigurationCtrl implements ActionListener, DropTargetListener {
+public class SubjectsConfigurationCtrl extends DropTargetAdapter implements ActionListener {
 
 	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
 	private Model model;	
 	private SubjectsConfigurationPanel view;
 	private List<SubjectPanel> subjectsPanels;
-	private DropTarget dropTarget;
+//	private DropTarget dropTarget;
 	
 	public SubjectsConfigurationCtrl(Model model,
 			SubjectsConfigurationPanel view) {
@@ -108,7 +105,7 @@ public class SubjectsConfigurationCtrl implements ActionListener, DropTargetList
 		this.view.getJbImport().addActionListener(this);
 		this.view.getJbExport().addActionListener(this);
 		
-		this.dropTarget = new DropTarget(this.view, DnDConstants.ACTION_MOVE, this);
+		new DropTarget(this.view, DnDConstants.ACTION_MOVE, this);
 	}
 
 	private void addNewSubject() {
@@ -130,14 +127,14 @@ public class SubjectsConfigurationCtrl implements ActionListener, DropTargetList
 		int returnVal = fc.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			importSubject(fc.getSelectedFile());
+			importSubjectFromFile(fc.getSelectedFile());
 
 		} else if (returnVal != JFileChooser.CANCEL_OPTION) {
 			JOptionPane.showMessageDialog(null, "Fichier incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	private void importSubject(final File file) {
+	private void importSubjectFromFile(final File file) {
 		ParserCsvSubject parser = new ParserCsvSubject();
 		try {
 			parser.ParseSubjectList(file);
@@ -253,52 +250,13 @@ public class SubjectsConfigurationCtrl implements ActionListener, DropTargetList
 	}
 
 	@Override
-	public void dragEnter(DropTargetDragEvent dtde) {
-	}
-
-	@Override
-	public void dragOver(DropTargetDragEvent dtde) {
-	}
-
-	@Override
-	public void dropActionChanged(DropTargetDragEvent dtde) {
-	}
-
-	@Override
-	public void dragExit(DropTargetEvent dte) {
-	}
-
-	@Override
 	public void drop(DropTargetDropEvent dtde) {
 		dtde.acceptDrop(DnDConstants.ACTION_COPY);
-		Transferable transferable = dtde.getTransferable();
-
-		// Get the data formats of the dropped item
-		DataFlavor[] flavors = transferable.getTransferDataFlavors();
-
-		// Loop through the flavors
-		for (DataFlavor flavor : flavors) {
-
-		    try {
-
-		        // If the drop items are files
-		        if (flavor.isFlavorJavaFileListType()) {
-
-		            // Get all of the dropped files
-		            List<File> files = (List<File>) transferable.getTransferData(flavor);
-
-		            if(files.size() == 1) {
-		            	importSubject(files.get(0));
-		            }
-
-		        }
-
-		    } catch (Exception e) {
-
-		        // Print out the error stack
-		        e.printStackTrace();
-
-		    }
+		
+		File input = Utils.getFileFromTransferable(dtde.getTransferable());
+		
+		if(input != null) {
+			importSubjectFromFile(input);
 		}
 		
 		dtde.dropComplete(true);
