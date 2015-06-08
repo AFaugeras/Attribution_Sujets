@@ -47,7 +47,7 @@ public class SolutionReaderChoco{
 			if(line.equals("0")){
 				br.close();
 				fr.close();
-				throw new NotFoundSolutionException();
+				throw new NotFoundSolutionException("Aucune solution d'après le solveur Choco");
 			}
 			else{
 				line = br.readLine();

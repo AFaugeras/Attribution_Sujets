@@ -2,6 +2,14 @@ package controllers.subjects;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import models.bean.Model;
 import models.bean.Subject;
@@ -22,15 +31,14 @@ import models.utils.CSVXLSFileFilter;
 import views.configuration.subjects.SubjectPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
 
-public class SubjectsConfigurationCtrl implements ActionListener {
+public class SubjectsConfigurationCtrl implements ActionListener, DropTargetListener {
 
 	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
-	private Model model;
-	
+	private Model model;	
 	private SubjectsConfigurationPanel view;
-	
 	private List<SubjectPanel> subjectsPanels;
+	private DropTarget dropTarget;
 	
 	public SubjectsConfigurationCtrl(Model model,
 			SubjectsConfigurationPanel view) {
@@ -46,19 +54,21 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
 
-		if (actionCommand
-				.equals(SubjectsConfigurationPanel.JB_ADD_SUBJECT_ACTION)) {
+		if (actionCommand.equals(SubjectsConfigurationPanel.JB_ADD_SUBJECT_ACTION)) {
 			addNewSubject();
-		} else if (actionCommand.equals(SubjectPanel.JB_DELETE_ACTION)) {
+		}
+		else if (actionCommand.equals(SubjectPanel.JB_DELETE_ACTION)) {
 			deleteSubject((JButton) e.getSource());
-		} else if (actionCommand
-				.equals(SubjectsConfigurationPanel.JB_IMPORT_ACTION)) {
+		}
+		else if (actionCommand.equals(SubjectsConfigurationPanel.JB_IMPORT_ACTION)) {
 			importSubjectsFromCVS();
+		}
+		else if (actionCommand.equals(SubjectsConfigurationPanel.JB_EXPORT_ACTION)) {
+			exportSubjectToCVS();
 		}
 	}
 
 	public void saveToModel() {
-		// if (this.checkIds()) {
 		this.model.getSubjects().clear();
 
 		for (SubjectPanel sp : this.subjectsPanels) {
@@ -73,11 +83,6 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 			
 			this.model.add(tmp);
 		}
-		// } else {
-		// JOptionPane.showMessageDialog(null,
-		// "Les identifiants ne sont pas uniques", "Error",
-		// JOptionPane.ERROR_MESSAGE);
-		// }
 	}
 
 	public boolean isIdsUnique() {
@@ -99,8 +104,11 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 	}
 
 	private void initializeReactions() {
-		view.getJbAddSubject().addActionListener(this);
-		view.getJbImport().addActionListener(this);
+		this.view.getJbAddSubject().addActionListener(this);
+		this.view.getJbImport().addActionListener(this);
+		this.view.getJbExport().addActionListener(this);
+		
+		this.dropTarget = new DropTarget(this.view, DnDConstants.ACTION_MOVE, this);
 	}
 
 	private void addNewSubject() {
@@ -117,35 +125,60 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 
 	private void importSubjectsFromCVS() {
 		final JFileChooser fc = new JFileChooser();
-		fc.setCurrentDirectory(new File(Model.getFileChoserPath()));
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
 
 		int returnVal = fc.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			Model.setFileChoserPath(fc.getSelectedFile().getParent());
-			ParserCsvSubject parser = new ParserCsvSubject();
-			try {
-				parser.ParseSubjectList(fc.getSelectedFile());
-
-				this.subjectsPanels.clear();
-				for (Subject s : parser.getSubjectList()) {
-					this.subjectsPanels
-							.add(this.createSubjectPanelFromModel(s));
-				}
-
-				this.repaintSubjects();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null,
-						"Erreur à l'ouverture du fichier.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}catch(FileFormatException eFile){
-				JOptionPane.showMessageDialog(null, eFile.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
-			}
+			importSubject(fc.getSelectedFile());
 
 		} else if (returnVal != JFileChooser.CANCEL_OPTION) {
-			JOptionPane.showMessageDialog(null, "Fichier incorrect.", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Fichier incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void importSubject(final File file) {
+		ParserCsvSubject parser = new ParserCsvSubject();
+		try {
+			parser.ParseSubjectList(file);
+
+			this.subjectsPanels.clear();
+			for (Subject s : parser.getSubjectList()) {
+				this.subjectsPanels.add(this.createSubjectPanelFromModel(s));
+			}
+
+			this.repaintSubjects();
+			
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Erreur à l'ouverture du fichier.", "Error", JOptionPane.ERROR_MESSAGE);
+			
+		}catch(FileFormatException eFile){
+			JOptionPane.showMessageDialog(null, eFile.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void exportSubjectToCVS() {
+		final JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(CSV_XLS_FILE_FILTER);
+		
+		int returnVal = fc.showSaveDialog(SwingUtilities.getWindowAncestor(this.view));
+		System.out.println(returnVal);
+		
+		if(returnVal == JFileChooser.APPROVE_OPTION){
+			String path = fc.getSelectedFile().getName();
+			
+			if(path.contains(".")){
+				path = path.substring(0, path.indexOf("."));
+			}
+			
+			// TODO : Appeller la méthode de sauvegarde (voir avec Cédric).
+			if(!path.equals("")) {
+				System.out.println("OK");				
+				path = path + ".csv";
+			}
+			else {
+				System.out.println("Error");
+			}
 		}
 	}
 
@@ -192,12 +225,9 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		subjectPanel.getJtfID().setText(String.valueOf(id));
 
 		subjectPanel.getJbDelete().addActionListener(this);
-		subjectPanel.getJbDelete().setActionCommand(
-				SubjectPanel.JB_DELETE_ACTION);
+		subjectPanel.getJbDelete().setActionCommand(SubjectPanel.JB_DELETE_ACTION);
 		
 		new SubjectPanelCtrl(subjectPanel);
-		
-//		subjectPanel.getJsMinSize().addChangeListener(listener);
 
 		return subjectPanel;
 	}
@@ -220,5 +250,57 @@ public class SubjectsConfigurationCtrl implements ActionListener {
 		}
 
 		return max + 1;
+	}
+
+	@Override
+	public void dragEnter(DropTargetDragEvent dtde) {
+	}
+
+	@Override
+	public void dragOver(DropTargetDragEvent dtde) {
+	}
+
+	@Override
+	public void dropActionChanged(DropTargetDragEvent dtde) {
+	}
+
+	@Override
+	public void dragExit(DropTargetEvent dte) {
+	}
+
+	@Override
+	public void drop(DropTargetDropEvent dtde) {
+		dtde.acceptDrop(DnDConstants.ACTION_COPY);
+		Transferable transferable = dtde.getTransferable();
+
+		// Get the data formats of the dropped item
+		DataFlavor[] flavors = transferable.getTransferDataFlavors();
+
+		// Loop through the flavors
+		for (DataFlavor flavor : flavors) {
+
+		    try {
+
+		        // If the drop items are files
+		        if (flavor.isFlavorJavaFileListType()) {
+
+		            // Get all of the dropped files
+		            List<File> files = (List<File>) transferable.getTransferData(flavor);
+
+		            if(files.size() == 1) {
+		            	importSubject(files.get(0));
+		            }
+
+		        }
+
+		    } catch (Exception e) {
+
+		        // Print out the error stack
+		        e.printStackTrace();
+
+		    }
+		}
+		
+		dtde.dropComplete(true);
 	}
 }

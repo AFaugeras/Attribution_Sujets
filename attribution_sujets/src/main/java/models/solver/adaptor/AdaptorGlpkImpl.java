@@ -94,7 +94,7 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 
 	@Override
 	public StringBuilder getMultiplicity() {
-		return new StringBuilder("param tailleEquipe:=\t0\t;");
+		return new StringBuilder("param tailleEquipe:=\t" + this.data.getConstraint().getMultiplicity() + "\t;");
 	}
 	
 	@Override
@@ -177,9 +177,9 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 				choices = p.getChoices();
 				
 				long defaultCost = costs.get(choices.size());
-				int rang = p.getChoices().indexOf(current) + 1;
+				int rang = choices.indexOf(current);
 				
-				if(rang == 0){
+				if(rang == -1){
 					ret.append(defaultCost);
 				}
 				else{

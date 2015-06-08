@@ -1,8 +1,5 @@
 package controllers.result;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,29 +9,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.table.TableCellEditor;
-import javax.swing.text.JTextComponent;
+
+import models.bean.Model;
+import models.bean.Person;
+import models.utils.CSVXLSFileFilter;
+import views.result.ResultCellRenderer;
+import views.result.ResultPanel;
+import views.result.ResultPdfGenerator;
 
 import com.itextpdf.text.DocumentException;
 
 import controllers.tableModel.ResultTable;
-import models.bean.Model;
-import models.bean.Person;
-import models.bean.Subject;
-import models.exception.fileformatexception.FileFormatException;
-import models.parser.subject.ParserCsvSubject;
-import models.utils.CSVXLSFileFilter;
-import views.configuration.subjects.SubjectPanel;
-import views.configuration.subjects.SubjectsConfigurationPanel;
-import views.result.ResultCellRenderer;
-import views.result.ResultPanel;
-import views.result.ResultPdfGenerator;
 
 public class ResultConfigurationCtrl implements ActionListener {
 
@@ -136,7 +125,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 					super.approveSelection();
 				}
 			};
-			c.setCurrentDirectory(new File(Model.getFileChoserPath()));
+//			c.setCurrentDirectory(new File(Model.getFileChoserPath()));
 			c.setFileFilter(new FileFilter() {
 
 				@Override
@@ -167,7 +156,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 
 			int rVal = c.showSaveDialog(this.view);
 			if (rVal == JFileChooser.APPROVE_OPTION) {
-				Model.setFileChoserPath(c.getSelectedFile().getParent());
+//				Model.setFileChoserPath(c.getSelectedFile().getParent());
 				String filename = c.getSelectedFile().getAbsolutePath();
 
 				if (!filename.endsWith(".csv"))
@@ -247,7 +236,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 					super.approveSelection();
 				}
 			};
-			c.setCurrentDirectory(new File(Model.getFileChoserPath()));
+//			c.setCurrentDirectory(new File(Model.getFileChoserPath()));
 			c.setFileFilter(new FileFilter() {
 
 				@Override
@@ -278,7 +267,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 
 			int rVal = c.showSaveDialog(this.view);
 			if (rVal == JFileChooser.APPROVE_OPTION) {
-				Model.setFileChoserPath(c.getSelectedFile().getParent());
+//				Model.setFileChoserPath(c.getSelectedFile().getParent());
 				String filename = c.getSelectedFile().getAbsolutePath();
 
 				if (!filename.endsWith(".pdf"))

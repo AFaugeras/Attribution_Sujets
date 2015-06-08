@@ -44,7 +44,7 @@ public class SolutionReaderGlpk {
 				line = br.readLine();
 				read ++;
 				if(Integer.parseInt(line) == 0){
-					throw new NotFoundSolutionException();
+					throw new NotFoundSolutionException("Aucune solution d'après le solveur Glpk");
 				}
 			}
 			

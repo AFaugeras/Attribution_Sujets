@@ -37,6 +37,11 @@ public class Constraints {
 	private int multiplicity;
 	
 	/**
+	 * Nombre minimum de sujets a assigner lors de la resolution.
+	 */
+	private int nbMinSubjectsAssigned;
+	
+	/**
 	 * Cout de repartition ordonne par choix
 	 */
 	private List<Long> weights;
@@ -139,6 +144,20 @@ public class Constraints {
 		this.multiplicity = multiplicity;
 	}
 
+	/**
+	 * @return the minimum number of assigned subjects
+	 */
+	public int getNbMinSubjectsAssigned() {
+		return nbMinSubjectsAssigned;
+	}
+
+	/**
+	 * @param nbMinSubjectAssigned  the minimum of assigned number to set
+	 */
+	public void setNbMinSubjectsAssigned(int nbMinSubjectsAssigned) {
+		this.nbMinSubjectsAssigned = nbMinSubjectsAssigned;
+	}
+	
 	/**
 	 * @return the weights
 	 */
