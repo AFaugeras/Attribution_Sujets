@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.bean.Person;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
+import models.exception.fileformatexception.NotFoundFileException;
 import models.factory.UserFactory;
 import models.parser.AbstractParser;
 import models.parser.DataCleaner;
@@ -28,21 +30,25 @@ public class ParserCsvUserList extends AbstractParser {
 	 * @throws IOException
 	 * @throws FileFormatException 
 	 */
-	public void ParseUserList(File sourceFile) throws IOException, FileFormatException{
-		List<String> datas = this.readfile(sourceFile);
-		
-		int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
-		int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse
-		String[] line = new String[datas.get(0).split(PERSONSPLIT).length]; // donne la taille max du tableau
-		checkFormat(PERSON, datas.get(0).split(PERSONSPLIT));
-		// on va parcourir chaque lignes et creer un objet Person contenant les informations adéquates
-		for (index = 1; index < size; index++) {
-			String data = datas.get(index);
-			line = data.split(PERSONSPLIT);
-			Person person = UserFactory.createUser(line);// on creer un objet User
-			UserList.add(person); 
+	public void ParseUserList(File sourceFile) throws FileException{
+		List<String> datas;
+		try {
+			datas = this.readfile(sourceFile);
+			
+			int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
+			int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse
+			String[] line = new String[datas.get(0).split(PERSONSPLIT).length]; // donne la taille max du tableau
+			checkFormat(PERSON, datas.get(0).split(PERSONSPLIT));
+			// on va parcourir chaque lignes et creer un objet Person contenant les informations adéquates
+			for (index = 1; index < size; index++) {
+				String data = datas.get(index);
+				line = data.split(PERSONSPLIT);
+				Person person = UserFactory.createUser(line);// on creer un objet User
+				UserList.add(person); 
+			}
+		} catch (IOException e) {
+			throw new NotFoundFileException();
 		}
-		
 
 	}
 	/**
