@@ -54,16 +54,6 @@ public class Model {
 		this.persons = persons;
 	}
 
-	public boolean add(Subject e) {
-		boolean ret = false;
-
-		if (subjects.add(e)) {
-			ret = true;
-		}
-
-		return ret;
-	}
-
 	public List<Subject> getSubjects() {
 		return subjects;
 	}

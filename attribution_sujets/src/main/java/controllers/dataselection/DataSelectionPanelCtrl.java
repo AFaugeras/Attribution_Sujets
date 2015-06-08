@@ -104,7 +104,7 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 	}
 
 	private void dropOnJtfCampusFile(DropTargetDropEvent dtde) {
-		dtde.acceptDrop(DnDConstants.ACTION_COPY);
+		dtde.acceptDrop(DnDConstants.ACTION_MOVE);
 		
 		File input = Utils.getFileFromTransferable(dtde.getTransferable());
 		
@@ -118,7 +118,7 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 	}
 
 	private void dropOnJtfPersonsFile(DropTargetDropEvent dtde) {
-		dtde.acceptDrop(DnDConstants.ACTION_COPY);
+		dtde.acceptDrop(DnDConstants.ACTION_MOVE);
 	
 		File input = Utils.getFileFromTransferable(dtde.getTransferable());
 		

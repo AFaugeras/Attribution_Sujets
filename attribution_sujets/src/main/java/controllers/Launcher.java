@@ -66,7 +66,7 @@ public class Launcher implements ActionListener {
 	}
 
 	private void initializeReactions() {
-		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model, this.view.getConfigurationPanel().getSubjectsPanel());
+		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model.getSubjects(), this.view.getConfigurationPanel().getSubjectsPanel());
 
 		this.solverCtrl = new SolverSelectionPanelCtrl(this.view.getConfigurationPanel().getSolverSelectionPanel());
 

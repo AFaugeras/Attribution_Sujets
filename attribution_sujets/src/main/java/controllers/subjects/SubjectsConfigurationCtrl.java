@@ -9,12 +9,12 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -31,13 +31,11 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 
 	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
-	private Model model;	
+	private List<Subject> model;	
 	private SubjectsConfigurationPanel view;
 	private List<SubjectPanel> subjectsPanels;
-//	private DropTarget dropTarget;
 	
-	public SubjectsConfigurationCtrl(Model model,
-			SubjectsConfigurationPanel view) {
+	public SubjectsConfigurationCtrl(List<Subject> model, SubjectsConfigurationPanel view) {
 		this.model = model;
 		this.view = view;
 
@@ -65,7 +63,7 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 	}
 
 	public void saveToModel() {
-		this.model.getSubjects().clear();
+		this.model.clear();
 
 		for (SubjectPanel sp : this.subjectsPanels) {
 			int id = Integer.parseInt(sp.getJtfID().getText());
@@ -168,9 +166,12 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 			if(!path.equals("")) {
 				System.out.println("OK");				
 				path = path + ".csv";
-			}
-			else {
-				System.out.println("Error");
+				
+				try {
+					Subject.save(this.model, new File(path));
+				} catch (FileException e) {
+					Utils.displayErrorMessage(e.getMessage(), SwingUtilities.getWindowAncestor(this.view));
+				}
 			}
 		}
 	}
