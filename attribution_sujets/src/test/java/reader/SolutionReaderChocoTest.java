@@ -1,7 +1,5 @@
 package reader;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +9,7 @@ import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
 import models.interfaces.I_Answer;
 import models.parser.BeanMatcher;
@@ -25,6 +24,9 @@ import models.solver.reader.SolutionReaderChoco;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Ceci n'est pas un test unitaire. Il correspond d'avantage à un test d'intégration.
+ */
 public class SolutionReaderChocoTest extends TestCase {
 	
 	private String path;
@@ -37,18 +39,23 @@ public class SolutionReaderChocoTest extends TestCase {
 	}
 	
 	@Test
-	public void testGetNbPersons() throws FileFormatException 
+	public void testRead() throws FileFormatException 
 	{
 		try{
 			
 			Model data = this.generateModel();
 			List<Person> persons = data.getPersons();
-			List<Subject> subjects = data.getSubjects();
 		
 			SolutionReaderChoco.read(path, data);
+			
+			for(Person pers : persons){
+				if(pers.getAssigned() == null){
+					fail("Au moins une personne ne possède pas de sujet");
+				}
+			}
 
 		}
-		catch(IOException e){
+		catch(FileException e){
 			fail(e.getMessage());	
 		}
 		catch(ReaderException e){
@@ -61,7 +68,7 @@ public class SolutionReaderChocoTest extends TestCase {
 			
 	}
 	
-	private Model generateModel() throws IOException,FileFormatException{
+	private Model generateModel() throws FileException{
 		Model ret = null;
 		
 		File f = new File("");

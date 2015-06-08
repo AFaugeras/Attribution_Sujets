@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import models.exception.fileformatexception.FileException;
 import models.parser.AbstractParser;
 
 /**
@@ -160,7 +161,7 @@ public class Subject {
 				+ getMaxCard();
 	}
 
-	public static void save(List<Subject> list, File file) throws IOException {
+	public static void save(List<Subject> list, File file)throws FileException  {
 		String retour = "";
 		int i = 0;
 		for (String column : AbstractParser.SUBJECTFORMAT) {
@@ -175,9 +176,15 @@ public class Subject {
 		}
 
 		// ecriture dans le fichier;
-		    FileWriter fw = new FileWriter (file);
+		    FileWriter fw;
+			try {
+				fw = new FileWriter (file);
+			
 		    fw.write (retour);
 		    fw.close();
-		
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+			throw new FileException();
+			}
 	}
 }

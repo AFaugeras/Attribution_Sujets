@@ -1,10 +1,6 @@
 package writer;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +9,7 @@ import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
 import models.interfaces.I_Answer;
 import models.parser.BeanMatcher;
@@ -70,7 +67,7 @@ public class InputWriterGlpkTest extends TestCase{
 		}		
 	}
 	
-	private Model generateModel() throws IOException,FileFormatException{
+	private Model generateModel() throws FileException{
 		Model ret = null;
 		
 		File f = new File("");
