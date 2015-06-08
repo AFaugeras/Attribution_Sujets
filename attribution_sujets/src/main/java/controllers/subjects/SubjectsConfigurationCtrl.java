@@ -9,7 +9,6 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +18,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import controllers.Utils;
 import models.bean.Model;
 import models.bean.Subject;
-import models.exception.fileformatexception.FileFormatException;
+import models.exception.fileformatexception.FileException;
 import models.parser.subject.ParserCsvSubject;
 import models.utils.CSVXLSFileFilter;
 import views.configuration.subjects.SubjectPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
+import controllers.Utils;
 
 public class SubjectsConfigurationCtrl extends DropTargetAdapter implements ActionListener {
 
@@ -130,7 +129,7 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 			importSubjectFromFile(fc.getSelectedFile());
 
 		} else if (returnVal != JFileChooser.CANCEL_OPTION) {
-			JOptionPane.showMessageDialog(null, "Fichier incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+			Utils.displayErrorMessage("Fichier incorrect.", SwingUtilities.getWindowAncestor(this.view));
 		}
 	}
 
@@ -146,12 +145,9 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 
 			this.repaintSubjects();
 			
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Erreur à l'ouverture du fichier.", "Error", JOptionPane.ERROR_MESSAGE);
-			
-		}catch(FileFormatException eFile){
-			JOptionPane.showMessageDialog(null, eFile.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
-		}
+		} catch (FileException e) {
+			Utils.displayErrorMessage(e.getMessage(), SwingUtilities.getWindowAncestor(this.view));
+		}	
 	}
 
 	private void exportSubjectToCVS() {

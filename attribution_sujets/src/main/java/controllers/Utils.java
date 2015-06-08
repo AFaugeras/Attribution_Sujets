@@ -1,14 +1,21 @@
 package controllers;
 
+import java.awt.Window;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 /**
  * Collection de méthodes utilitaires pour les contrôleurs. Elle ne comporte que des méthodes statiques.
  */
 public class Utils {
+	
+	public static void displayErrorMessage(String message, Window parent) {
+		JOptionPane.showMessageDialog(parent, message, "Erreur", JOptionPane.ERROR_MESSAGE);
+	}
 
 	/**
 	 * Cette méthode permet de récupérer un fichier (s'il existe) depuis un Transferable.

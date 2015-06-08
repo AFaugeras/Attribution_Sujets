@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import views.configuration.constraints.BoundsConstraintsPanel;
+import views.configuration.constraints.SolverParametersPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.dataselection.DataSelectionPanel;
 import views.configuration.solver.SolverSelectionPanel;
@@ -39,7 +39,7 @@ public class ConfigurationPanel extends JPanel {
 	/**
 	 * Panel bornes min et max.
 	 */
-	private BoundsConstraintsPanel boundConstraintsPanel;
+	private SolverParametersPanel boundConstraintsPanel;
 
 	/**
 	 * Panel de configuration campus.
@@ -101,9 +101,9 @@ public class ConfigurationPanel extends JPanel {
 	 *
 	 * @return Le panel boundConstraintsPanel.
 	 */
-	public BoundsConstraintsPanel getBoundConstraintsPanel() {
+	public SolverParametersPanel getBoundConstraintsPanel() {
 		if (this.boundConstraintsPanel == null) {
-			this.boundConstraintsPanel = new BoundsConstraintsPanel();
+			this.boundConstraintsPanel = new SolverParametersPanel();
 		}
 
 		return this.boundConstraintsPanel;

@@ -16,7 +16,7 @@ import javax.swing.border.TitledBorder;
 /**
  * Panel de saisie des nombres maximums de choix et de rejets pris en compte.
  */
-public class BoundsConstraintsPanel extends JPanel {
+public class SolverParametersPanel extends JPanel {
 
 	// Constantes :
 	private static final long serialVersionUID = 1L;
@@ -32,14 +32,19 @@ public class BoundsConstraintsPanel extends JPanel {
 	private JSpinner jsMaxReject;
 	
 	/**
-	 * Champ de saisie pour la multiplicité.
+	 * Spinner de saisie du nombre minimum du sujet effecté.
+	 */
+	private JSpinner jsMinAssigned;
+	
+	/**
+	 * Spinner de saisie pour la multiplicité.
 	 */
 	private JSpinner jsMultiplicity;
 
 	/**
 	 * Constructeur.
 	 */
-	public BoundsConstraintsPanel() {
+	public SolverParametersPanel() {
 		super();
 
 		this.initializeView();
@@ -68,7 +73,20 @@ public class BoundsConstraintsPanel extends JPanel {
 			this.jsMaxReject = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
 		}
 
-		return jsMaxReject;
+		return this.jsMaxReject;
+	}
+	
+	/**
+	 * Accesseur de l'attribut jsMinAssigned.
+	 * 
+	 * @return Le spinner jsMinAssigned.
+	 */
+	public JSpinner getJsMinAssigned() {
+		if (this.jsMinAssigned == null) {
+			this.jsMinAssigned = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+		}
+		
+		return this.jsMinAssigned;
 	}
 
 	/**
@@ -90,8 +108,7 @@ public class BoundsConstraintsPanel extends JPanel {
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 
-		TitledBorder border = BorderFactory
-				.createTitledBorder("Choix pris en compte");
+		TitledBorder border = BorderFactory.createTitledBorder("Paramètre solveur");
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
 		border.setBorder(new LineBorder(Color.BLACK));
@@ -99,6 +116,7 @@ public class BoundsConstraintsPanel extends JPanel {
 
 		JLabel jlMaxChoices = new JLabel("Nombre de choix maximum : ");
 		JLabel jlMaxReject = new JLabel("Nombre de rejets maximum : ");
+		JLabel jlMinAssigned = new JLabel("Minimum assigné : ");
 		JLabel jlMultiplicity = new JLabel("Multiplicité : ");
 
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -114,6 +132,9 @@ public class BoundsConstraintsPanel extends JPanel {
 		this.add(jlMaxReject, gbc);
 		
 		gbc.gridy = 2;
+		this.add(jlMinAssigned, gbc);
+		
+		gbc.gridy = 3;
 		this.add(jlMultiplicity, gbc);
 
 		gbc.gridx = 1;
@@ -125,6 +146,9 @@ public class BoundsConstraintsPanel extends JPanel {
 		this.add(getJsMaxReject(), gbc);
 		
 		gbc.gridy = 2;
+		this.add(getJsMinAssigned(), gbc);
+		
+		gbc.gridy = 3;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(getJsMultiplicity(), gbc);
 		

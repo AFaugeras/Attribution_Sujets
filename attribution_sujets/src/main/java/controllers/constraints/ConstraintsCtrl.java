@@ -12,7 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import models.bean.Constraints;
-import views.configuration.constraints.BoundsConstraintsPanel;
+import views.configuration.constraints.SolverParametersPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.weights.WeightPanel;
 import views.configuration.weights.WeightsConfigurationPanel;
@@ -21,7 +21,7 @@ public class ConstraintsCtrl implements ChangeListener {
 
 	private Constraints model;
 
-	private BoundsConstraintsPanel boundsView;
+	private SolverParametersPanel solverParametersView;
 	private CampusConstraintsPanel campusView;
 	private WeightsConfigurationPanel weightsView;
 
@@ -30,17 +30,17 @@ public class ConstraintsCtrl implements ChangeListener {
 	private int maxChoiceValue;
 
 	public ConstraintsCtrl(Constraints model,
-			BoundsConstraintsPanel boundsView,
+			SolverParametersPanel boundsView,
 			CampusConstraintsPanel campusView,
 			WeightsConfigurationPanel weightsView) {
 		this.model = model;
-		this.boundsView = boundsView;
+		this.solverParametersView = boundsView;
 		this.campusView = campusView;
 		this.weightsView = weightsView;
 
 		this.weightPanels = new ArrayList<WeightPanel>();
 
-		this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
+		this.maxChoiceValue = (int) this.solverParametersView.getJsMaxChoice().getValue();
 
 		this.addNewWeightPanel();
 		
@@ -52,20 +52,20 @@ public class ConstraintsCtrl implements ChangeListener {
 		JSpinner src = (JSpinner) e.getSource();
 		
 		if(src == this.campusView.getJsNbChoice()){
-			((SpinnerNumberModel) this.boundsView.getJsMaxChoice().getModel()).setMaximum((int) src.getValue());
+			((SpinnerNumberModel) this.solverParametersView.getJsMaxChoice().getModel()).setMaximum((int) src.getValue());
 		}
 		else if(src == this.campusView.getJsNbReject()){
-			((SpinnerNumberModel) this.boundsView.getJsMaxReject().getModel()).setMaximum((int) src.getValue());
+			((SpinnerNumberModel) this.solverParametersView.getJsMaxReject().getModel()).setMaximum((int) src.getValue());
 		}
-		else if (src == this.boundsView.getJsMaxChoice()) {
+		else if (src == this.solverParametersView.getJsMaxChoice()) {
 			manageWeights();
 		}
 	}
 
 	private void manageWeights() {
-		int tmp = (int) this.boundsView.getJsMaxChoice().getValue() - this.maxChoiceValue;
+		int tmp = (int) this.solverParametersView.getJsMaxChoice().getValue() - this.maxChoiceValue;
 
-		this.maxChoiceValue = (int) this.boundsView.getJsMaxChoice().getValue();
+		this.maxChoiceValue = (int) this.solverParametersView.getJsMaxChoice().getValue();
 
 		if (tmp > 0) {
 			for (int i = 0; i < tmp; i++) {
@@ -80,9 +80,10 @@ public class ConstraintsCtrl implements ChangeListener {
 	}
 
 	public void saveToModel() {
-		this.model.setNbMaxChoice((int) this.boundsView.getJsMaxChoice().getValue());
-		this.model.setNbMaxReject((int) this.boundsView.getJsMaxReject().getValue());
-		this.model.setMultiplicity((int) this.boundsView.getJsMultiplicity().getValue());
+		this.model.setNbMaxChoice((int) this.solverParametersView.getJsMaxChoice().getValue());
+		this.model.setNbMaxReject((int) this.solverParametersView.getJsMaxReject().getValue());
+		this.model.setNbMinSubjectsAssigned((int) this.solverParametersView.getJsMinAssigned().getValue());
+		this.model.setMultiplicity((int) this.solverParametersView.getJsMultiplicity().getValue());
 
 		this.model.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
 		this.model.setNbReject((int) this.campusView.getJsNbReject().getValue());
@@ -97,7 +98,7 @@ public class ConstraintsCtrl implements ChangeListener {
 	private void initializeReactions() {
 		this.campusView.getJsNbChoice().addChangeListener(this);
 		this.campusView.getJsNbReject().addChangeListener(this);
-		this.boundsView.getJsMaxChoice().addChangeListener(this);
+		this.solverParametersView.getJsMaxChoice().addChangeListener(this);
 	}
 
 	private void addNewWeightPanel() {

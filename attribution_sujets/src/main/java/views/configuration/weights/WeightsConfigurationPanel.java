@@ -11,8 +11,12 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Panel de configuration des poids.
+ */
 public class WeightsConfigurationPanel extends JScrollPane {
 
+	// Constantes :
 	private static final long serialVersionUID = 1L;
 
 	public JPanel jpContainer;

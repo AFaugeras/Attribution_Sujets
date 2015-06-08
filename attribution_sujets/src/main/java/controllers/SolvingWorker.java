@@ -1,6 +1,5 @@
 package controllers;
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.JDialog;
@@ -8,16 +7,12 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import models.bean.Model;
-import models.exception.NoDefineSubjectException;
-import models.exception.NoUserFoundedException;
-import models.exception.fileformatexception.FileFormatException;
+import models.exception.ModelException;
 import models.parser.BeanMatcher;
 import models.parser.answer.ParserCsvAnswer;
 import models.parser.user.ParserCsvUserList;
 import models.solver.Solver;
-import models.solver.reader.NotFoundSolutionException;
-import models.solver.reader.ReaderException;
-import models.solver.writer.WriterException;
+import models.solver.SolverException;
 import views.MainFrame;
 
 
@@ -64,28 +59,8 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 
 			this.solver.solve("input.txt",	"output.txt", this.model);
 
-		} catch (IOException e) {
-			displayErrorMessage("Erreur à la lecture du fichier.");
-			ret = false;
-		} catch (FileFormatException e) {
-			displayErrorMessage("Erreur CSV :\n" + e.getMessage());
-			ret = false;
-		} catch (NoDefineSubjectException e) {
-			displayErrorMessage("Un ou plusieurs sujets ne sont pas définis :\n" + e.getMessage());
-			ret = false;
-		} catch (NoUserFoundedException e) {
-			displayErrorMessage(/* "L'utilisateur " + */e.getMessage()/* + " n'est pas présent dans le fichier d'élèves."*/);
-			ret = false;
-		} catch (WriterException e) {
-			displayErrorMessage("Erreur lors de la génération du fichier d'entrée.");
-			ret = false;
-		} catch (ReaderException e) {
-			displayErrorMessage("Erreur lors de la lecture du fichier solution.");
-			e.printStackTrace();
-			ret = false;
-		} catch (NotFoundSolutionException e) {
-			displayErrorMessage("Aucune solution trouvée.");
-			ret = false;
+		} catch (ModelException  | SolverException e) {
+			displayErrorMessage(e.getMessage());
 		}
 		
 		return ret;
