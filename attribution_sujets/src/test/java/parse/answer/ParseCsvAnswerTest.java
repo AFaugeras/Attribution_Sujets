@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import junit.framework.TestCase;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
@@ -16,7 +17,7 @@ import org.junit.Test;
 public class ParseCsvAnswerTest extends TestCase {
 
 	@Test
-	public void testSuppressionDoublon() throws IOException {
+	public void testSuppressionDoublon()  {
 		File f = new File("");
 		f = CsvHelper.getRessource(f.getAbsolutePath()  + f.separator + "src"
 				+ f.separator + "test"+ f.separator+ "resources"
@@ -24,7 +25,7 @@ public class ParseCsvAnswerTest extends TestCase {
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		try {
 			parser.parseAnswer(f);
-		} catch (FileFormatException e) {
+		} catch (FileException e) {
 			fail("Probleme de format d'entrée");
 			e.printStackTrace();
 		}

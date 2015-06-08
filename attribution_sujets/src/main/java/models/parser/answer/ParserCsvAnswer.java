@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
+import models.exception.fileformatexception.NotFoundFileException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 import models.parser.AbstractParser;
@@ -30,10 +32,12 @@ public class ParserCsvAnswer extends AbstractParser {
 	 * @param sourceFile
 	 * @throws IOException
 	 */
-	public void parseAnswer(File sourceFile) throws IOException,FileFormatException {
-		List<String> datas = this.readfile(sourceFile); // recuperation des
+	public void parseAnswer(File sourceFile) throws FileException {
+		try {
+			List<String> datas = this.readfile(sourceFile); // recuperation des
 														// données sous forme
 														// tableau de string
+		
 		int size = datas.size(); // compte le nombre total de ligne dans le
 									// fichier
 		int index; // pour se deplacer dans le tableau de données source nombre
@@ -52,7 +56,9 @@ public class ParserCsvAnswer extends AbstractParser {
 																	// reponse
 			answerlist.add(response);
 		}
-
+		} catch (IOException e) {
+			throw new NotFoundFileException();
+		}
 	}
 
 	/**
@@ -63,6 +69,25 @@ public class ParserCsvAnswer extends AbstractParser {
 	public List<I_Answer> getCleanedData() {
 		return DataCleaner.cleanAnswers(this.answerlist);
 	}
+	/**
+	 * verifie 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	public static boolean checkFormat(File file) {
 	
+		try {List<String> datas = readfile(file);
+		String[] line = new String[datas.get(0).split(ANSWERSPLIT).length]; 
+		
+			checkFormat(ANSWER, line);
+		} catch (FileFormatException e) {
+			return false;
+		}
+		catch (IOException e1) {
+		return false;
+	}
+		return true;
+	}
 	
 }

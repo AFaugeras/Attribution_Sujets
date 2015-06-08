@@ -9,6 +9,7 @@ import junit.framework.TestCase;
 import models.bean.Constraints;
 import models.bean.Person;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
@@ -30,12 +31,12 @@ public class BeanMatcherTest extends TestCase{
 		Person person = models.factory.UserFactory.createUser(dataUser);
 		listPerson.add(person);
 		String[][] subjectList={
-								{"Gestion des notes et élèves","2","2","2","2","2"},
-								{"Plan de déchargement","","","2","",""},
-								{"Souris de bibliothèque","","","","",""},
-								{"Design","","","","",""},
-								{"Baby sitting","","","","",""},
-								{"Expressions algébriques","","","",""},
+								{"1","Gestion des notes et élèves","2","2","2","2","2"},
+								{"2","Plan de déchargement","","","2","",""},
+								{"3","Souris de bibliothèque","","","","",""},
+								{"4","Design","","","","",""},
+								{"5","Baby sitting","","","","",""},
+								{"6","Expressions algébriques","","","",""},
 								};
 		int i=0;
 		for (String[] strings : subjectList) {
@@ -72,6 +73,7 @@ public class BeanMatcherTest extends TestCase{
 			matcher.match();
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
 	}
 
@@ -85,12 +87,12 @@ public class BeanMatcherTest extends TestCase{
 		Person person = models.factory.UserFactory.createUser(dataUser);
 		listPerson.add(person);
 		String[][] subjectList={
-								{"Labyrinthes","2","2","2","2","2"},
-								{"Space landing","","","2","",""},
-								{"Poker","","","","",""},
-								{"Bataille","","","","",""},
-								{"Ruzzle","","","","",""},
-								{"Expressions algébriques","","","",""},
+								{"1","Labyrinthes","2","2","2","2"},
+								{"2","Space landing","","2","",""},
+								{"3","Poker","","","",""},
+								{"4","Bataille","","","",""},
+								{"5","Ruzzle","","","",""},
+								{"6","Expressions algébriques","","","",""},
 								};
 		int i=0;
 		for (String[] strings : subjectList) {
@@ -104,10 +106,8 @@ public class BeanMatcherTest extends TestCase{
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		try {
 			parser.parseAnswer(f);
-		} catch (IOException e1) {
+		} catch (FileException e1) {
 			fail();
-		}catch(FileFormatException e2){
-			fail("Probléme de format du fichier d'entrée");
 		}
 		listAnswer=parser.getCleanedData();
 		
@@ -118,11 +118,12 @@ public class BeanMatcherTest extends TestCase{
 
 		BeanMatcher matcher = new BeanMatcher(listPerson, listAnswer, listsubject, constraint);
 		
-		
+		boolean erreur = false;
 		try {
 			matcher.match();
 		} catch (Exception e) {
-			e.printStackTrace();
+			erreur = true;
 		}
+		 if(erreur == true) fail("Le match ne devrait pas avoir lieu");
 	}
 }

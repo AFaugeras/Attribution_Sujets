@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import models.bean.Subject;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
 import models.factory.SubjectFactory;
 import models.parser.helper.CsvHelper;
@@ -24,7 +25,7 @@ public class ParserCsvSubjectTest extends TestCase {
 		ParserCsvSubject parser = new ParserCsvSubject();
 		try {
 			parser.ParseSubjectList(f);
-		} catch (FileFormatException e) {
+		} catch (FileException e) {
 			fail("Probléme de format");
 		}
 		List<Subject> subject = parser.getSubjectList();
@@ -56,7 +57,7 @@ public class ParserCsvSubjectTest extends TestCase {
 		ParserCsvSubject parser = new ParserCsvSubject();
 		try {
 			parser.ParseSubjectList(f);
-		} catch (FileFormatException e) {
+		} catch (FileException e) {
 			fail("Probléme de format");
 		}
 		List<Subject> subject = parser.getSubjectList();

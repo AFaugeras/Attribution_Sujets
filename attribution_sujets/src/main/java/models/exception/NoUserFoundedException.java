@@ -15,7 +15,7 @@ public class NoUserFoundedException extends Exception {
 
 	@Override
 	public String getMessage() {
-		return "Person non trouvée dans le fichier de liste des utilisateurs, vérifier la préence de l'id: "+IdUser;
+		return "Personne non trouvée dans le fichier de liste des utilisateurs, vérifier la préence de l'id: "+IdUser;
 	}
 	
 }

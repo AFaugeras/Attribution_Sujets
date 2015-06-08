@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import models.bean.Person;
+import models.exception.fileformatexception.FileException;
 import models.exception.fileformatexception.FileFormatException;
 import models.factory.UserFactory;
 import models.parser.helper.CsvHelper;
@@ -24,7 +25,7 @@ public class ParserUserTest extends TestCase {
 		ParserCsvUserList parser = new ParserCsvUserList();
 		try {
 			parser.ParseUserList(f);
-		} catch (FileFormatException e) {
+		} catch (FileException e) {
 			fail("Probléme de format du fichier d'entrée");
 			e.printStackTrace();
 		}
@@ -44,7 +45,7 @@ public class ParserUserTest extends TestCase {
 		ParserCsvUserList parser = new ParserCsvUserList();
 		try {
 			parser.ParseUserList(f);
-		} catch (FileFormatException e) {
+		} catch (FileException e) {
 			fail("Probléme de format du fichier d'entrée");
 			e.printStackTrace();
 		}
@@ -63,7 +64,7 @@ public class ParserUserTest extends TestCase {
 		ParserCsvUserList parser = new ParserCsvUserList();
 		try {
 			parser.ParseUserList(f);
-		} catch (FileFormatException e) {
+		} catch (FileException e) {
 			e.printStackTrace();
 			fail("Probléme de format du fichier d'entrée");
 		}
