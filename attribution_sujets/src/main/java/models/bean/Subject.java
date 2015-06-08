@@ -161,7 +161,7 @@ public class Subject {
 				+ getMaxCard();
 	}
 
-	public static void save(List<Subject> list, File file)throws FileException  {
+	public static void save(List<Subject> list, File file)throws FileException{
 		String retour = "";
 		int i = 0;
 		for (String column : AbstractParser.SUBJECTFORMAT) {
