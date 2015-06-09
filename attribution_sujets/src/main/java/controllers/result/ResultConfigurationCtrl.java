@@ -24,6 +24,7 @@ import views.result.ResultPdfGenerator;
 import com.itextpdf.text.DocumentException;
 
 import controllers.tableModel.ResultTable;
+import controllers.tableModel.ResultTableHeader;
 
 public class ResultConfigurationCtrl implements ActionListener {
 
@@ -31,12 +32,18 @@ public class ResultConfigurationCtrl implements ActionListener {
 
 	private Model model;
 	private ResultPanel view;
-	
+
 	/**
 	 * La liste des entrées du tableau
 	 */
-	private String[] entete = { "Prénom", "Nom", "Identifiant Campus",
-			"Identifiant sujet", "Sujet", "Commentaires" };
+	private ResultTableHeader[] entete = {
+			new ResultTableHeader(0, "Prénom", true),
+			new ResultTableHeader(1, "Nom", true),
+			new ResultTableHeader(2, "Identifiant Campus", true),
+			new ResultTableHeader(3, "Identifiant sujet", true),
+			new ResultTableHeader(4, "Sujet", true),
+			new ResultTableHeader(5, "Encadrant", true),
+			new ResultTableHeader(6, "Commentaires", false) };
 	/**
 	 * Les colonnes qui ne seront pas éditables
 	 */
@@ -55,24 +62,21 @@ public class ResultConfigurationCtrl implements ActionListener {
 	 */
 	private Object[][] donnees;
 
-	public ResultConfigurationCtrl(Model model,
-			ResultPanel view) {
+	public ResultConfigurationCtrl(Model model, ResultPanel view) {
 		this.model = model;
 		this.view = view;
-		
+
 		disabledCols.add(0);
 		disabledCols.add(1);
 		disabledCols.add(2);
 		disabledCols.add(4);
-		
-		initializeReactions();
 	}
 
-	private void initializeReactions() {
+	public void initializeReactions() {
 		view.getJbExportCsv().addActionListener(this);
 		view.getJbExportPdf().addActionListener(this);
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
@@ -125,7 +129,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 					super.approveSelection();
 				}
 			};
-//			c.setCurrentDirectory(new File(Model.getFileChoserPath()));
+			// c.setCurrentDirectory(new File(Model.getFileChoserPath()));
 			c.setFileFilter(new FileFilter() {
 
 				@Override
@@ -156,7 +160,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 
 			int rVal = c.showSaveDialog(this.view);
 			if (rVal == JFileChooser.APPROVE_OPTION) {
-//				Model.setFileChoserPath(c.getSelectedFile().getParent());
+				// Model.setFileChoserPath(c.getSelectedFile().getParent());
 				String filename = c.getSelectedFile().getAbsolutePath();
 
 				if (!filename.endsWith(".csv"))
@@ -168,16 +172,20 @@ public class ResultConfigurationCtrl implements ActionListener {
 
 				String line = "";
 
-				for (Object object : entete) {
-					line += object + ";";
+				ArrayList<Integer> selectedCols = new ArrayList<Integer>();
+				for (ResultTableHeader head : entete) {
+					if (head.isSelected()) {
+						selectedCols.add(head.getPosition());
+						line += head.getLabel() + ";";
+					}
 				}
 				line += '\n';
 				fileWriter.append(line);
 
 				for (Object[] objects : donnees) {
 					line = "";
-					for (Object object : objects) {
-						line += (object == null ? "" : object) + ";";
+					for (Integer pos : selectedCols) {
+						line += (objects[pos] == null ? "" : objects[pos]) + ";";
 					}
 					line += '\n';
 					fileWriter.append(line);
@@ -219,7 +227,8 @@ public class ResultConfigurationCtrl implements ActionListener {
 					if (f.exists() && getDialogType() == SAVE_DIALOG) {
 						int result = JOptionPane.showConfirmDialog(this,
 								"Ce fichier existe déjà, le remplacer ?",
-								"File existant", JOptionPane.YES_NO_CANCEL_OPTION);
+								"File existant",
+								JOptionPane.YES_NO_CANCEL_OPTION);
 						switch (result) {
 						case JOptionPane.YES_OPTION:
 							super.approveSelection();
@@ -236,7 +245,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 					super.approveSelection();
 				}
 			};
-//			c.setCurrentDirectory(new File(Model.getFileChoserPath()));
+			// c.setCurrentDirectory(new File(Model.getFileChoserPath()));
 			c.setFileFilter(new FileFilter() {
 
 				@Override
@@ -267,7 +276,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 
 			int rVal = c.showSaveDialog(this.view);
 			if (rVal == JFileChooser.APPROVE_OPTION) {
-//				Model.setFileChoserPath(c.getSelectedFile().getParent());
+				// Model.setFileChoserPath(c.getSelectedFile().getParent());
 				String filename = c.getSelectedFile().getAbsolutePath();
 
 				if (!filename.endsWith(".pdf"))
@@ -290,7 +299,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 		return this.model;
 	}
 
-	public JTable getTable() {
+	public ResultTable getTable() {
 		List<Person> people = this.model.getPersons();
 
 		donnees = new Object[people.size()][];
@@ -306,21 +315,23 @@ public class ResultConfigurationCtrl implements ActionListener {
 			}
 
 			String[] data = { someone.getFirstName(), someone.getFamilyName(),
-					someone.getIDcampus(), subjectId, subjectLabel,
+					someone.getIDcampus(), subjectId, subjectLabel, "",
 					someone.getComment() };
 			donnees[i] = data;
 		}
 
-		JTable tableau = new ResultTable(donnees, entete, disabledCols, subjectIdColNumber, subjectLabelColNumber, model.getSubjects());
-		
-		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(disabledCols));
+		ResultTable tableau = new ResultTable(donnees, entete, disabledCols,
+				subjectIdColNumber, subjectLabelColNumber, model.getSubjects());
+
+		tableau.setDefaultRenderer(Object.class, new ResultCellRenderer(
+				disabledCols));
 
 		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		
+
 		tableau.getTableHeader().setReorderingAllowed(false);
 		tableau.setPreferredScrollableViewportSize(tableau.getPreferredSize());
 		tableau.setFillsViewportHeight(true);
-//		resizeColumnWidth(tableau);
+		// resizeColumnWidth(tableau);
 		return tableau;
 	}
 }

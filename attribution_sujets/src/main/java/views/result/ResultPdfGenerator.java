@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.itextpdf.text.Document;
@@ -15,6 +16,8 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import controllers.tableModel.ResultTableHeader;
 
 /**
  * Classe prennant en charge la génération du pdf d'export de l'affichage des résultats.
@@ -34,11 +37,11 @@ public class ResultPdfGenerator {
 
 	private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
-	private static String[] header;
+	private static ResultTableHeader[] header;
 	private static Object[][] data;
 	
-	public ResultPdfGenerator(String[] header, Object[][] data) {
-		ResultPdfGenerator.header = header;
+	public ResultPdfGenerator(ResultTableHeader[] entete, Object[][] data) {
+		ResultPdfGenerator.header = entete;
 		ResultPdfGenerator.data = data;
 	}
 
@@ -103,7 +106,7 @@ public class ResultPdfGenerator {
 	 * @throws DocumentException
 	 */
 	private static void addContent(Document document) throws DocumentException {
-	    PdfPTable table = new PdfPTable(header.length);
+	    
 
 	    // t.setBorderColor(BaseColor.GRAY);
 	    // t.setPadding(4);
@@ -112,17 +115,26 @@ public class ResultPdfGenerator {
 
 	    //Déclaration de l'entête du tableau
 	    PdfPCell c1;
-	    for (String head : header) {
-	    	c1 = new PdfPCell(new Phrase(head));
-	    	c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-	    	table.addCell(c1);
+	    ArrayList<Integer> selectedCols = new ArrayList<Integer>();
+	    for (ResultTableHeader head : header) {
+			if (head.isSelected()) {
+				selectedCols.add(head.getPosition());
+			}
+		}
+	    PdfPTable table = new PdfPTable(selectedCols.size());
+	    for (ResultTableHeader head : header) {
+			if (head.isSelected()) {
+				c1 = new PdfPCell(new Phrase(head.getLabel()));
+		    	c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		    	table.addCell(c1);
+			}
 		}
 	    table.setHeaderRows(1);
 
 	    // Remplissement du tableau avec les données
 	    for (Object[] objects : data) {
-			for (Object object : objects) {
-				String content = object == null ? "" : object.toString();
+			for (Integer pos : selectedCols) {
+				String content = objects[pos] == null ? "" : objects[pos].toString();
 				table.addCell(content);
 			}
 		}

@@ -2,9 +2,12 @@ package views.result;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -15,7 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
@@ -26,6 +32,7 @@ import models.bean.Subject;
 import controllers.result.ResultConfigurationCtrl;
 import controllers.result.ResultStatPanelCtrl;
 import controllers.result.ResultSubjectPanelCtrl;
+import controllers.tableModel.ResultTable;
 
 /**
  * 
@@ -45,7 +52,7 @@ public class ResultPanel extends JPanel {
 	/**
 	 * La Jtable contenant l'affchage des résultats
 	 */
-	private JTable jpPeople;
+	private ResultTable jpPeople;
 	
 	private JPanel jpResultTable;
 	private JPanel jpSubjects;
@@ -72,9 +79,14 @@ public class ResultPanel extends JPanel {
 	
 	public void setModel(Model model) {
 		controller = new ResultConfigurationCtrl(model, this);
+		this.resultSubjectPanelCtrl = new ResultSubjectPanelCtrl();
+		this.resultStatPanelCtrl = new ResultStatPanelCtrl();
 		resultSubjectPanelCtrl.setModel(model);
 		resultStatPanelCtrl.setModel(model);
+		this.jbExportCsv = null;
+		this.jbExportPdf = null;
 		this.initializeView();
+		this.controller.initializeReactions();
 	}
 
 	public JButton getJbBack() {
@@ -98,6 +110,7 @@ public class ResultPanel extends JPanel {
 		this.jtContent = new JTabbedPane();
 		
 		this.jpResultTable = new JPanel(new GridBagLayout());
+		getJpPeople().setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane jsp = new JScrollPane(getJpPeople(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jsp.setBorder(null);
 		jsp.setPreferredSize(new Dimension(1000, 480));
@@ -154,7 +167,7 @@ public class ResultPanel extends JPanel {
 	 */
 	public JButton getJbExportCsv() {
 		if (jbExportCsv == null) {
-			jbExportCsv = new JButton("Export CSV", new ImageIcon(this
+			jbExportCsv = new JButton("Exporter la sélection en CSV", new ImageIcon(this
 					.getClass().getClassLoader()
 					.getResource("ihm/img/export_csv.png")));
 			jbExportCsv.setActionCommand(JB_EXPORT_CSV_ACTION);
@@ -168,7 +181,7 @@ public class ResultPanel extends JPanel {
 	 */
 	public JButton getJbExportPdf() {
 		if (jbExportPdf == null) {
-			jbExportPdf = new JButton("Export PDF", new ImageIcon(this
+			jbExportPdf = new JButton("Export la sélection en PDF", new ImageIcon(this
 					.getClass().getClassLoader()
 					.getResource("ihm/img/export_pdf.png")));
 			jbExportPdf.setActionCommand(JB_EXPORT_PDF_ACTION);
@@ -180,7 +193,7 @@ public class ResultPanel extends JPanel {
 	/**
 	 * @return retourne le tableau construit des résultats
 	 */
-	private JTable getJpPeople() {
+	private ResultTable getJpPeople() {
 		// if (jpPeople == null) {
 		// this.jpPeople = new JPanel();
 		this.jpPeople = this.controller.getTable();
@@ -252,6 +265,8 @@ public class ResultPanel extends JPanel {
 			people.add(someone);
 		}
 
+		people.get(0).setComment("u vhbfe ivlbfaei bfeiuag beidvb dckjv c hvfeib vidpbe vibdeiv bfidl bfda vpibcdklh zbvclkd bvjkcbdv kdfzb viefda bchkvv falykbvkdbchjvc b vhbeai kvbdcalkv bc dqj bqc hvlaf bqvhbdqvl hqkcb dvhjqd bvldqb");
+		
 		Model model = new Model(null, people, subjects);
 		
 		Constraints constraint = new Constraints(3, 0, 0, 0);

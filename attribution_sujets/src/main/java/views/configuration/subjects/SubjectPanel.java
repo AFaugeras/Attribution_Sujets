@@ -28,7 +28,7 @@ public class SubjectPanel extends JPanel {
 	public static final String JB_DELETE_ACTION = "DELETE";
 
 	private static final long serialVersionUID = 1L;
-	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject.png"));
+	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject3.png"));
 	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private static final Border LINE_BORDER = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 	private static final Dimension PREFERED_SIZE = new Dimension(375, 100);
