@@ -39,7 +39,7 @@ public class Launcher implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
 
-		if (actionCommand.equals(ConfigurationPanel.JB_NEXT_ACTION)) {
+		if (actionCommand.equals(ConfigurationPanel.JB_DIVIDE_ACTION)) {
 			solvingAsked();
 		} else if (actionCommand.equals(ResultPanel.JB_BACK_ACTION)) {
 			returnToConfiguration();
@@ -71,13 +71,13 @@ public class Launcher implements ActionListener {
 		this.solverCtrl = new SolverSelectionPanelCtrl(this.view.getConfigurationPanel().getSolverSelectionPanel());
 
 		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
-				this.view.getConfigurationPanel().getBoundConstraintsPanel(),
+				this.view.getConfigurationPanel().getSolverParametersPanel(),
 				this.view.getConfigurationPanel().getCampusConstraintsPanel(),
 				this.view.getConfigurationPanel().getWeightsConfigurationPanel());
 
 		this.dataSelectionCtrl = new DataSelectionPanelCtrl(this.view.getConfigurationPanel().getDataSelectionPanel());
 
-		this.view.getConfigurationPanel().getJbNext().addActionListener(this);
+		this.view.getConfigurationPanel().getJbDivide().addActionListener(this);
 		this.view.getResultPanel().getJbBack().addActionListener(this);
 	}
 

@@ -16,7 +16,7 @@ import javax.swing.border.TitledBorder;
 /**
  * Panel de saisie des nombres maximums de choix et de rejets pris en compte.
  */
-public class SolverParametersPanel extends JPanel {
+public class SolverConfigurationPanel extends JPanel {
 
 	// Constantes :
 	private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class SolverParametersPanel extends JPanel {
 	/**
 	 * Constructeur.
 	 */
-	public SolverParametersPanel() {
+	public SolverConfigurationPanel() {
 		super();
 
 		this.initializeView();
@@ -57,7 +57,8 @@ public class SolverParametersPanel extends JPanel {
 	 */
 	public JSpinner getJsMaxChoice() {
 		if (this.jsMaxChoice == null) {
-			this.jsMaxChoice = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMaxChoice = new JSpinner(new SpinnerNumberModel(0, 0, 0, 1));
+			((JSpinner.NumberEditor) this.jsMaxChoice.getEditor()).getTextField().setColumns(3);
 		}
 
 		return jsMaxChoice;
@@ -70,7 +71,8 @@ public class SolverParametersPanel extends JPanel {
 	 */
 	public JSpinner getJsMaxReject() {
 		if (this.jsMaxReject == null) {
-			this.jsMaxReject = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMaxReject = new JSpinner(new SpinnerNumberModel(0, 0, 0, 1));
+			((JSpinner.NumberEditor) this.jsMaxReject.getEditor()).getTextField().setColumns(3);
 		}
 
 		return this.jsMaxReject;

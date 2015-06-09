@@ -12,7 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import models.bean.Constraints;
-import views.configuration.constraints.SolverParametersPanel;
+import views.configuration.constraints.SolverConfigurationPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.weights.WeightPanel;
 import views.configuration.weights.WeightsConfigurationPanel;
@@ -21,7 +21,7 @@ public class ConstraintsCtrl implements ChangeListener {
 
 	private Constraints model;
 
-	private SolverParametersPanel solverParametersView;
+	private SolverConfigurationPanel solverParametersView;
 	private CampusConstraintsPanel campusView;
 	private WeightsConfigurationPanel weightsView;
 
@@ -30,7 +30,7 @@ public class ConstraintsCtrl implements ChangeListener {
 	private int maxChoiceValue;
 
 	public ConstraintsCtrl(Constraints model,
-			SolverParametersPanel boundsView,
+			SolverConfigurationPanel boundsView,
 			CampusConstraintsPanel campusView,
 			WeightsConfigurationPanel weightsView) {
 		this.model = model;
@@ -52,10 +52,25 @@ public class ConstraintsCtrl implements ChangeListener {
 		JSpinner src = (JSpinner) e.getSource();
 		
 		if(src == this.campusView.getJsNbChoice()){
-			((SpinnerNumberModel) this.solverParametersView.getJsMaxChoice().getModel()).setMaximum((int) src.getValue());
+			int nbChoice = (int) src.getValue();
+			int nbMaxChoice = (int) this.solverParametersView.getJsMaxChoice().getValue();
+			
+			((SpinnerNumberModel) this.solverParametersView.getJsMaxChoice().getModel()).setMaximum(nbChoice);
+			
+			if(nbMaxChoice > nbChoice) {
+				this.solverParametersView.getJsMaxChoice().setValue(nbChoice);
+			}
+			
 		}
 		else if(src == this.campusView.getJsNbReject()){
-			((SpinnerNumberModel) this.solverParametersView.getJsMaxReject().getModel()).setMaximum((int) src.getValue());
+			int nbReject = (int) src.getValue();
+			int nbMaxReject = (int) this.solverParametersView.getJsMaxReject().getValue();
+			
+			((SpinnerNumberModel) this.solverParametersView.getJsMaxReject().getModel()).setMaximum(nbReject);
+			
+			if(nbMaxReject > nbReject) {
+				this.solverParametersView.getJsMaxReject().setValue(nbReject);
+			}
 		}
 		else if (src == this.solverParametersView.getJsMaxChoice()) {
 			manageWeights();
