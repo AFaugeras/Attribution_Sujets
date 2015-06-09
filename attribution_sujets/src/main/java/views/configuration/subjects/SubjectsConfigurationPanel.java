@@ -20,13 +20,14 @@ import javax.swing.border.TitledBorder;
 public class SubjectsConfigurationPanel extends JPanel {
 
 	// Constantes :
-	private static final long serialVersionUID = 1L;
-	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
-	
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
 	public static final String JB_EXPORT_ACTION = "SAVE";
 	
+	private static final long serialVersionUID = 1L;
+	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
+	
+	private static final String LABEL_TITLED_BORDER = "Sujets";
 	private static final String JB_ADD_LABEL = "Ajouter";
 	private static final String JB_ADD_ICON_PATH = "ihm/img/add_subject2.png";
 	private static final String JB_IMPORT_LABEL = "Importer";
@@ -129,7 +130,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	private void initializeView() {
 		this.setLayout(new BorderLayout());
 
-		TitledBorder border = BorderFactory.createTitledBorder("Sujets");
+		TitledBorder border = BorderFactory.createTitledBorder(LABEL_TITLED_BORDER);
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
 		border.setBorder(new LineBorder(Color.BLACK));
