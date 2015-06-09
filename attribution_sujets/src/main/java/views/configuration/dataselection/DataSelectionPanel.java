@@ -21,7 +21,13 @@ public class DataSelectionPanel extends JPanel {
 
 	// Constantes :
 	public static final String JB_CAMPUS_SELECTION = "CAMPUS_SELECTION";
-	public static final String JB_PERSON_SELECTION = "PERSON_SELECTION";
+	public static final String JB_PERSONS_SELECTION = "PERSON_SELECTION";
+	
+	private static final String LABEL_TITLED_BORDER = "Données";
+	private static final String CAMPUS_LABEL = "Fichier campus :";
+	private static final String JB_CAMPUS_ICON_PATH = "ihm/img/import_mini.png";
+	private static final String PERSONS_LABEL = "Personnes :";
+	private static final String JB_PERSONS_ICON_PATH = "ihm/img/import_mini.png";
 
 	private static final long serialVersionUID = 1L;
 
@@ -91,9 +97,7 @@ public class DataSelectionPanel extends JPanel {
 	 */
 	public JButton getJbCampusFile() {
 		if (this.jbCampusFile == null) {
-			this.jbCampusFile = new JButton(new ImageIcon(this.getClass()
-					.getClassLoader()
-					.getResource("ihm/img/import_mini.png")));
+			this.jbCampusFile = new JButton(new ImageIcon(this.getClass().getClassLoader().getResource(JB_CAMPUS_ICON_PATH)));
 			this.jbCampusFile.setActionCommand(JB_CAMPUS_SELECTION);
 		}
 
@@ -107,10 +111,8 @@ public class DataSelectionPanel extends JPanel {
 	 */
 	public JButton getJbPersonsFile() {
 		if (this.jbPersonsFile == null) {
-			this.jbPersonsFile = new JButton(new ImageIcon(this.getClass()
-					.getClassLoader()
-					.getResource("ihm/img/import_mini.png")));
-			this.jbPersonsFile.setActionCommand(JB_PERSON_SELECTION);
+			this.jbPersonsFile = new JButton(new ImageIcon(this.getClass().getClassLoader().getResource(JB_PERSONS_ICON_PATH)));
+			this.jbPersonsFile.setActionCommand(JB_PERSONS_SELECTION);
 		}
 
 		return this.jbPersonsFile;
@@ -122,14 +124,14 @@ public class DataSelectionPanel extends JPanel {
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 
-		TitledBorder border = BorderFactory.createTitledBorder("Données");
+		TitledBorder border = BorderFactory.createTitledBorder(LABEL_TITLED_BORDER);
 		Font font = border.getTitleFont();
 		border.setTitleFont(new Font(font.getName(), Font.BOLD, font.getSize()));
 		border.setBorder(new LineBorder(Color.BLACK));
 		this.setBorder(border);
 
-		JLabel jlCampusFile = new JLabel("Fichier campus :");
-		JLabel jlPersonFile = new JLabel("Elèves :");
+		JLabel jlCampusFile = new JLabel(CAMPUS_LABEL);
+		JLabel jlPersonFile = new JLabel(PERSONS_LABEL);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;

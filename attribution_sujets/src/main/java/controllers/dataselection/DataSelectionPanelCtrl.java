@@ -44,7 +44,7 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 
 		if (actionCommand.equals(DataSelectionPanel.JB_CAMPUS_SELECTION)) {
 			this.campusFileSelection();
-		} else if (actionCommand.equals(DataSelectionPanel.JB_PERSON_SELECTION)) {
+		} else if (actionCommand.equals(DataSelectionPanel.JB_PERSONS_SELECTION)) {
 			this.personFileSelection();
 		}
 	}
