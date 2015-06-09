@@ -41,8 +41,8 @@ public class InputWriterGlpk{
 			bw.write(data.getMaxCardSubjects().toString());
 			bw.newLine();
 			
-//			bw.write(data.getMultiplicity().toString());
-//			bw.newLine();
+			bw.write(data.getMultiplicity().toString());
+			bw.newLine();
 			
 			bw.write(data.getMinSizeSubjects().toString());
 			bw.newLine();
