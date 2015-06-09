@@ -26,6 +26,13 @@ public class SubjectsConfigurationPanel extends JPanel {
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
 	public static final String JB_EXPORT_ACTION = "SAVE";
+	
+	private static final String JB_ADD_LABEL = "Ajouter";
+	private static final String JB_ADD_ICON_PATH = "ihm/img/add_subject2.png";
+	private static final String JB_IMPORT_LABEL = "Importer";
+	private static final String JB_IMPORT_ICON_PATH = "ihm/img/import_subjects.png";
+	private static final String JB_EXPORT_LABEL = "Exporter";
+	private static final String JB_EXPORT_ICON_PATH = "ihm/img/export_subjects2.png";
 
 	/**
 	 * Panel des sujets.
@@ -76,8 +83,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	 */
 	public JButton getJbAddSubject() {
 		if (jbAddSubject == null) {
-			jbAddSubject = new JButton("Ajouter", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/add_subject2.png")));
+			jbAddSubject = new JButton(JB_ADD_LABEL, new ImageIcon(this.getClass().getClassLoader().getResource(JB_ADD_ICON_PATH)));
 			jbAddSubject.setActionCommand(JB_ADD_SUBJECT_ACTION);
 		}
 
@@ -91,9 +97,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	 */
 	public JButton getJbImport() {
 		if (jbImport == null) {
-			jbImport = new JButton("Importer", new ImageIcon(this.getClass()
-					.getClassLoader()
-					.getResource("ihm/img/import_subjects.png")));
+			jbImport = new JButton(JB_IMPORT_LABEL, new ImageIcon(this.getClass().getClassLoader().getResource(JB_IMPORT_ICON_PATH)));
 			jbImport.setActionCommand(JB_IMPORT_ACTION);
 		}
 
@@ -107,9 +111,7 @@ public class SubjectsConfigurationPanel extends JPanel {
 	 */
 	public JButton getJbExport() {
 		if (jbExport == null) {
-			jbExport = new JButton("Exporter", new ImageIcon(this.getClass()
-					.getClassLoader()
-					.getResource("ihm/img/export_subjects2.png")));
+			jbExport = new JButton(JB_EXPORT_LABEL, new ImageIcon(this.getClass().getClassLoader().getResource(JB_EXPORT_ICON_PATH)));
 			jbExport.setActionCommand(JB_EXPORT_ACTION);
 		}
 
