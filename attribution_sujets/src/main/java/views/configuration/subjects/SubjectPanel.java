@@ -20,7 +20,7 @@ import javax.swing.border.Border;
 import views.configuration.IntegerTextField;
 
 /**
- * Ce widget permet de représenter un sujet.
+ * Cette classe permet de représenter un sujet.
  */
 public class SubjectPanel extends JPanel {
 
@@ -28,12 +28,9 @@ public class SubjectPanel extends JPanel {
 	public static final String JB_DELETE_ACTION = "DELETE";
 
 	private static final long serialVersionUID = 1L;
-	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class
-			.getClassLoader().getResource("ihm/img/delete_subject.png"));
-	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5,
-			5, 5);
-	private static final Border LINE_BORDER = BorderFactory.createEmptyBorder(
-			3, 3, 3, 3);
+	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject.png"));
+	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+	private static final Border LINE_BORDER = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 	private static final Dimension PREFERED_SIZE = new Dimension(375, 100);
 	private static final Dimension JB_DELETE_SIZE = new Dimension(30, 30);
 
@@ -66,11 +63,6 @@ public class SubjectPanel extends JPanel {
 	 * Spinner cardinalité maximale.
 	 */
 	private JSpinner jsMinCard;
-	
-//	/**
-//	 * Spinner multiplicité.
-//	 */
-//	private JSpinner jsMultiplicity;
 
 	/**
 	 * Button supprimer.
@@ -161,20 +153,6 @@ public class SubjectPanel extends JPanel {
 
 		return this.jsMinCard;
 	}
-
-//	/**
-//	 * Acceseur de l'attribut jsMultiplicity.
-//	 * 
-//	 * @return Le JSpinner jsMultiplicity.
-//	 */
-//	public JSpinner getJsMultiplicity() {
-//		if (this.jsMultiplicity == null) {
-//			this.jsMultiplicity = new JSpinner(new SpinnerNumberModel(0, 0,
-//					200, 1));
-//		}
-//
-//		return this.jsMultiplicity;
-//	}
 
 	/**
 	 * Accesseur de l'attribut jbDelete.
@@ -278,34 +256,9 @@ public class SubjectPanel extends JPanel {
 
 		initializeSizeLine(ret);
 		initializeCardLine(ret);
-//		initializeMultiplicityLine(ret);
 
 		return ret;
 	}
-
-//	/**
-//	 * Cette méthode privée initialise et ajoute au conteneur donné en paramétre
-//	 * le champ de saisie de la multiplicité.
-//	 * 
-//	 * @param container Le conteneur.
-//	 */
-//	private void initializeMultiplicityLine(JPanel container) {
-//		JLabel jlMultiplicity = new JLabel("Multiplicité :");
-//
-//		GridBagConstraints gbc = new GridBagConstraints();
-//		gbc.gridx = 0;
-//		gbc.gridy = 2;
-//		gbc.weightx = 0;
-//		gbc.weighty = 1;
-//		gbc.anchor = GridBagConstraints.LINE_START;
-//		gbc.fill = GridBagConstraints.NONE;
-//		gbc.insets.left = 0;
-//		container.add(jlMultiplicity, gbc);
-//
-//		gbc.gridx = 1;
-//		gbc.insets.left = 5;
-//		container.add(getJsMultiplicity(), gbc);
-//	}
 
 	/**
 	 * Cette méthode privée initialise et ajoute au conteneur donnée en
