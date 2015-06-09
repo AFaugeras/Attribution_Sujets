@@ -61,6 +61,7 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 
 		} catch (ModelException  | SolverException e) {
 			displayErrorMessage(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return ret;

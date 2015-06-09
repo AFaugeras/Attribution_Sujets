@@ -31,7 +31,6 @@ public class Glpk implements Solver{
 		URL modelFile = this.getClass().getClassLoader().getResource("glpk/intersemestre-modele.mod");
 	
 		String[] cmd = {"cmd", "/c", "glpsol", "-m", modelFile.getPath().substring(1), "-d", inputFilename, "-w", outputFilename };
-		
 		Process p;
 		try {
 			p = Runtime.getRuntime().exec(cmd);
@@ -47,7 +46,7 @@ public class Glpk implements Solver{
 		return data;
 	}
 	
-	private boolean checkMultiplicity(Model data) throws NotFoundSolutionException{		
+	private boolean checkMultiplicity(Model data){		
 		int multiplicity = data.getConstraint().getMultiplicity();
 		
 		if(multiplicity != 0 && data.getPersons().size() % multiplicity != 0){
