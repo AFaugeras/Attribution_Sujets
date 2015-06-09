@@ -28,7 +28,20 @@ public class SubjectPanel extends JPanel {
 	public static final String JB_DELETE_ACTION = "DELETE";
 
 	private static final long serialVersionUID = 1L;
-	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject3.png"));
+	
+	private static final String LABEL_ID = "ID : ";
+	private static final String LABEL_NAME = "Libellé :";
+	private static final String LABEL_SIZE_MIN = "Effectif min : ";
+	private static final String LABEL_SIZE_MAX = "Effectif max : ";
+	private static final String LABEL_CARDINALITY_MIN = "Cardinalité min : ";
+	private static final String LABEL_CARDINALITY_MAX = "Cardinalité max : ";
+	
+	private static final long SPINNER_SPINNER_VALUE = 0;
+	private static final long SPINNER_MIN_VALUE= 0;
+	private static final long SPINNER_MAX_VALUE = 200;
+	private static final long SPINNER_STEP_SIZE = 1;
+	
+	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject.png"));
 	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private static final Border LINE_BORDER = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 	private static final Dimension PREFERED_SIZE = new Dimension(375, 100);
@@ -109,7 +122,7 @@ public class SubjectPanel extends JPanel {
 	 */
 	public JSpinner getJsMaxSize() {
 		if (this.jsMaxSize == null) {
-			this.jsMaxSize = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMaxSize = new JSpinner(createSpinnerNumberModel());
 		}
 
 		return this.jsMaxSize;
@@ -122,7 +135,7 @@ public class SubjectPanel extends JPanel {
 	 */
 	public JSpinner getJsMinSize() {
 		if (this.jsMinSize == null) {
-			this.jsMinSize = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMinSize = new JSpinner(createSpinnerNumberModel());
 		}
 
 		return this.jsMinSize;
@@ -135,7 +148,7 @@ public class SubjectPanel extends JPanel {
 	 */
 	public JSpinner getJsMaxCard() {
 		if (this.jsMaxCard == null) {
-			this.jsMaxCard = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMaxCard = new JSpinner(createSpinnerNumberModel());
 		}
 
 		return this.jsMaxCard;
@@ -148,7 +161,7 @@ public class SubjectPanel extends JPanel {
 	 */
 	public JSpinner getJsMinCard() {
 		if (this.jsMinCard == null) {
-			this.jsMinCard = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsMinCard = new JSpinner(createSpinnerNumberModel());
 		}
 
 		return this.jsMinCard;
@@ -189,6 +202,19 @@ public class SubjectPanel extends JPanel {
 
 		this.add(new JSeparator(), BorderLayout.SOUTH);
 	}
+	
+	/**
+	 * Cette méthode peut-être appellée pour créer un SpinnerNumberModel avec les constantes : <br/>
+	 * SPINNER_SPINNER_VALUE
+	 * SPINNER_MIN_VALUE
+	 * SPINNER_MAX_VALUE
+	 * SPINNER_STEP_SIZE
+	 * 
+	 * @return Le SpinnerNumberModel.
+	 */
+	private SpinnerNumberModel createSpinnerNumberModel() {
+		return new SpinnerNumberModel(SPINNER_SPINNER_VALUE, SPINNER_MIN_VALUE, SPINNER_MAX_VALUE, SPINNER_STEP_SIZE);
+	}
 
 	/**
 	 * Cette méthode privée construit le panel d'information (qui contient tous
@@ -215,8 +241,8 @@ public class SubjectPanel extends JPanel {
 		JPanel ret = new JPanel(new GridBagLayout());
 		ret.setBorder(LINE_BORDER);
 
-		JLabel jlId = new JLabel("ID :");
-		JLabel jlSubjectLabel = new JLabel("Libellé :");
+		JLabel jlId = new JLabel(LABEL_ID);
+		JLabel jlSubjectLabel = new JLabel(LABEL_NAME);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -267,8 +293,8 @@ public class SubjectPanel extends JPanel {
 	 * @param container Le conteneur.
 	 */
 	private void initializeCardLine(JPanel container) {
-		JLabel jlMaxCard = new JLabel("Card max :");
-		JLabel jlMinCard = new JLabel("Card min :");
+		JLabel jlMaxCard = new JLabel(LABEL_CARDINALITY_MAX);
+		JLabel jlMinCard = new JLabel(LABEL_CARDINALITY_MIN);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -300,8 +326,8 @@ public class SubjectPanel extends JPanel {
 	 * @param container Le conteneur.
 	 */
 	private void initializeSizeLine(JPanel container) {
-		JLabel jlMaxSize = new JLabel("Taille max :");
-		JLabel jlMinSize = new JLabel("Taille min :");
+		JLabel jlMaxSize = new JLabel(LABEL_SIZE_MAX);
+		JLabel jlMinSize = new JLabel(LABEL_SIZE_MIN);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
