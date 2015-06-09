@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import views.configuration.constraints.SolverParametersPanel;
+import views.configuration.constraints.SolverConfigurationPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
 import views.configuration.dataselection.DataSelectionPanel;
 import views.configuration.solver.SolverSelectionPanel;
@@ -22,10 +22,13 @@ import views.configuration.weights.WeightsConfigurationPanel;
 public class ConfigurationPanel extends JPanel {
 
 	// Constantes :
-	public static final String JB_NEXT_ACTION = "NEXT";
-
+	public static final String JB_DIVIDE_ACTION = "NEXT";
+	
 	private static final long serialVersionUID = 1L;
 
+	private static final String LABEL_JB_DIVIDE = "Répartir";
+	private static final String ICON_PATH_JB_DIVIDE = "ihm/img/next2.png";
+	
 	/**
 	 * Panel de configuration des sujets.
 	 */
@@ -37,9 +40,9 @@ public class ConfigurationPanel extends JPanel {
 	private SolverSelectionPanel solverSelectionPanel;
 
 	/**
-	 * Panel bornes min et max.
+	 * Panel de configuration du solver.
 	 */
-	private SolverParametersPanel boundConstraintsPanel;
+	private SolverConfigurationPanel SolverConfigurationPanel;
 
 	/**
 	 * Panel de configuration campus.
@@ -59,7 +62,7 @@ public class ConfigurationPanel extends JPanel {
 	/**
 	 * Bouton suivant.
 	 */
-	private JButton jbNext;
+	private JButton jbDivide;
 
 	/**
 	 * Constructeur.
@@ -101,12 +104,12 @@ public class ConfigurationPanel extends JPanel {
 	 *
 	 * @return Le panel boundConstraintsPanel.
 	 */
-	public SolverParametersPanel getBoundConstraintsPanel() {
-		if (this.boundConstraintsPanel == null) {
-			this.boundConstraintsPanel = new SolverParametersPanel();
+	public SolverConfigurationPanel getSolverParametersPanel() {
+		if (this.SolverConfigurationPanel == null) {
+			this.SolverConfigurationPanel = new SolverConfigurationPanel();
 		}
 
-		return this.boundConstraintsPanel;
+		return this.SolverConfigurationPanel;
 	}
 
 	/**
@@ -153,14 +156,13 @@ public class ConfigurationPanel extends JPanel {
 	 *
 	 * @return Le JButton jbNext.
 	 */
-	public JButton getJbNext() {
-		if (jbNext == null) {
-			jbNext = new JButton("Répartir", new ImageIcon(this.getClass()
-					.getClassLoader().getResource("ihm/img/next2.png")));
-			jbNext.setActionCommand(JB_NEXT_ACTION);
+	public JButton getJbDivide() {
+		if (jbDivide == null) {
+			jbDivide = new JButton(LABEL_JB_DIVIDE, new ImageIcon(this.getClass().getClassLoader().getResource(ICON_PATH_JB_DIVIDE)));
+			jbDivide.setActionCommand(JB_DIVIDE_ACTION);
 		}
 
-		return jbNext;
+		return jbDivide;
 	}
 
 	/**
@@ -170,6 +172,7 @@ public class ConfigurationPanel extends JPanel {
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(9, 9, 9, 9));
 
+		// Ajout du panel de configuration des sujets.
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -181,6 +184,7 @@ public class ConfigurationPanel extends JPanel {
 		gbc.insets.right = 9;
 		this.add(getSubjectsPanel(), gbc);
 
+		// Ajout du panel de sélection du solver.
 		gbc.gridx = 1;
 		gbc.weightx = 1;
 		gbc.weighty = 0;
@@ -189,19 +193,24 @@ public class ConfigurationPanel extends JPanel {
 		gbc.insets.right = 0;
 		this.add(getSolverSelectionPanel(), gbc);
 		
+		// Ajout du panel de configuration campus.
 		gbc.gridy = 1;
 		this.add(getCampusConstraintsPanel(), gbc);
 
+		// Ajout du panel de sélection des données (fichier réponses campus et liste de personnes).
 		gbc.gridy = 2;
 		this.add(getDataSelectionPanel(), gbc);
 
+		// Ajout du panel de configuration du solver.
 		gbc.gridy = 3;
-		this.add(getBoundConstraintsPanel(), gbc);
+		this.add(getSolverParametersPanel(), gbc);
 		
+		// Ajout du panel de configuration des poids.
 		gbc.gridy = 4;
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(getWeightsConfigurationPanel(), gbc);
 
+		// Ajout d'un séparateur horizontal.
 		gbc.gridx = 0;
 		gbc.gridy = 5;
 		gbc.weighty = 0;
@@ -209,9 +218,10 @@ public class ConfigurationPanel extends JPanel {
 		gbc.insets.top = 9;
 		this.add(new JSeparator(), gbc);
 
+		// Ajout du bouton "Répartir".
 		gbc.gridy = 6;
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.NONE;
-		this.add(getJbNext(), gbc);
+		this.add(getJbDivide(), gbc);
 	}
 }
