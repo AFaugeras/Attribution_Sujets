@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Panel de sélection du solveur. *
+ */
 public class SolverSelectionPanel extends JPanel {
 
 	// Constantes :
@@ -22,6 +25,9 @@ public class SolverSelectionPanel extends JPanel {
 
 	private static final String[] SOLVER_NAMES = { GLPK_SOLVER, CHOCO_SOLVER };
 
+	/**
+	 * Combobox de choix du solveur.
+	 */
 	private JComboBox<String> jcbSolvers;
 
 	/**
@@ -33,6 +39,11 @@ public class SolverSelectionPanel extends JPanel {
 		initializeView();
 	}
 
+	/**
+	 * Accesseur de l'attribut jcbSolver.
+	 * 
+	 * @return La combobox jcbSolver.
+	 */
 	public JComboBox<String> getJcbSolvers() {
 		if (this.jcbSolvers == null) {
 			this.jcbSolvers = new JComboBox<String>(SOLVER_NAMES);
@@ -41,6 +52,9 @@ public class SolverSelectionPanel extends JPanel {
 		return this.jcbSolvers;
 	}
 
+	/**
+	 * Cette méthode privée est appelée par le constructeur pour initialiser la vue.
+	 */
 	private void initializeView() {
 		this.setLayout(new GridBagLayout());
 
