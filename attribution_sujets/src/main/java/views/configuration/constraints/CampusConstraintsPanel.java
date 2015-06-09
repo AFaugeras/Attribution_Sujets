@@ -20,6 +20,11 @@ public class CampusConstraintsPanel extends JPanel {
 
 	// Constantes :
 	private static final long serialVersionUID = 1L;
+	
+	private static final int SPINNER_SPINNER_VALUE = 0;
+	private static final int SPINNER_MIN_VALUE= 0;
+	private static final int SPINNER_MAX_VALUE = 200;
+	private static final int SPINNER_STEP_SIZE = 1;
 
 	/**
 	 * Spinner de saisie du nombre de choix.
@@ -47,7 +52,7 @@ public class CampusConstraintsPanel extends JPanel {
 	 */
 	public JSpinner getJsNbChoice() {
 		if (this.jsNbChoice == null) {
-			this.jsNbChoice = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsNbChoice = new JSpinner(createSpinnerNumberModel());
 		}
 
 		return this.jsNbChoice;
@@ -60,10 +65,23 @@ public class CampusConstraintsPanel extends JPanel {
 	 */
 	public JSpinner getJsNbReject() {
 		if (this.jsNbReject == null) {
-			this.jsNbReject = new JSpinner(new SpinnerNumberModel(0, 0, 200, 1));
+			this.jsNbReject = new JSpinner(createSpinnerNumberModel());
 		}
 
 		return this.jsNbReject;
+	}
+	
+	/**
+	 * Cette méthode peut-être appellée pour créer un SpinnerNumberModel avec les constantes : <br/>
+	 * SPINNER_SPINNER_VALUE
+	 * SPINNER_MIN_VALUE
+	 * SPINNER_MAX_VALUE
+	 * SPINNER_STEP_SIZE
+	 * 
+	 * @return Le SpinnerNumberModel.
+	 */
+	private SpinnerNumberModel createSpinnerNumberModel() {
+		return new SpinnerNumberModel(SPINNER_SPINNER_VALUE, SPINNER_MIN_VALUE, SPINNER_MAX_VALUE, SPINNER_STEP_SIZE);
 	}
 
 	/**
