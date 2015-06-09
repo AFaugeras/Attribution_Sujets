@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -18,16 +17,47 @@ import controllers.dataselection.DataSelectionPanelCtrl;
 import controllers.solver.SolverSelectionPanelCtrl;
 import controllers.subjects.SubjectsConfigurationCtrl;
 
+/**
+ * Lanceur et contrôleur principal de l'application.
+ */
 public class Launcher implements ActionListener {
 
+	/**
+	 * Modèle de l'application.
+	 */
 	private Model model;
+	
+	/**
+	 * Fenêtre de l'application.
+	 */
 	private MainFrame view;
-
-	private SolverSelectionPanelCtrl solverCtrl;
-	private ConstraintsCtrl constraintsCtrl;
+	
+	/**
+	 * Contrôleur du panel de configuration des sujets.
+	 */
 	private SubjectsConfigurationCtrl subjectsCtrl;
+
+	/**
+	 * Contrôleur du panel de sélection du solver.
+	 */
+	private SolverSelectionPanelCtrl solverCtrl;
+	
+	/**
+	 * Contrôleur des panels contraintes (Panel configuration campus et paramètre solver).
+	 */
+	private ConstraintsCtrl constraintsCtrl;
+	
+	/**
+	 * Contrôleur du panel de sélection du fichier campus et de la liste de personnes.
+	 */
 	private DataSelectionPanelCtrl dataSelectionCtrl;
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param model Le modèle.
+	 * @param view La vue.
+	 */
 	public Launcher(Model model, MainFrame view) {
 		this.model = model;
 		this.view = view;
@@ -46,25 +76,9 @@ public class Launcher implements ActionListener {
 		}
 	}
 
-	private void solvingAsked() {
-		if (!isErrors()) {
-			this.constraintsCtrl.saveToModel();
-			this.subjectsCtrl.saveToModel();
-
-			JDialog jd = new JDialog(this.view);
-			jd.getContentPane().add(new ProcessingPanel());
-			jd.pack();
-			jd.setLocationRelativeTo(this.view);
-			jd.setVisible(true);
-
-			new SolvingWorker(this.solverCtrl.getSelectedSolver(), this.model, this.dataSelectionCtrl.getCampusFile(), this.dataSelectionCtrl.getPersonsFile(), this.view, jd).execute();
-		}
-	}
-
-	private void returnToConfiguration() {
-		this.view.showConfigurationPanel();
-	}
-
+	/**
+	 * Méthode privée appellée par le constructeur pour initialiser les contrôleurs.
+	 */
 	private void initializeReactions() {
 		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model.getSubjects(), this.view.getConfigurationPanel().getSubjectsPanel());
 
@@ -81,33 +95,61 @@ public class Launcher implements ActionListener {
 		this.view.getResultPanel().getJbBack().addActionListener(this);
 	}
 
+	/**
+	 * Cette méthode privée est appellée au clic sur le bouton "Répartir".
+	 */
+	private void solvingAsked() {
+		if (!isErrors()) {
+			this.constraintsCtrl.saveToModel();
+			this.subjectsCtrl.saveToModel();
+
+			JDialog jd = new JDialog(this.view);
+			jd.getContentPane().add(new ProcessingPanel());
+			jd.pack();
+			jd.setLocationRelativeTo(this.view);
+			jd.setVisible(true);
+
+			new SolvingWorker(this.solverCtrl.getSelectedSolver(), this.model, this.dataSelectionCtrl.getCampusFile(), this.dataSelectionCtrl.getPersonsFile(), this.view, jd).execute();
+		}
+	}
+
+	/**
+	 * Méthode appellée au clic sur le bouton "Retour".
+	 */
+	private void returnToConfiguration() {
+		this.view.showConfigurationPanel();
+	}
+
+	/**
+	 * Méthode privée appellée pour vérifier la cohérence des données saisies. <br/>
+	 * Affiche également un popup d'erreur si besoin.
+	 * 
+	 * @return True si aucune erreur. False sinon.
+	 */
 	private boolean isErrors() {
 		boolean ret = false;
 
 		if (!this.subjectsCtrl.isIdsUnique()) {
-			JOptionPane.showMessageDialog(null,
-					"Les identifiants ne sont pas uniques", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			Utils.displayErrorMessage("Les identifiants des sujets ne sont pas uniques.", this.view);
 			ret = true;
 		}
 
 		if (!this.dataSelectionCtrl.isCampusFileExists()) {
-			JOptionPane.showMessageDialog(null,
-					"Fichier campus non renseigné ou non existant.", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			Utils.displayErrorMessage("Fichier campus non renseigné ou non existant.", this.view);
 			ret = true;
 		}
 
 		if (!this.dataSelectionCtrl.isPersonFileExists()) {
-			JOptionPane.showMessageDialog(null,
-					"Liste des personnes non renseignés ou non existante.",
-					"Error", JOptionPane.ERROR_MESSAGE);
+			Utils.displayErrorMessage("Liste des personnes non renseignées ou non existante.", this.view);
 			ret = true;
 		}
 
 		return ret;
 	}
 
+	/**
+	 * Point d'entrée de l'application.
+	 */
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
