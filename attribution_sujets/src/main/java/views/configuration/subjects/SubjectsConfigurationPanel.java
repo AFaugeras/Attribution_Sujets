@@ -20,12 +20,12 @@ import javax.swing.border.TitledBorder;
 public class SubjectsConfigurationPanel extends JPanel {
 
 	// Constantes :
+	private static final long serialVersionUID = 1L;
+	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
+	
 	public static final String JB_ADD_SUBJECT_ACTION = "ADD_SUBJECT";
 	public static final String JB_IMPORT_ACTION = "IMPORT";
 	public static final String JB_EXPORT_ACTION = "SAVE";
-
-	private static final long serialVersionUID = 1L;
-	private static final Dimension PREFERED_SIZE = new Dimension(409, 450);
 
 	/**
 	 * Panel des sujets.
