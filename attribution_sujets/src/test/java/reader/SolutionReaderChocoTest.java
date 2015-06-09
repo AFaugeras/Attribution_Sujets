@@ -1,7 +1,6 @@
 package reader;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -29,24 +28,29 @@ import org.junit.Test;
  */
 public class SolutionReaderChocoTest extends TestCase {
 	
-	private String path;
+	private String pathNoSolution;
+	
+	private String pathSolution;
 	
 	@Before
 	public void setUp() throws Exception{	
 		
-		this.path = "src" + File.separator + "test"+ File.separator 
-				+ "resources" + File.separator + "SolChoco";
+		this.pathNoSolution = "src" + File.separator + "test"+ File.separator 
+				+ "resources" + File.separator + "NoSolutionChoco";
+		
+		this.pathSolution = "src" + File.separator + "test"+ File.separator 
+				+ "resources" + File.separator + "SolutionChoco";
 	}
 	
 	@Test
-	public void testRead() throws FileFormatException 
+	public void testReadSolutionFound() throws FileFormatException 
 	{
 		try{
 			
 			Model data = this.generateModel();
 			List<Person> persons = data.getPersons();
 		
-			SolutionReaderChoco.read(path, data);
+			SolutionReaderChoco.read(this.pathSolution, data);
 			
 			for(Person pers : persons){
 				if(pers.getAssigned() == null){
@@ -63,10 +67,33 @@ public class SolutionReaderChocoTest extends TestCase {
 		}
 		catch(NotFoundSolutionException e){
 			fail(e.getMessage());	
+		}			
+	}
+	
+	@Test
+	public void testReadNoSolution() throws FileFormatException 
+	{
+		try{
+			
+			Model data = this.generateModel();
+		
+			SolutionReaderChoco.read(this.pathNoSolution, data);
+			
+			fail("Exception attendue");
+
+		}
+		catch(FileException e){
+			fail(e.getMessage());	
+		}
+		catch(ReaderException e){
+			fail(e.getMessage());	
+		}
+		catch(NotFoundSolutionException e){
 		}
 		
 			
 	}
+	
 	
 	private Model generateModel() throws FileException{
 		Model ret = null;

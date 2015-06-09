@@ -9,8 +9,8 @@ public class SolutionReaderTestSuite {
 	public static Test suite() 
 	{
 		final Class<?>[] classesTest = {
-			SolutionReaderChocoTest.class
-			
+			SolutionReaderChocoTest.class,
+			SolutionReaderGlpkTest.class
 		};
 
 		final TestSuite suite = new TestSuite(classesTest);

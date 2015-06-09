@@ -21,7 +21,6 @@ public class AdaptorGlpkTest extends TestCase{
 	
 	private AdaptorGlpkImpl ag;
 
-	@Override
 	@Before
 	public void setUp() throws Exception{
 		this.modelMock = EasyMock.createMock(Model.class);
