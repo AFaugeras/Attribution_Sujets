@@ -43,8 +43,7 @@ public class IntegerTextField extends JTextField {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public void insertString(int offs, String str, AttributeSet a)
-				throws BadLocationException {
+		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 
 			if (str != null) {
 
