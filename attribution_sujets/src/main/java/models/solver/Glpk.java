@@ -28,9 +28,10 @@ public class Glpk implements Solver{
 		
 		InputWriterGlpk.write(inputFilename, ag);
 		
-		URL modelFile = this.getClass().getClassLoader().getResource("glpk/intersemestre-modele.mod");
+		URL modelFile = this.getClass().getClassLoader().getResource("glpk/affectation-modele.mod");
 	
 		String[] cmd = {"cmd", "/c", "glpsol", "-m", modelFile.getPath().substring(1), "-d", inputFilename, "-w", outputFilename };
+		
 		Process p;
 		try {
 			p = Runtime.getRuntime().exec(cmd);
@@ -46,7 +47,7 @@ public class Glpk implements Solver{
 		return data;
 	}
 	
-	private boolean checkMultiplicity(Model data){		
+	private boolean checkMultiplicity(Model data) throws NotFoundSolutionException{		
 		int multiplicity = data.getConstraint().getMultiplicity();
 		
 		if(multiplicity != 0 && data.getPersons().size() % multiplicity != 0){
@@ -54,6 +55,32 @@ public class Glpk implements Solver{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public void generateInputFile(String inputFilename, Model data)
+			throws SolverException, ModelException {
+		
+		boolean correct = this.checkMultiplicity(data);
+		
+		if(!correct){
+			throw new ModelException("Multiplicité incompatible avec le nombre d'élèves.");
+		}
+		
+		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
+		
+		InputWriterGlpk.write(inputFilename, ag);
+		
+	}
+
+	@Override
+	public Model readSolutionFile(String solutionFilename, Model data)
+			throws SolverException {
+		
+		SolutionReaderGlpk.read(solutionFilename, data);
+		
+		return data;
+		
 	}
 
 }

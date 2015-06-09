@@ -22,4 +22,21 @@ public interface Solver {
 	 * @throws NotFoundSolutionException Aucune solution au probleme
 	 */
 	public Model solve(String inputFilename, String outputFilename, Model data) throws SolverException, ModelException;
+	
+	/**
+	 * Genere le fichier d'entree du solveur pour des ultilisations ulterieures. Le solver n'est cependant pas execute.
+	 * @param inputFilename Path du fichier d'entree
+	 * @param data Model de donnees
+	 * @throws SolverException Erreur d'ecriture du fichier.
+	 * @throws ModelException Incoherence du modele de donnes.
+	 */
+	public void generateInputFile(String inputFilename, Model data) throws SolverException, ModelException;
+	
+	/**
+	 * Lecture d'un fichier solution afin de completer un modele de donnes.
+	 * @param solutionFilename Path du fichier de solution
+	 * @param data Model de donnees
+	 * @throws SolverException Erreur de lecture ou absence de resultat.
+	 */
+	public Model readSolutionFile(String solutionFilename, Model data) throws SolverException;
 }

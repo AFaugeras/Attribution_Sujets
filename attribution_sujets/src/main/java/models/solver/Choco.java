@@ -34,4 +34,23 @@ public class Choco implements Solver {
 		
 		
 	}
+
+	@Override
+	public void generateInputFile(String inputFilename, Model data)
+			throws SolverException, ModelException {
+		
+		AdaptorChoco ac = new AdaptorChocoImpl(data);
+		
+		InputWriterChoco.write(inputFilename, ac);
+		
+	}
+
+	@Override
+	public Model readSolutionFile(String solutionFilename, Model data)
+			throws SolverException {
+		
+		SolutionReaderChoco.read(solutionFilename, data);
+		
+		return data;
+	}
 }
