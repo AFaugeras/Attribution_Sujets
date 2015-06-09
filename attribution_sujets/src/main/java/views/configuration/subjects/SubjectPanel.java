@@ -36,10 +36,10 @@ public class SubjectPanel extends JPanel {
 	private static final String LABEL_CARDINALITY_MIN = "Cardinalité min : ";
 	private static final String LABEL_CARDINALITY_MAX = "Cardinalité max : ";
 	
-	private static final long SPINNER_SPINNER_VALUE = 0;
-	private static final long SPINNER_MIN_VALUE= 0;
-	private static final long SPINNER_MAX_VALUE = 200;
-	private static final long SPINNER_STEP_SIZE = 1;
+	private static final int SPINNER_SPINNER_VALUE = 0;
+	private static final int SPINNER_MIN_VALUE= 0;
+	private static final int SPINNER_MAX_VALUE = 200;
+	private static final int SPINNER_STEP_SIZE = 1;
 	
 	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject.png"));
 	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5, 5, 5);
