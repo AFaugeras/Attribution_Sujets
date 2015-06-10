@@ -22,13 +22,10 @@ public class SolutionReaderGlpk {
 		
 		List<Person> persons = data.getPersons();
 		List<Subject> subjects = data.getSubjects();
-		int nbPersons = persons.size();
 		int nbSubjects = subjects.size();
 		
 		int nbUselessLine = 3;
-		
-		int read = 0;
-		
+				
 		try {
 			FileReader fr = new FileReader(filename);
 			BufferedReader br = new BufferedReader(fr);
@@ -36,25 +33,24 @@ public class SolutionReaderGlpk {
 			String line = "";
 			
 			for(int i = 0; i < nbUselessLine; i++){
-				read ++;
 				br.readLine();
 			}
 			
 			for(Person p : persons){
 				line = br.readLine();
-				read ++;
 				if(Integer.parseInt(line) == 0){
+					br.close();
+					fr.close();
 					throw new NotFoundSolutionException("Aucune solution d'après le solveur Glpk");
 				}
 			}
 			
-			nbUselessLine = 5 * nbSubjects + 1;
+			nbUselessLine = 6 * nbSubjects + 2;
 			
 			for(int i = 0; i < nbUselessLine; i++){
 				br.readLine();
-				read ++;
 			}
-
+			
 			for(Subject currentSubj : subjects){
 				for(Person currentPers : persons){
 					line = br.readLine();
