@@ -53,7 +53,7 @@ public class ResultStatPanelCtrl {
 			
 			nbPerChoiceOrder.set(choiceNb, nbPerChoiceOrder.get(choiceNb) + 1);
 		}
-		this.jpStats.add(new ResultStatsDetail(this.nbPerChoiceOrder), gbc);
+		this.jpStats.add(new ResultStatsDetail(this.nbPerChoiceOrder, this.model), gbc);
 	}
 
 	public Component getJpStats() {

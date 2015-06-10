@@ -41,7 +41,7 @@ public class SubjectPanel extends JPanel {
 	private static final int SPINNER_MAX_VALUE = 200;
 	private static final int SPINNER_STEP_SIZE = 1;
 	
-	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject.png"));
+	private static final Icon JB_DELETE_ICON = new ImageIcon(SubjectPanel.class.getClassLoader().getResource("ihm/img/delete_subject3.png"));
 	private static final Border BORDER = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private static final Border LINE_BORDER = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 	private static final Dimension PREFERED_SIZE = new Dimension(375, 100);

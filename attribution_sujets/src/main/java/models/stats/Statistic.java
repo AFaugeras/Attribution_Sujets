@@ -29,32 +29,51 @@ public Statistic(Model model) {
  */
 public double PortionWhichGetChoiceN(int N){
 	List<Person> listPerson = model.getPersons();
+	return (NumberWhichGetChoiceN(N)/listPerson.size())*100;
+}
+
+public double NumberWhichGetChoiceN(int N) {
+	List<Person> listPerson = model.getPersons();
 	double result =0;
-	double nbPerson = listPerson.size();
 	if (N==-1){// personne ayant un sujet quelconque sachant qu'il n'a fait aucun choix
 		for (Person person : listPerson) {
 			List<Subject> listSubject = person.getChoices();
 			if(listSubject.isEmpty())
 				result +=1;
 		}
-		return (result/nbPerson)*100;
+		return result;
 	}else if(N ==-2){ //cas d'un sujet attribué alors qu'il n'est pas dans la liste de choix de la personne
 		for (Person person : listPerson) {
 			List<Subject> listSubject = person.getChoices();
-			if(listSubject.contains(person.getAssigned()))
-				result +=1;
+			if(!listSubject.isEmpty()) {
+				boolean contains = false;
+				int limit = listSubject.size();
+				if (model.getConstraint().getNbMaxChoice() < limit)
+					limit = model.getConstraint().getNbMaxChoice();
+					
+				for (int i = 0 ; i < limit ; i++) {
+					if (listSubject.get(i).equals(person.getAssigned())) {
+						contains = true;
+						break;
+					}
+				}
+				result += contains ? 0 : 1;
+			}
 		}
 		
-		return (result/nbPerson)*100;
+		return result;
 	}
 	else{
 		for (Person person : listPerson) {
 			List<Subject> listSubject = person.getChoices();
-			Subject subject = listSubject.get(N-1);
-			if(person.isThisSubjectAssigned(subject))
-				result +=1;
+			
+			if(model.getConstraint().getNbMaxChoice() >= N && listSubject.size() >= N) {
+				Subject subject = listSubject.get(N-1);
+				if(person.isThisSubjectAssigned(subject))
+					result +=1;
+			}
 		}
-	return (result/listPerson.size())*100;
+	return result;
 	}
 }
 /**
@@ -108,4 +127,5 @@ private List<Person> getUserWhoThisSubjectIsAssigned(Subject subject){
 	
 	return liste;
 }
+
 }
