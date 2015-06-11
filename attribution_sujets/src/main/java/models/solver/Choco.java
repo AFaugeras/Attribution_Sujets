@@ -47,9 +47,10 @@ public class Choco implements Solver {
 	 */
 	public Choco(Model data)
 	{		
-		//Possibilite de modifier les classes d'implementations.
 		this.data = data;
-		AdaptorChoco ac = new AdaptorChocoImpl(data);
+		
+		//Possibilite de modifier les classes d'implementations.
+		AdaptorChoco ac = new AdaptorChocoImpl(this.data);
 		
 		this.iwc = new InputWriterChocoImpl(ac);
 		this.src = new SolutionReaderChocoImpl(data);	

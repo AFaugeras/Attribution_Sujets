@@ -33,7 +33,7 @@ public class ParserCsvUserList extends AbstractParser {
 	public void ParseUserList(File sourceFile) throws FileException{
 		List<String> datas;
 		try {
-			datas = this.readfile(sourceFile);
+			datas = AbstractParser.readfile(sourceFile);
 			
 			int size = datas.size(); 						// compte le nombre total de ligne dans le fichier
 			int index; 										// pour se deplacer dans le tableau de données source nombre de champ maximum d'une réponse

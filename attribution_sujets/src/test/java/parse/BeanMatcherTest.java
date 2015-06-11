@@ -1,7 +1,6 @@
 package parse;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import models.bean.Constraints;
 import models.bean.Person;
 import models.bean.Subject;
 import models.exception.fileformatexception.FileException;
-import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 import models.parser.BeanMatcher;
@@ -100,9 +98,9 @@ public class BeanMatcherTest extends TestCase{
 		}
 		
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath()  + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "Choix_avec_doublon.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath()  + File.separator + "src"
+				+ File.separator + "test"+ File.separator + "resources"
+				+ File.separator+ "Choix_avec_doublon.csv");
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		try {
 			parser.parseAnswer(f);

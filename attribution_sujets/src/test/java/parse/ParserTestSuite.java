@@ -1,12 +1,11 @@
 package parse;
 
-import models.parser.subject.ParserCsvSubject;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import parse.answer.ParseCsvAnswerTest;
 import parse.helper.CsvHelperTest;
 import parse.subject.ParserCsvSubjectTest;
 import parse.user.ParserUserTest;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 public class ParserTestSuite extends TestSuite {
 

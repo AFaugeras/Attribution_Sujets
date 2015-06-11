@@ -34,7 +34,7 @@ public class ParserCsvAnswer extends AbstractParser {
 	 */
 	public void parseAnswer(File sourceFile) throws FileException {
 		try {
-			List<String> datas = this.readfile(sourceFile); // recuperation des
+			List<String> datas = AbstractParser.readfile(sourceFile); // recuperation des
 														// données sous forme
 														// tableau de string
 		

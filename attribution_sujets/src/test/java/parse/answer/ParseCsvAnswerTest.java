@@ -1,12 +1,10 @@
 package parse.answer;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import junit.framework.TestCase;
 import models.exception.fileformatexception.FileException;
-import models.exception.fileformatexception.FileFormatException;
 import models.factory.AnswerFactory;
 import models.interfaces.I_Answer;
 import models.parser.answer.ParserCsvAnswer;
@@ -19,9 +17,9 @@ public class ParseCsvAnswerTest extends TestCase {
 	@Test
 	public void testSuppressionDoublon()  {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath()  + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "Choix_avec_doublon.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath()  + File.separator + "src"
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator+ "Choix_avec_doublon.csv");
 		ParserCsvAnswer parser = new ParserCsvAnswer();
 		try {
 			parser.parseAnswer(f);

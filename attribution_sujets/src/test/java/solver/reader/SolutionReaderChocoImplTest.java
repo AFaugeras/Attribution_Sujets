@@ -27,12 +27,13 @@ import org.junit.Test;
 /**
  * Ceci n'est pas un test unitaire. Il correspond d'avantage à un test d'intégration.
  */
-public class SolutionReaderChocoTest extends TestCase {
+public class SolutionReaderChocoImplTest extends TestCase {
 
 	private Model data;
 	
 	private SolutionReaderChoco src; 
 	
+	@SuppressWarnings("unused")
 	private String pathNoSolution;
 	
 	private String pathSolution;

@@ -1,13 +1,8 @@
 package parse;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-
 import junit.framework.TestCase;
 import models.exception.fileformatexception.FileFormatException;
 import models.parser.AbstractParser;
-import models.parser.helper.CsvHelper;
 
 import org.junit.Test;
 

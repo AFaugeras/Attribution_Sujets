@@ -23,6 +23,7 @@ public class SolutionReaderGlpkImpl implements SolutionReaderGlpk{
 		this.data = data;
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
 	public void read(String pathFile) throws ReaderException, NotFoundSolutionException{
 		

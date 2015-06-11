@@ -8,18 +8,18 @@ import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.solver.adaptor.AdaptorGlpk;
 import models.solver.adaptor.AdaptorGlpkImpl;
 
-import org.chocosolver.solver.constraints.Constraint;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AdaptorGlpkTest extends TestCase{
+public class AdaptorGlpkImplTest extends TestCase{
 
 	private Model modelMock;
 	
-	private AdaptorGlpkImpl ag;
+	private AdaptorGlpk ag;
 
 	@Before
 	public void setUp() throws Exception{

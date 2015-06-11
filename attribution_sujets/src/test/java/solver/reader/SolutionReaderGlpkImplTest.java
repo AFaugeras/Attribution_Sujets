@@ -24,7 +24,7 @@ import models.solver.reader.SolutionReaderGlpkImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SolutionReaderGlpkTest extends TestCase{
+public class SolutionReaderGlpkImplTest extends TestCase{
 
 	private Model data;
 	

@@ -33,8 +33,7 @@ public class InputWriterChocoImplTest extends TestCase {
 		this.iwc = new InputWriterChocoImpl(this.adaptorChocoMock);
 		assertNotNull("Constructeur", this.iwc);
 		
-		this.path = "src" + File.separator + "test"
-				+ File.separator + "resources" +  File.separator + "inputChoco.txt";
+		this.path = "inputChoco.txt";
 	}
 	
 	@After

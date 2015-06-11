@@ -4,9 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import models.bean.Model;
 import models.solver.adaptor.AdaptorChoco;
-import models.solver.adaptor.AdaptorChocoImpl;
 
 /**
  * Classe d'implementation de InputWriterChoco

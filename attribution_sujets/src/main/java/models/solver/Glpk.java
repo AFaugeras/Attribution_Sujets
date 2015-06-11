@@ -45,9 +45,10 @@ public class Glpk implements Solver{
 	 * @param data modele de donnes
 	 */
 	public Glpk(Model data){
-		//Possiblite de modifier les classes d'implementations utilisees.
 		this.data = data;
-		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
+		
+		//Possiblite de modifier les classes d'implementations utilisees.
+		AdaptorGlpk ag = new AdaptorGlpkImpl(this.data);
 		
 		this.iwg = new InputWriterGlpkImpl(ag);
 		this.srg = new SolutionReaderGlpkImpl(data);	

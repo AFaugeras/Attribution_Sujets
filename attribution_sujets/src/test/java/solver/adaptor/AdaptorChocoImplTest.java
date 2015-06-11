@@ -8,17 +8,18 @@ import models.bean.Constraints;
 import models.bean.Model;
 import models.bean.Person;
 import models.bean.Subject;
+import models.solver.adaptor.AdaptorChoco;
 import models.solver.adaptor.AdaptorChocoImpl;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AdaptorChocoTest extends TestCase{
+public class AdaptorChocoImplTest extends TestCase{
 
 	private Model modelMock;
 	
-	private AdaptorChocoImpl ac;
+	private AdaptorChoco ac;
 
 	@Override
 	@Before

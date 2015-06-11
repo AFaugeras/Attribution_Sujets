@@ -7,7 +7,6 @@ import java.util.List;
 import junit.framework.TestCase;
 import models.bean.Subject;
 import models.exception.fileformatexception.FileException;
-import models.exception.fileformatexception.FileFormatException;
 import models.factory.SubjectFactory;
 import models.parser.helper.CsvHelper;
 import models.parser.subject.ParserCsvSubject;
@@ -19,9 +18,9 @@ public class ParserCsvSubjectTest extends TestCase {
 	@Test
 	public void testParseCsvSubjectWithParametrage() throws IOException{
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "liste_sujet.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + File.separator + "src"
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator+ "liste_sujet.csv");
 		ParserCsvSubject parser = new ParserCsvSubject();
 		try {
 			parser.ParseSubjectList(f);
@@ -51,9 +50,9 @@ public class ParserCsvSubjectTest extends TestCase {
 	@Test
 	public void testParseCsvSubjectWithParametrageSave() throws FileException{
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src" 
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "liste_sujet.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + File.separator + "src" 
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator+ "liste_sujet.csv");
 		ParserCsvSubject parser = new ParserCsvSubject();
 		try {
 			parser.ParseSubjectList(f);
@@ -61,7 +60,10 @@ public class ParserCsvSubjectTest extends TestCase {
 			fail("Probléme de format");
 		}
 		List<Subject> subject = parser.getSubjectList();
+		
+		@SuppressWarnings("unused")
 		Subject heavySubject = createSubject();
+		
 		Subject.save(subject,new File("testcedric.csv"));
 		
 		

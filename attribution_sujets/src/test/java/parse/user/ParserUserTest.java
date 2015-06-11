@@ -7,7 +7,6 @@ import java.util.List;
 import junit.framework.TestCase;
 import models.bean.Person;
 import models.exception.fileformatexception.FileException;
-import models.exception.fileformatexception.FileFormatException;
 import models.factory.UserFactory;
 import models.parser.helper.CsvHelper;
 import models.parser.user.ParserCsvUserList;
@@ -19,9 +18,9 @@ public class ParserUserTest extends TestCase {
 	@Test
 	public void testParsingUser() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "liste_1eleve.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + File.separator + "src"
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator+ "liste_1eleve.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		try {
 			parser.ParseUserList(f);
@@ -39,9 +38,9 @@ public class ParserUserTest extends TestCase {
 	@Test
 	public void testParsing195Users() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath()  + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "liste_195eleves.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath()  + File.separator + "src"
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator+ "liste_195eleves.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		try {
 			parser.ParseUserList(f);
@@ -58,9 +57,9 @@ public class ParserUserTest extends TestCase {
 	@Test
 	public void testParsing195UsersPlus1Doublon() throws IOException {
 		File f = new File("");
-		f = CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+ "liste_195eleves_plus_1doublon.csv");
+		f = CsvHelper.getRessource(f.getAbsolutePath() + File.separator + "src"
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator + "liste_195eleves_plus_1doublon.csv");
 		ParserCsvUserList parser = new ParserCsvUserList();
 		try {
 			parser.ParseUserList(f);

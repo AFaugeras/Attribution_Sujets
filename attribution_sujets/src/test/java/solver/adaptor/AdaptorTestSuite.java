@@ -8,8 +8,8 @@ public class AdaptorTestSuite extends TestSuite {
 	public static Test suite() 
 	{
 		final Class<?>[] classesTest = {
-			AdaptorChocoTest.class,
-			AdaptorGlpkTest.class
+			AdaptorChocoImplTest.class,
+			AdaptorGlpkImplTest.class
 		};
 
 		final TestSuite suite = new TestSuite(classesTest);

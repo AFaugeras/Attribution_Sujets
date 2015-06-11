@@ -12,9 +12,9 @@ public class CsvHelperTest extends TestCase {
 	@Test
 	public void testOvertureFichier() {
 		File f = new File("");
-		CsvHelper.getRessource(f.getAbsolutePath() + f.separator + "src"
-				+ f.separator + "test"+ f.separator+ "resources"
-				+ f.separator+"Choix_des_sujets_2015.csv");
+		CsvHelper.getRessource(f.getAbsolutePath() + File.separator + "src"
+				+ File.separator + "test"+ File.separator+ "resources"
+				+ File.separator+"Choix_des_sujets_2015.csv");
 	}
 
 	@Test

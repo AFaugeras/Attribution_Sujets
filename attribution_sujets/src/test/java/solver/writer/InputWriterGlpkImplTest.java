@@ -35,8 +35,7 @@ public class InputWriterGlpkImplTest extends TestCase{
 		this.iwg = new InputWriterGlpkImpl(this.adaptorGlpkMock);
 		assertNotNull("Constructeur", this.iwg);
 		
-		this.path = "src" + File.separator + "test"
-				+ File.separator + "resources" +  File.separator + "inputGlpk.txt";
+		this.path = "inputGlpk.txt";
 	}
 	
 	@After
