@@ -2,7 +2,6 @@ package models.solver;
 
 import models.bean.Model;
 import models.exception.ModelException;
-import models.solver.adaptor.AdaptorChoco;
 import models.solver.adaptor.AdaptorChocoImpl;
 import models.solver.reader.SolutionReaderChoco;
 import models.solver.writer.InputWriterChoco;
@@ -14,35 +13,55 @@ import resolution.Ipipip;
  */
 public class Choco implements Solver {
 	
+	/**
+	 * Chemin du fichier d'entree du solveur
+	 */
+	private static final String INPUT_FILENAME_CHOCO = "inputChoco.txt";
+	
+	/**
+	 * Fichier de sortie ou fichier solution du solveur
+	 */
+	private static final String OUTPUT_FILENAME_CHOCO = "outputChoco.txt";
+	
+	private InputWriterChoco iwc;
+	
+	private SolutionReaderChoco src;
+	
+	public Choco(Model data){		
+		this.iwc = new InputWriterChoco(data);
+		this.src = new SolutionReaderChoco(data);	
+	}
+	
 	@Override
-	public Model solve(String inputFilename, String outputFilename, Model data) throws SolverException, ModelException{
-		this.generateInputFile(inputFilename, data);
+	public Model solve(Model data) throws SolverException, ModelException{
+		this.generateInputFile(data);
 		
 		String[] args = new String[2];
-		args[0] = inputFilename;
-		args[1] = outputFilename;
+		args[0] = Choco.INPUT_FILENAME_CHOCO;
+		args[1] = Choco.OUTPUT_FILENAME_CHOCO;
 		Ipipip.main(args);
 		
-		this.readSolutionFile(outputFilename, data);
+		this.readSolutionFile(data);
 		
 		return data;		
 	}
 
 	@Override
-	public void generateInputFile(String inputFilename, Model data)
+	public void generateInputFile(Model data)
 			throws SolverException, ModelException {
+				
+		InputWriterChoco iwc = new InputWriterChoco(data);
 		
-		AdaptorChoco ac = new AdaptorChocoImpl(data);
-		
-		InputWriterChoco.write(inputFilename, ac);
-		
+		iwc.write(Choco.INPUT_FILENAME_CHOCO);	
 	}
 
 	@Override
-	public Model readSolutionFile(String solutionFilename, Model data)
+	public Model readSolutionFile(Model data)
 			throws SolverException {
 		
-		SolutionReaderChoco.read(solutionFilename, data);
+		SolutionReaderChoco src = new SolutionReaderChoco(data);
+		
+		src.read(Choco.OUTPUT_FILENAME_CHOCO);
 		
 		return data;
 	}

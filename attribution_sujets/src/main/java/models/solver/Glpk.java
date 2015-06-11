@@ -14,8 +14,15 @@ import models.solver.writer.InputWriterGlpk;
 
 public class Glpk implements Solver{
 	
+	
+	private Model data;
+	
+	public Glpk(Model date){
+		this.data = data;
+	}
+	
 	@Override
-	public Model solve(String inputFilename, String outputFilename, Model data)
+	public Model solve(Model data)
 			throws SolverException, ModelException {
 		
 		boolean correct = this.checkMultiplicity(data);
@@ -24,7 +31,7 @@ public class Glpk implements Solver{
 			throw new ModelException("Multiplicité incompatible avec le nombre d'élèves.");
 		}
 		
-		this.generateInputFile(inputFilename, data);
+		this.generateInputFile(data);
 		
 		URL modelFile = this.getClass().getClassLoader().getResource("glpk/affectation-modele.mod");
 	
@@ -40,7 +47,7 @@ public class Glpk implements Solver{
 			throw new SolverException("processus interrompue");
 		}
 		
-		this.readSolutionFile(outputFilename, data);
+		this.readSolutionFile(data);
 		
 		return data;
 	}
@@ -61,7 +68,7 @@ public class Glpk implements Solver{
 	}
 
 	@Override
-	public void generateInputFile(String inputFilename, Model data)
+	public void generateInputFile(Model data)
 			throws SolverException, ModelException {
 		
 		boolean correct = this.checkMultiplicity(data);
@@ -70,14 +77,14 @@ public class Glpk implements Solver{
 			throw new ModelException("Multiplicité incompatible avec le nombre d'élèves.");
 		}
 		
-		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
+		InputWriterGlpk iwg = new InputWriterGlpk(data);
 		
-		InputWriterGlpk.write(inputFilename, ag);
+		iwg.write(Glpk.);
 		
 	}
 
 	@Override
-	public Model readSolutionFile(String solutionFilename, Model data)
+	public Model readSolutionFile(Model data)
 			throws SolverException {
 		
 		SolutionReaderGlpk.read(solutionFilename, data);
