@@ -1,12 +1,12 @@
 package models.solver.writer;
 
 /**
- * Ecrivain du fichier d'entree pour Choco
+ * Ecrivain de fichiers d'entree des solveurs
  */
-public interface InputWriterChoco extends InputWriter{
+public interface InputWriter {
 
 	/**
-	 * Methode d'ecriture d'un fichier d'entree de Choco. Ce fichier est documentee
+	 * Methode d'ecriture du fichier d'entree du solveur.
 	 * @param pathFile chemin du fichier a ecrire.
 	 * @throws WriterException Erreur d'ecriture
 	 */
