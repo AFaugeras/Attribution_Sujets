@@ -280,7 +280,5 @@ public class ResultPanel extends JPanel {
 		frameTest.setLocationRelativeTo(null);
 		frameTest.setVisible(true);
 
-		System.out.println(tmp.getSize());
-
 	}
 }

@@ -138,11 +138,9 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 		Object source = dtde.getSource();
 		
 		if(source == this.dtJtfCampusFile) {
-			System.out.println("campus drop");
 			this.dropOnJtfCampusFile(dtde);
 		}
 		else if(source == this.dtJtfPersonsFile) {
-			System.out.println("person drop");
 			this.dropOnJtfPersonsFile(dtde);
 		}
 	}
