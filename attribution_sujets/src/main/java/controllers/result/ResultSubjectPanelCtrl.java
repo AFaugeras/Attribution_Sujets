@@ -11,6 +11,10 @@ import models.bean.Person;
 import models.bean.Subject;
 import views.result.ResultSubjectDetail;
 
+/**
+ * Controleur du panel du détail des sujets des sujets
+ *
+ */
 public class ResultSubjectPanelCtrl {
 
 	private Model model;

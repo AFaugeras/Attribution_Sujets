@@ -11,6 +11,9 @@ import models.bean.Model;
 import models.bean.Person;
 import views.result.ResultStatsDetail;
 
+/**
+ * Controleur du panel des statistiques
+ */
 public class ResultStatPanelCtrl {
 
 	private Model model;
@@ -53,7 +56,7 @@ public class ResultStatPanelCtrl {
 			
 			nbPerChoiceOrder.set(choiceNb, nbPerChoiceOrder.get(choiceNb) + 1);
 		}
-		this.jpStats.add(new ResultStatsDetail(this.nbPerChoiceOrder, this.model), gbc);
+		this.jpStats.add(new ResultStatsDetail(this.model), gbc);
 	}
 
 	public Component getJpStats() {

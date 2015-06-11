@@ -2,7 +2,6 @@ package views.result;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,22 +9,27 @@ import javax.swing.JPanel;
 import models.bean.Model;
 import models.stats.Statistic;
 
+/**
+ * Panel du détail des statistiques
+ *
+ */
 public class ResultStatsDetail extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Integer> nbPerChoiceOrder;
 	private GridBagConstraints gbc2;
 	
 	private JLabel jlContent;
 	
 	private Model model;
 	
-	public ResultStatsDetail(ArrayList<Integer> nbPerChoiceOrder, Model model) {
+	/**
+	 * @param model le model de l'application
+	 */
+	public ResultStatsDetail(Model model) {
 		super(new GridBagLayout());
-		this.nbPerChoiceOrder = nbPerChoiceOrder;
 		
 		this.gbc2 = new GridBagConstraints();
 		gbc2.gridx = 0;

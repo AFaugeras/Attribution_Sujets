@@ -2,12 +2,15 @@ package controllers.tableModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+/**
+ * Classe gérant l'affichage du header de la JTable dans l'affichage des résultats de l'attribution
+ *
+ */
 public class ResultTableHeader extends JPanel {
 
 	/**
@@ -19,6 +22,11 @@ public class ResultTableHeader extends JPanel {
 	private JCheckBox jcbSelected;
 	private boolean sorted = false;
 
+	/**
+	 * @param position l'index de la colonne
+	 * @param label le libellé de la colonne
+	 * @param selectedDefault si la checkbox est par défaut sélectionnée ou non
+	 */
 	public ResultTableHeader(int position, String label, boolean selectedDefault) {
 		super();
 		this.position = position;
@@ -54,6 +62,9 @@ public class ResultTableHeader extends JPanel {
 		this.jcbSelected.setSelected(!jcbSelected.isSelected());
 	}
 
+	/**
+	 * gère l'affichage de l'icone de tri suivant le click
+	 */
 	public void rightClick() {
 		String newLabel = "";
 		String filename = sorted ? "down.png" : "up.png";
@@ -65,6 +76,9 @@ public class ResultTableHeader extends JPanel {
 		this.jcbSelected.setText(newLabel);
 	}
 	
+	/**
+	 * réinitialise l'icone de tri
+	 */
 	public void clearSort() {
 		String p = getClass().getClassLoader().getResource("ihm/img/sort.png").toString();
 		String newLabel = "<html>";

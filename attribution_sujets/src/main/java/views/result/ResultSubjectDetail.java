@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 
 import models.bean.Subject;
 
+/**
+ * Panel du détail d'un sujet (après répartition)
+ *
+ */
 public class ResultSubjectDetail extends JPanel {
 
 	/**
@@ -21,6 +25,12 @@ public class ResultSubjectDetail extends JPanel {
 	
 	private JLabel jlContent;
 	
+	/**
+	 * Constructeur du panel
+	 * 
+	 * @param subject le sujet pour lequel on veut les détails
+	 * @param sum la somme des élèves à qui on a attribué ce sujet
+	 */
 	public ResultSubjectDetail(Subject subject, Integer sum) {
 		super(new GridBagLayout());
 		this.subject = subject;

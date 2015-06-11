@@ -15,6 +15,10 @@ import javax.swing.text.JTextComponent;
 
 import models.bean.Subject;
 
+/**
+ * Classe représentant le tableau d'affichage des résultats de l'attribution
+ *
+ */
 public class ResultTable extends JTable {
 	/**
 	 * 
@@ -26,6 +30,14 @@ public class ResultTable extends JTable {
 	private Integer subjectLabelColNumber;
 	private List<Subject> list;
 
+	/**
+	 * @param donnees le contenu du tableau
+	 * @param entete l'entete du tableau
+	 * @param disabledCols la liste des index des colonnes à désactiver
+	 * @param subjectIdColNumber l'index de la colonne des identfiants de sujet
+	 * @param subjectLabelColNumber l'index de la colonne des libellés de sujet
+	 * @param list la liste des sujets
+	 */
 	public ResultTable(Object[][] donnees, ResultTableHeader[] entete,
 			ArrayList<Integer> disabledCols, Integer subjectIdColNumber,
 			Integer subjectLabelColNumber, List<Subject> list) {

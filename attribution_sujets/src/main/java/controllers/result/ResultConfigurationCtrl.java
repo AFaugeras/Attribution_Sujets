@@ -16,7 +16,6 @@ import javax.swing.filechooser.FileFilter;
 
 import models.bean.Model;
 import models.bean.Person;
-import models.utils.CSVXLSFileFilter;
 import views.result.ResultCellRenderer;
 import views.result.ResultPanel;
 import views.result.ResultPdfGenerator;
@@ -27,8 +26,6 @@ import controllers.tableModel.ResultTable;
 import controllers.tableModel.ResultTableHeader;
 
 public class ResultConfigurationCtrl implements ActionListener {
-
-	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
 	private Model model;
 	private ResultPanel view;
@@ -197,7 +194,6 @@ public class ResultConfigurationCtrl implements ActionListener {
 				System.out.println("CANCEL CHOSING FILENAME FOR CSV EXPORT");
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -290,7 +286,6 @@ public class ResultConfigurationCtrl implements ActionListener {
 				System.out.println("CANCEL CHOSING FILENAME FOR PDF EXPORT");
 			}
 		} catch (FileNotFoundException | DocumentException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

@@ -27,6 +27,12 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
+/**
+ * Classe permettant la création d'un PieChart à partir du model 
+ * 
+ * Le piechart crée représentera la proportion des élèves ayant eu leur nième choix
+ *
+ */
 public class ResultStatsPieChart extends JPanel {
 	/**
 	 * 
@@ -57,24 +63,19 @@ public class ResultStatsPieChart extends JPanel {
     {
             JFreeChart jfreechart = ChartFactory.createPieChart("Statistiques de la répartition", piedataset, true, true, false);
             pieplot = (PiePlot)jfreechart.getPlot();
-//            pieplot.setSectionPaint("1° choix", new Color(160, 160, 255));
-//            pieplot.setSectionPaint("2° choix", new Color(128, 128, 223));
-//            pieplot.setSectionPaint("3° choix", new Color(96, 96, 191));
-//            pieplot.setSectionPaint("4° choix", new Color(64, 64, 159));
-//            pieplot.setSectionPaint("5° choix", new Color(32, 32, 127));
-//            pieplot.setSectionPaint("6° choix", new Color(0, 0, 111));
             pieplot.setNoDataMessage("Aucune donnée disponible");
             pieplot.setExplodePercent("Two", 0.20000000000000001D);
             pieplot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
             pieplot.setLabelBackgroundPaint(new Color(220, 220, 220));
-//            pieplot.setLegendLabelToolTipGenerator(new StandardPieSectionLabelGenerator("Tooltip for legend item {0}"));
-//            pieplot.setSimpleLabels(true);
             pieplot.setLabelGenerator(null);
             pieplot.setInteriorGap(0.00D);
-//            ((StandardPieSectionLabelGenerator)pieplot.getLabelGenerator()).getPercentFormat().setMaximumFractionDigits(2);
             return jfreechart;
     }
 
+    /**
+     * @param model le model de l'application ayant été résolu
+     * @return le JPanel contenant le piechart généré
+     */
     public static JPanel createDemoPanel(Model model)
     {   	
             JFreeChart jfreechart = createChart(createDataset(model));	
@@ -99,9 +100,9 @@ public class ResultStatsPieChart extends JPanel {
     }
     
     /**
-     * Starting point for the demonstration application.
+     * Main de démonstration et de développement du PieChart
      *
-     * @param args  ignored.
+     * @param args  ignorés.
      */
     public static void main(final String[] args) {
 
