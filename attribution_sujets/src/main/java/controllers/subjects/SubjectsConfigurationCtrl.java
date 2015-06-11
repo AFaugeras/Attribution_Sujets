@@ -9,7 +9,6 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import models.bean.Model;
 import models.bean.Subject;
 import models.exception.fileformatexception.FileException;
 import models.parser.subject.ParserCsvSubject;
@@ -27,14 +25,36 @@ import views.configuration.subjects.SubjectPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
 import controllers.Utils;
 
+/**
+ * Contrôleur du panel de configuration des sujets.
+ */
 public class SubjectsConfigurationCtrl extends DropTargetAdapter implements ActionListener {
 
+	// Constante :
 	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
-	private List<Subject> model;	
+	/**
+	 * Modèle.
+	 */
+	private List<Subject> model;
+	
+	/**
+	 * Vue.
+	 */
 	private SubjectsConfigurationPanel view;
+	
+	/**
+	 * Liste des SubjectPanel affichés.
+	 */
 	private List<SubjectPanel> subjectsPanels;
 	
+	
+	/**
+	 * Constructeur.
+	 * 
+	 * @param model Le modèle.
+	 * @param view La vue.
+	 */
 	public SubjectsConfigurationCtrl(List<Subject> model, SubjectsConfigurationPanel view) {
 		this.model = model;
 		this.view = view;
@@ -49,19 +69,35 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		String actionCommand = e.getActionCommand();
 
 		if (actionCommand.equals(SubjectsConfigurationPanel.JB_ADD_SUBJECT_ACTION)) {
-			addNewSubject();
+			addNewSubjectPanel();
 		}
 		else if (actionCommand.equals(SubjectPanel.JB_DELETE_ACTION)) {
-			deleteSubject((JButton) e.getSource());
+			deleteSubjectPanel((JButton) e.getSource());
 		}
 		else if (actionCommand.equals(SubjectsConfigurationPanel.JB_IMPORT_ACTION)) {
-			importSubjectsFromCVS();
+			importSubjects();
 		}
 		else if (actionCommand.equals(SubjectsConfigurationPanel.JB_EXPORT_ACTION)) {
 			exportSubjectToCVS();
 		}
 	}
 
+	@Override
+	public void drop(DropTargetDropEvent dtde) {
+		dtde.acceptDrop(DnDConstants.ACTION_COPY);
+		
+		File input = Utils.getFileFromTransferable(dtde.getTransferable());
+		
+		if(input != null) {
+			importSubjectFromFile(input);
+		}
+		
+		dtde.dropComplete(true);
+	}
+
+	/**
+	 * Cette méthode sauvegarde les valeurs de la vue dans le modèle.
+	 */
 	public void saveToModel() {
 		this.model.clear();
 
@@ -79,6 +115,11 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		}
 	}
 
+	/**
+	 * Cette méthode permet de vérifier que les identifiant saisie par l'utilisateur son bien uniques.
+	 * 
+	 * @return True si les identifiant sont unique false sinon.
+	 */
 	public boolean isIdsUnique() {
 		boolean ret = true;
 		List<Integer> ids = new ArrayList<Integer>();
@@ -97,6 +138,9 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		return ret;
 	}
 
+	/**
+	 * Méthode privée appellée par le constructeur pour initialiser les réactions.
+	 */
 	private void initializeReactions() {
 		this.view.getJbAddSubject().addActionListener(this);
 		this.view.getJbImport().addActionListener(this);
@@ -105,19 +149,30 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		new DropTarget(this.view, DnDConstants.ACTION_MOVE, this);
 	}
 
-	private void addNewSubject() {
+	/**
+	 * Ajout un nouveau SubjectPanel à l'écran.
+	 */
+	private void addNewSubjectPanel() {
 		this.subjectsPanels.add(createSubjectPanel(generateId()));
 		this.repaintSubjects();
 	}
 
-	private void deleteSubject(JButton src) {
+	/**
+	 * Supprime un SubjectPanel.
+	 * 
+	 * @param src Le bouton supprimer du panel.
+	 */
+	private void deleteSubjectPanel(JButton src) {
 		SubjectPanel subjectPanel = (SubjectPanel) src.getParent().getParent();
 		this.subjectsPanels.remove(subjectPanel);
 
 		this.repaintSubjects();
 	}
 
-	private void importSubjectsFromCVS() {
+	/**
+	 * Importe une liste de sujet depuis un fichier externe.
+	 */
+	private void importSubjects() {
 		final JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
 
@@ -131,6 +186,10 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		}
 	}
 
+	/**
+	 * Importe une liste de sujet depuis un csv et mets à jour l'interface.
+	 * Il est possible de droper directement le fichier.
+	 */
 	private void importSubjectFromFile(final File file) {
 		ParserCsvSubject parser = new ParserCsvSubject();
 		try {
@@ -148,6 +207,9 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		}	
 	}
 
+	/**
+	 * Exporte la liste de sujet dans un fichier au format csv.
+	 */
 	private void exportSubjectToCVS() {
 		final JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
@@ -162,9 +224,7 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 				path = path.substring(0, path.indexOf("."));
 			}
 			
-			// TODO : Appeller la méthode de sauvegarde (voir avec Cédric).
-			if(!path.equals("")) {
-				System.out.println("OK");				
+			if(!path.equals("")) {			
 				path = path + ".csv";
 				path = fc.getSelectedFile().getParent() + File.separator + path;
 				
@@ -178,6 +238,12 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		}
 	}
 
+	/**
+	 * Crée un SubjectPanel depuis un bean Subjet.
+	 * 
+	 * @param model Le modèle.
+	 * @return Le SubjectPanel correspondant.
+	 */
 	private SubjectPanel createSubjectPanelFromModel(Subject model) {
 		SubjectPanel ret = this.createSubjectPanel(model.getId());
 
@@ -190,6 +256,9 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		return ret;
 	}
 
+	/**
+	 * Rafraichie l'affichage des sujets.
+	 */
 	private void repaintSubjects() {
 		JPanel container = view.getJpSubjects();
 
@@ -215,6 +284,12 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		repaintView();
 	}
 
+	/**
+	 * Crée un SubjectPanel
+	 * 
+	 * @param id L'identifiant.
+	 * @return Le SubjectPanel.
+	 */
 	private SubjectPanel createSubjectPanel(int id) {
 		SubjectPanel subjectPanel = new SubjectPanel();
 
@@ -228,12 +303,20 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		return subjectPanel;
 	}
 
+	/**
+	 * Rafraichie la vue.
+	 */
 	private void repaintView() {
 		this.view.invalidate();
 		this.view.validate();
 		this.view.repaint();
 	}
 
+	/**
+	 * Génere un id.
+	 * 
+	 * @return L'id.
+	 */
 	private int generateId() {
 		int max = 0;
 
@@ -246,18 +329,5 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		}
 
 		return max + 1;
-	}
-
-	@Override
-	public void drop(DropTargetDropEvent dtde) {
-		dtde.acceptDrop(DnDConstants.ACTION_COPY);
-		
-		File input = Utils.getFileFromTransferable(dtde.getTransferable());
-		
-		if(input != null) {
-			importSubjectFromFile(input);
-		}
-		
-		dtde.dropComplete(true);
 	}
 }
