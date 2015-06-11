@@ -1,5 +1,6 @@
 package controllers.solver;
 
+import models.bean.Model;
 import models.solver.Choco;
 import models.solver.Glpk;
 import models.solver.Solver;
@@ -11,6 +12,11 @@ import views.configuration.solver.SolverSelectionPanel;
 public class SolverSelectionPanelCtrl {
 
 	/**
+	 * Le modèle.
+	 */
+	private Model model;
+	
+	/**
 	 * La vue.
 	 */
 	private SolverSelectionPanel view;
@@ -20,7 +26,8 @@ public class SolverSelectionPanelCtrl {
 	 * 
 	 * @param view La vue.
 	 */
-	public SolverSelectionPanelCtrl(SolverSelectionPanel view) {
+	public SolverSelectionPanelCtrl(Model model, SolverSelectionPanel view) {
+		this.model = model;
 		this.view = view;
 	}
 
@@ -35,10 +42,10 @@ public class SolverSelectionPanelCtrl {
 
 		switch (solverName) {
 			case SolverSelectionPanel.CHOCO_SOLVER:
-				ret = new Choco();
+				ret = new Choco(this.model);
 				break;
 			case SolverSelectionPanel.GLPK_SOLVER:
-				ret = new Glpk();
+				ret = new Glpk(this.model);
 				break;
 		}
 		

@@ -79,7 +79,7 @@ public class MainCtrl implements ActionListener {
 	private void initializeReactions() {
 		this.subjectsCtrl = new SubjectsConfigurationCtrl(this.model.getSubjects(), this.view.getConfigurationPanel().getSubjectsPanel());
 
-		this.solverCtrl = new SolverSelectionPanelCtrl(this.view.getConfigurationPanel().getSolverSelectionPanel());
+		this.solverCtrl = new SolverSelectionPanelCtrl(this.model, this.view.getConfigurationPanel().getSolverSelectionPanel());
 
 		this.constraintsCtrl = new ConstraintsCtrl(this.model.getConstraint(),
 				this.view.getConfigurationPanel().getSolverParametersPanel(),
