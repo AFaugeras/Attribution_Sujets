@@ -101,7 +101,7 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 			matcher.match();
 
 			// Résolution.
-			this.solver.solve("input.txt",	"output.txt", this.model);
+			this.solver.solve();
 
 		} catch (FileException | ModelException  | SolverException | NoDefineSubjectException | NoUserFoundedException e) {
 			displayErrorMessage(e.getMessage());
