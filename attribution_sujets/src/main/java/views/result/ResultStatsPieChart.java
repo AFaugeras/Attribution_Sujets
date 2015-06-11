@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
