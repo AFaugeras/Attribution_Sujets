@@ -55,7 +55,7 @@ public class ResultStatsPieChart extends JPanel {
 
     private static JFreeChart createChart(PieDataset piedataset)
     {
-            JFreeChart jfreechart = ChartFactory.createPieChart("Pie Chart Demo 2", piedataset, true, true, false);
+            JFreeChart jfreechart = ChartFactory.createPieChart("Statistiques de la répartition", piedataset, true, true, false);
             pieplot = (PiePlot)jfreechart.getPlot();
 //            pieplot.setSectionPaint("1° choix", new Color(160, 160, 255));
 //            pieplot.setSectionPaint("2° choix", new Color(128, 128, 223));
@@ -67,16 +67,17 @@ public class ResultStatsPieChart extends JPanel {
             pieplot.setExplodePercent("Two", 0.20000000000000001D);
             pieplot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
             pieplot.setLabelBackgroundPaint(new Color(220, 220, 220));
-            pieplot.setLegendLabelToolTipGenerator(new StandardPieSectionLabelGenerator("Tooltip for legend item {0}"));
-            pieplot.setSimpleLabels(true);
+//            pieplot.setLegendLabelToolTipGenerator(new StandardPieSectionLabelGenerator("Tooltip for legend item {0}"));
+//            pieplot.setSimpleLabels(true);
+            pieplot.setLabelGenerator(null);
             pieplot.setInteriorGap(0.00D);
-            ((StandardPieSectionLabelGenerator)pieplot.getLabelGenerator()).getPercentFormat().setMaximumFractionDigits(2);
+//            ((StandardPieSectionLabelGenerator)pieplot.getLabelGenerator()).getPercentFormat().setMaximumFractionDigits(2);
             return jfreechart;
     }
 
     public static JPanel createDemoPanel(Model model)
     {   	
-            JFreeChart jfreechart = createChart(createDataset(model));
+            JFreeChart jfreechart = createChart(createDataset(model));	
             JPanel panel = new ChartPanel(jfreechart);
             panel.addMouseWheelListener(new MouseWheelListener() {
 				
