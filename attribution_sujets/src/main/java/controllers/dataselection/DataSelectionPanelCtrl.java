@@ -11,29 +11,56 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import controllers.Utils;
 import models.utils.CSVXLSFileFilter;
 import views.configuration.dataselection.DataSelectionPanel;
+import controllers.Utils;
 
+/**
+ * Contrôleur du panel de sélection des données.
+ */
 public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionListener {
 
+	// Constantes :
 	private static final CSVXLSFileFilter CSV_XLS_FILE_FILTER = new CSVXLSFileFilter();
 
+	/**
+	 * La vue.
+	 */
 	private DataSelectionPanel view;
 	
+	/**
+	 * DropTarget du champ de texte campus.
+	 */
 	private DropTarget dtJtfCampusFile;
+	
+	/**
+	 * DropTarget du champ de texte personnes.
+	 */
 	private DropTarget dtJtfPersonsFile;
 
+	/**
+	 * Constructeur.
+	 * 
+	 * @param view La vue.
+	 */
 	public DataSelectionPanelCtrl(DataSelectionPanel view) {
 		this.view = view;
 
 		initializeReactions();
 	}
 
+	/**
+	 * Permet d'obtenir une instance de la classe File correspondant à la sélection du fichier campus.
+	 * @return La File.
+	 */
 	public File getCampusFile() {
 		return new File(this.view.getJtfCampusFile().getText());
 	}
 
+	/**
+	 * Permet d'obtenir une instance de la classe File correspondant à la sélection de la liste de personnes.
+	 * @return
+	 */
 	public File getPersonsFile() {
 		return new File(this.view.getJtfPersonsFile().getText());
 	}
@@ -49,14 +76,25 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 		}
 	}
 	
+	/**
+	 * Indique si le fichier campus sélectionner existe réellement.
+	 * @return True si il existe, false sinon.
+	 */
 	public boolean isCampusFileExists() {
 		return this.getCampusFile().exists();
 	}
 	
+	/**
+	 * Indique si la liste de personnes renseignée existe réellement.
+	 * @return True si elle existe, false sinon.
+	 */
 	public boolean isPersonFileExists() {
 		return this.getPersonsFile().exists();
 	}
 
+	/**
+	 * Méthode privée appellée par le constructeur pour initialiser les réactions.
+	 */
 	private void initializeReactions() {
 		this.view.getJbCampusFile().addActionListener(this);
 		this.view.getJbPersonsFile().addActionListener(this);
@@ -65,6 +103,9 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 		this.dtJtfPersonsFile = new DropTarget(this.view.getJtfPersonsFile(), DnDConstants.ACTION_MOVE, this);
 	}
 
+	/**
+	 * Méthode de réaction au clic sur le bouton import du champ campus.
+	 */
 	private void campusFileSelection() {
 		final JFileChooser fc = new JFileChooser(new File(this.view
 				.getJtfCampusFile().getText()));
@@ -78,6 +119,9 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 		}
 	}
 
+	/**
+	 * Méthode de réaction au clic sur le bouton import du champ personnes.
+	 */
 	private void personFileSelection() {
 		final JFileChooser fc = new JFileChooser(new File(this.view.getJtfPersonsFile().getText()));
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
@@ -103,6 +147,12 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 		}
 	}
 
+	/**
+	 * Méthode de réaction au drop sur le champs de texte campus.
+	 * Accepte les fichier csv au format campus.
+	 * 
+	 * @param dtde Le DropTargetDropEvent associé.
+	 */
 	private void dropOnJtfCampusFile(DropTargetDropEvent dtde) {
 		dtde.acceptDrop(DnDConstants.ACTION_MOVE);
 		
@@ -117,6 +167,12 @@ public class DataSelectionPanelCtrl extends DropTargetAdapter implements ActionL
 		}
 	}
 
+	/**
+	 * Méthode de réaction au drip sur le champs de texte personnes.
+	 * Accepte les fichier csv au format oasis.
+	 * 
+	 * @param dtde Le DropTargetDropEvent associé.
+	 */
 	private void dropOnJtfPersonsFile(DropTargetDropEvent dtde) {
 		dtde.acceptDrop(DnDConstants.ACTION_MOVE);
 	
