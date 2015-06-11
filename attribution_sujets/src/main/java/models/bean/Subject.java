@@ -187,4 +187,11 @@ public class Subject {
 			throw new FileException();
 			}
 	}
+	/**
+	 * verifie que la valeur du minimum est bien inférieur au maximum
+	 * @return boolean
+	 */
+	public boolean isMaxSizeOverMinSize(){
+		return this.minSize<=maxSize;
+	}
 }
