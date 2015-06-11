@@ -160,17 +160,20 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 		
 		ret.append("param c :");
 		
+		//Liste des eleves
 		for(int i = 0; i < nbPersons; i++){
 			ret.append("\te" + i);
 		}
 		
 		ret.append("\t\t:=");
-				
+		
+		//Parcours des sujets
 		for(int i = 0; i < nbSubjects; i++){
 			current = subjects.get(i);
 			
 			ret.append("\n\tp" + i);
 			
+			//Choix des eleves pour le sujet courant
 			for(Person p : persons){
 				ret.append("\t");
 				

@@ -12,7 +12,7 @@ import models.solver.adaptor.AdaptorChoco;
 public class InputWriterChoco{
 	
 	/**
-	 * Methode d'ecriture d'un fichier d'entree de Choco
+	 * Methode d'ecriture d'un fichier d'entree de Choco. Ce fichier est documentee
 	 * @param filename nom du fichier de sortie
 	 * @param data model de donnees sur lequel sera base ce fichier
 	 * @throws WriterException Erreur d'ecriture

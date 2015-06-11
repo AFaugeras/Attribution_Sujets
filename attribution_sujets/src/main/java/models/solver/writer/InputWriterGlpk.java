@@ -12,7 +12,27 @@ import models.solver.adaptor.AdaptorGlpk;
 public class InputWriterGlpk{
 	
 	/**
-	 * Methode d'ecriture d'un fichier d'entree de Glpk.
+	 * Methode d'ecriture d'un fichier d'entree de Glpk. Celui-ci suit le format suivant :
+	 * data;
+	 * 
+	 * set projets := 	p0 	p1
+	 * set eleves := 	e1 	e2 	e3 	e4
+	 * 
+	 * param nbMinGpes :=	p0 	0	p1 	0	;
+	 * param nbMaxGpes :=	p0 	2	p1 	2	;
+	 * param tailleEquipe:=	1	;
+	 * param nMin :=	p0 	5	p1 	5	;
+	 * param nMax :=	p0 	15	p1 	15	;
+	 * param nbMiniSujets :=	1	;
+	 * param c :	e0	e1	e2	e3 :=
+	 * 	p0	1	5	5	1
+	 * 	p1	5	1	1	1
+	 * 	;
+	 * 
+	 * 
+	 * end;
+	 * 
+	 * 
 	 * @param filename nom du fichier de sortie
 	 * @param data model de donnees sur lequel sera base ce fichier
 	 * @throws WriterException Erreur d'ecriture

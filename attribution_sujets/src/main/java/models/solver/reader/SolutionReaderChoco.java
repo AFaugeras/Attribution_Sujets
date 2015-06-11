@@ -19,7 +19,7 @@ public class SolutionReaderChoco{
 	/**
 	 * Lecture d'un fichier correspondant a la solution venant du Solveur Choco.
 	 * Celui-ci doit suivre le format suivant :
-	 * 0 (Si pas de solution) ou 1 (Sinon)
+	 * Pas encore implémenté : 0 (Si pas de solution) ou 1 (Sinon)
 	 * 2 (Sujet attribue au premier eleve)
 	 * 4 (Sujet attribue au second eleve)
 	 * ...
@@ -44,22 +44,30 @@ public class SolutionReaderChoco{
 			
 			line = br.readLine();
 			
-			if(line.equals("0")){
-				br.close();
-				fr.close();
-				throw new NotFoundSolutionException("Aucune solution d'après le solveur Choco");
-			}
-			else{
-				line = br.readLine();
-				int i = 0;
-				while(i < nbPersons && line != null){
-					persons.get(i).setAssigned(subjects.get(Integer.parseInt(line) - 1));
-					
-					i++;
-					line = br.readLine();
+			//Absence de solution ??
+//			if(line.equals("0")){
+//				br.close();
+//				fr.close();
+//				throw new NotFoundSolutionException("Aucune solution d'après le solveur Choco");
+//			}
+			
+			line = br.readLine();
+			int i = 0;
+			while(i < nbPersons){
+				
+				//Ligne inexistante
+				if(line == null){
+					throw new NotFoundSolutionException("Aucune solution d'après le solveur Choco");
 				}
+				
+				//Assignation du sujet.
+				persons.get(i).setAssigned(subjects.get(Integer.parseInt(line) - 1));
+					
+				i++;
+				line = br.readLine();
 			}
 			
+			//Fermeture
 			br.close();
 			fr.close();
 		}

@@ -24,9 +24,7 @@ public class Glpk implements Solver{
 			throw new ModelException("Multiplicité incompatible avec le nombre d'élèves.");
 		}
 		
-		AdaptorGlpk ag = new AdaptorGlpkImpl(data);
-		
-		InputWriterGlpk.write(inputFilename, ag);
+		this.generateInputFile(inputFilename, data);
 		
 		URL modelFile = this.getClass().getClassLoader().getResource("glpk/affectation-modele.mod");
 	
@@ -42,12 +40,17 @@ public class Glpk implements Solver{
 			throw new SolverException("processus interrompue");
 		}
 		
-		SolutionReaderGlpk.read(outputFilename, data);
+		this.readSolutionFile(outputFilename, data);
 		
 		return data;
 	}
 	
-	private boolean checkMultiplicity(Model data) throws NotFoundSolutionException{		
+	/**
+	 * Verification que le nombre d'eleve est un multiple de la multiplicite.
+	 * @param data model de donnees
+	 * @return true si la multiplicite est satisfaisante. False sinon.
+	 */
+	private boolean checkMultiplicity(Model data){		
 		int multiplicity = data.getConstraint().getMultiplicity();
 		
 		if(multiplicity != 0 && data.getPersons().size() % multiplicity != 0){

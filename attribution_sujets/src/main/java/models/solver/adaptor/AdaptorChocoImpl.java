@@ -37,6 +37,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		List<Subject> subjects = this.data.getSubjects();
 		Subject current = null;
 		
+		//Parcours des sujets
 		for(int i = 0; i < subjects.size(); i++){
 			current = subjects.get(i);
 			ret.append(current.getMinSize());
@@ -56,6 +57,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		List<Subject> subjects = this.data.getSubjects();
 		Subject current = null;
 		
+		//Parcours des sujets
 		for(int i = 0; i < subjects.size(); i++){
 			current = subjects.get(i);
 			ret.append(current.getMinCard());
@@ -70,7 +72,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	
 	@Override
 	public StringBuilder getMinimumAssignedSubject(){
-		return new StringBuilder("" + 0);
+		return new StringBuilder(this.data.getConstraint().getNbMinSubjectsAssigned());
 	}
 	
 	@Override
@@ -100,6 +102,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		int nbPersons = persons.size();
 		int nbSubjects = subjects.size();
 		
+		//Parcours des eleves
 		for(int i = 0; i < nbPersons; i++){
 			current = persons.get(i);
 			
@@ -109,6 +112,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 			ret.append("\t" + nbChoices);
 			int defaultRank = nbChoices + 1;
 			
+			//Parcours des sujets pour l'eleve courant
 			Subject currentSubject = null;
 			for(int j = 0; j < nbSubjects; j++){
 				currentSubject = subjects.get(j);
@@ -127,6 +131,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 			ret.append("\n");
 		}
 		
+		//Suppresion du dernier saut a la ligne
 		ret.deleteCharAt(ret.length()-1);
 		
 		return ret;
@@ -142,6 +147,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 		
 		Person current = null;
 		
+		//Parcours des eleves
 		for(int i = 0; i < nbPersons; i++){
 			current = persons.get(i);
 			
@@ -152,6 +158,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 			
 			Subject currentReject = null;
 			
+			//Parcours des sujets pour l'eleve courant
 			for(int j = 0; j < nbRejects; j++){
 				currentReject = rejects.get(j);
 
@@ -166,6 +173,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 			ret.append("\n");
 		}
 		
+		//Suppresion du dernier saut a la ligne
 		ret.deleteCharAt(ret.length()-1);
 		
 		return ret;
@@ -173,7 +181,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	
 	@Override
 	public StringBuilder getMultiplicity(){
-		return new StringBuilder("" + 0);
+		return new StringBuilder(this.data.getConstraint().getMultiplicity());
 	}
 	
 	

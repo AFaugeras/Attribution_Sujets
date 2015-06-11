@@ -16,23 +16,16 @@ public class Choco implements Solver {
 	
 	@Override
 	public Model solve(String inputFilename, String outputFilename, Model data) throws SolverException, ModelException{
-		AdaptorChoco ac = new AdaptorChocoImpl(data);
-		
-		InputWriterChoco.write(inputFilename, ac);
+		this.generateInputFile(inputFilename, data);
 		
 		String[] args = new String[2];
 		args[0] = inputFilename;
 		args[1] = outputFilename;
 		Ipipip.main(args);
 		
-		SolutionReaderChoco.read(outputFilename, data);
+		this.readSolutionFile(outputFilename, data);
 		
-		return data;
-		
-		
-		
-		
-		
+		return data;		
 	}
 
 	@Override
