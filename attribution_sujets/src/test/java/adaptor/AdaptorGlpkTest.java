@@ -211,7 +211,18 @@ public class AdaptorGlpkTest extends TestCase{
 	@Test
 	public void testGetMinimumAssignedSubject()
 	{
-		assertEquals(this.ag.getMinimumAssignedSubject().toString(), new StringBuilder("param nbMiniSujets :=\t5\t;").toString());
+		Constraints constraintsMock = EasyMock.createMock(Constraints.class);
+		EasyMock.expect(this.modelMock.getConstraint()).andReturn(constraintsMock);
+		
+		EasyMock.expect(constraintsMock.getNbMinSubjectsAssigned()).andReturn(1);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(constraintsMock);
+		
+		assertEquals(this.ag.getMinimumAssignedSubject().toString(), new StringBuilder("param nbMiniSujets :=\t1\t;").toString());
+
+		EasyMock.verify(this.modelMock);
+		EasyMock.verify(constraintsMock);
 	}
 	
 	@Test

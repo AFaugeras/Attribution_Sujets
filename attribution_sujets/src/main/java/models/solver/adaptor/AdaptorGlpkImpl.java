@@ -137,9 +137,9 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	public StringBuilder getMinimumAssignedSubject() {
 		StringBuilder ret = new StringBuilder();
 				
-		ret.append("param nbMiniSujets :=");
+		ret.append("param nbMiniSujets :=\t");
 		
-		ret.append("\t5");
+		ret.append("" + this.data.getConstraint().getNbMinSubjectsAssigned());
 		
 		ret.append("\t;");
 		

@@ -133,8 +133,18 @@ public class AdaptorChocoTest extends TestCase{
 	@Test
 	public void testGetMinimumAssignedSubject()
 	{
-		assertEquals(this.ac.getMinimumAssignedSubject().toString(), new StringBuilder("0").toString());
-	}
+		Constraints constraintsMock = EasyMock.createMock(Constraints.class);
+		EasyMock.expect(this.modelMock.getConstraint()).andReturn(constraintsMock);
+		
+		EasyMock.expect(constraintsMock.getNbMinSubjectsAssigned()).andReturn(1);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(constraintsMock);
+		
+		assertEquals(this.ac.getMinimumAssignedSubject().toString(), new StringBuilder("1").toString());
+
+		EasyMock.verify(this.modelMock);
+		EasyMock.verify(constraintsMock);	}
 	
 	@Test
 	public void testGetRepartitionCost()
@@ -265,6 +275,17 @@ public class AdaptorChocoTest extends TestCase{
 	@Test
 	public void testGetMultiplicity()
 	{
-		assertEquals(this.ac.getMultiplicity().toString(), new StringBuilder("0").toString());
+		Constraints constraintsMock = EasyMock.createMock(Constraints.class);
+		EasyMock.expect(this.modelMock.getConstraint()).andReturn(constraintsMock);
+		
+		EasyMock.expect(constraintsMock.getMultiplicity()).andReturn(2);
+		
+		EasyMock.replay(this.modelMock);
+		EasyMock.replay(constraintsMock);
+		
+		assertEquals(this.ac.getMultiplicity().toString(), new StringBuilder("2").toString());
+
+		EasyMock.verify(this.modelMock);
+		EasyMock.verify(constraintsMock);
 	}
 }

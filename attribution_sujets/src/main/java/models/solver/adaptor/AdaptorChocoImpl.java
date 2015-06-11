@@ -72,7 +72,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	
 	@Override
 	public StringBuilder getMinimumAssignedSubject(){
-		return new StringBuilder(this.data.getConstraint().getNbMinSubjectsAssigned());
+		return new StringBuilder("" + this.data.getConstraint().getNbMinSubjectsAssigned());
 	}
 	
 	@Override
@@ -181,7 +181,7 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	
 	@Override
 	public StringBuilder getMultiplicity(){
-		return new StringBuilder(this.data.getConstraint().getMultiplicity());
+		return new StringBuilder("" + this.data.getConstraint().getMultiplicity());
 	}
 	
 	
