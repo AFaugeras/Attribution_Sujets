@@ -1,19 +1,16 @@
-package writer;
+package solver.reader;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import parse.ParserTestSuite;
+import stats.StatsTest;
 
-/**
- * classe regroupant les test des writer
- *
- */
-public class InputWriterTestSuite extends TestSuite{
+public class SolutionReaderTestSuite {
 	public static Test suite() 
 	{
 		final Class<?>[] classesTest = {
-			InputWriterChocoTest.class,
-			InputWriterGlpkTest.class
-			
+			SolutionReaderChocoTest.class,
+			SolutionReaderGlpkTest.class
 		};
 
 		final TestSuite suite = new TestSuite(classesTest);

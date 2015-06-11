@@ -1,4 +1,4 @@
-package writer;
+package solver.writer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,6 +10,7 @@ import models.exception.fileformatexception.FileFormatException;
 import models.solver.adaptor.AdaptorGlpk;
 import models.solver.adaptor.AdaptorGlpkImpl;
 import models.solver.writer.InputWriterGlpk;
+import models.solver.writer.InputWriterGlpkImpl;
 import models.solver.writer.WriterException;
 
 import org.easymock.EasyMock;
@@ -17,8 +18,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InputWriterGlpkTest extends TestCase{
+public class InputWriterGlpkImplTest extends TestCase{
 
+	private InputWriterGlpk iwg;
+	
 	private AdaptorGlpk adaptorGlpkMock;
 	
 	private String path;
@@ -28,6 +31,9 @@ public class InputWriterGlpkTest extends TestCase{
 		
 		this.adaptorGlpkMock = EasyMock.createMock(AdaptorGlpkImpl.class);
 		assertNotNull("Erreur lors de la preparation", this.adaptorGlpkMock);
+		
+		this.iwg = new InputWriterGlpkImpl(this.adaptorGlpkMock);
+		assertNotNull("Constructeur", this.iwg);
 		
 		this.path = "src" + File.separator + "test"
 				+ File.separator + "resources" +  File.separator + "inputGlpk.txt";
@@ -55,7 +61,7 @@ public class InputWriterGlpkTest extends TestCase{
 		EasyMock.replay(this.adaptorGlpkMock);
 		
 		try{
-			InputWriterGlpk.write(this.path, this.adaptorGlpkMock);
+			this.iwg.write(this.path);
 		}
 		catch(WriterException e){
 			fail("Echec ecriture");

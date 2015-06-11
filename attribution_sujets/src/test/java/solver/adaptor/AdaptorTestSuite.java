@@ -1,4 +1,4 @@
-package adaptor;
+package solver.adaptor;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

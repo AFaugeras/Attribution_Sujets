@@ -1,4 +1,4 @@
-package reader;
+package solver.reader;
 
 import java.io.File;
 import java.util.List;
@@ -19,18 +19,28 @@ import models.parser.user.ParserCsvUserList;
 import models.solver.reader.NotFoundSolutionException;
 import models.solver.reader.ReaderException;
 import models.solver.reader.SolutionReaderGlpk;
+import models.solver.reader.SolutionReaderGlpkImpl;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class SolutionReaderGlpkTest extends TestCase{
 
+	private Model data;
+	
+	private SolutionReaderGlpk srg; 
+	
 	private String pathNoSolution;
 	
 	private String pathSolution;
 	
 	@Before
 	public void setUp() throws Exception{	
+		this.data = this.generateModel();
+		assertNotNull(this.data);
+		
+		this.srg = new SolutionReaderGlpkImpl(this.data);
+		assertNotNull("Constructeur", this.srg);
 		
 		this.pathNoSolution = "src" + File.separator + "test"+ File.separator 
 				+ "resources" + File.separator + "NoSolutionGlpk";
@@ -44,10 +54,9 @@ public class SolutionReaderGlpkTest extends TestCase{
 	{
 		try{
 			
-			Model data = this.generateModel();
-			List<Person> persons = data.getPersons();
+			List<Person> persons = this.data.getPersons();
 		
-			SolutionReaderGlpk.read(this.pathSolution, data);
+			this.srg.read(this.pathSolution);
 			
 			for(Person pers : persons){
 				if(pers.getAssigned() == null){
@@ -55,9 +64,6 @@ public class SolutionReaderGlpkTest extends TestCase{
 				}
 			}
 
-		}
-		catch(FileException e){
-			fail(e.getMessage());	
 		}
 		catch(ReaderException e){
 			fail(e.getMessage());	
@@ -71,16 +77,11 @@ public class SolutionReaderGlpkTest extends TestCase{
 	public void testReadNoSolution() throws FileFormatException 
 	{
 		try{
-			
-			Model data = this.generateModel();
-		
-			SolutionReaderGlpk.read(this.pathNoSolution, data);
+				
+			this.srg.read(this.pathNoSolution);
 			
 			fail("Exception attendue");
 
-		}
-		catch(FileException e){
-			fail(e.getMessage());	
 		}
 		catch(ReaderException e){
 			fail(e.getMessage());	

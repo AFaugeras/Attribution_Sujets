@@ -1,4 +1,4 @@
-package reader;
+package solver.reader;
 
 import java.io.File;
 import java.util.List;
@@ -19,6 +19,7 @@ import models.parser.user.ParserCsvUserList;
 import models.solver.reader.NotFoundSolutionException;
 import models.solver.reader.ReaderException;
 import models.solver.reader.SolutionReaderChoco;
+import models.solver.reader.SolutionReaderChocoImpl;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,10 @@ import org.junit.Test;
  * Ceci n'est pas un test unitaire. Il correspond d'avantage à un test d'intégration.
  */
 public class SolutionReaderChocoTest extends TestCase {
+
+	private Model data;
+	
+	private SolutionReaderChoco src; 
 	
 	private String pathNoSolution;
 	
@@ -34,6 +39,12 @@ public class SolutionReaderChocoTest extends TestCase {
 	
 	@Before
 	public void setUp() throws Exception{	
+		
+		this.data = this.generateModel();
+		assertNotNull(this.data);
+		
+		this.src = new SolutionReaderChocoImpl(this.data);
+		assertNotNull("Constructeur", this.src);
 		
 		this.pathNoSolution = "src" + File.separator + "test"+ File.separator 
 				+ "resources" + File.separator + "NoSolutionChoco";
@@ -47,10 +58,9 @@ public class SolutionReaderChocoTest extends TestCase {
 	{
 		try{
 			
-			Model data = this.generateModel();
-			List<Person> persons = data.getPersons();
+			List<Person> persons = this.data.getPersons();
 		
-			SolutionReaderChoco.read(this.pathSolution, data);
+			this.src.read(this.pathSolution);
 			
 			for(Person pers : persons){
 				if(pers.getAssigned() == null){
@@ -58,9 +68,6 @@ public class SolutionReaderChocoTest extends TestCase {
 				}
 			}
 
-		}
-		catch(FileException e){
-			fail(e.getMessage());	
 		}
 		catch(ReaderException e){
 			fail(e.getMessage());	
@@ -70,29 +77,22 @@ public class SolutionReaderChocoTest extends TestCase {
 		}			
 	}
 	
-	@Test
-	public void testReadNoSolution() throws FileFormatException 
-	{
-		try{
-			
-			Model data = this.generateModel();
-		
-			SolutionReaderChoco.read(this.pathNoSolution, data);
-			
-			fail("Exception attendue");
-
-		}
-		catch(FileException e){
-			fail(e.getMessage());	
-		}
-		catch(ReaderException e){
-			fail(e.getMessage());	
-		}
-		catch(NotFoundSolutionException e){
-		}
-		
-			
-	}
+//	@Test
+//	public void testReadNoSolution() throws FileFormatException 
+//	{
+//		try{
+//		
+//			this.src.read(this.pathNoSolution);
+//			
+//			fail("Exception attendue");
+//
+//		}
+//		catch(ReaderException e){
+//			fail(e.getMessage());	
+//		}
+//		catch(NotFoundSolutionException e){
+//		}	
+//	}
 	
 	
 	private Model generateModel() throws FileException{

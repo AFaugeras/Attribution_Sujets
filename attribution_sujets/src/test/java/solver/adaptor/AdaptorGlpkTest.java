@@ -1,4 +1,4 @@
-package adaptor;
+package solver.adaptor;
 
 import java.util.ArrayList;
 import java.util.List;

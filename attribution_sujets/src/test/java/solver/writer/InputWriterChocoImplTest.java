@@ -1,4 +1,4 @@
-package writer;
+package solver.writer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import junit.framework.TestCase;
 import models.solver.adaptor.AdaptorChocoImpl;
 import models.solver.writer.InputWriterChoco;
+import models.solver.writer.InputWriterChocoImpl;
 import models.solver.writer.WriterException;
 
 import org.easymock.EasyMock;
@@ -15,16 +16,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InputWriterChocoTest extends TestCase {
+public class InputWriterChocoImplTest extends TestCase {
 
+	private InputWriterChoco iwc;
+			
 	private AdaptorChocoImpl adaptorChocoMock;
 	
 	private String path;
 	
 	@Before
 	public void setUp() throws Exception{	
+		
 		this.adaptorChocoMock = EasyMock.createMock(AdaptorChocoImpl.class);
 		assertNotNull("précondition", this.adaptorChocoMock);
+		
+		this.iwc = new InputWriterChocoImpl(this.adaptorChocoMock);
+		assertNotNull("Constructeur", this.iwc);
 		
 		this.path = "src" + File.separator + "test"
 				+ File.separator + "resources" +  File.separator + "inputChoco.txt";
@@ -51,9 +58,8 @@ public class InputWriterChocoTest extends TestCase {
 		EasyMock.expect(this.adaptorChocoMock.getMultiplicity()).andReturn(new StringBuilder("0"));
 		EasyMock.replay(this.adaptorChocoMock);
 		
-		
 		try{
-			InputWriterChoco.write(this.path, this.adaptorChocoMock);
+			this.iwc.write(this.path);
 		}
 		catch(WriterException e){
 			fail("Echec ecriture");
