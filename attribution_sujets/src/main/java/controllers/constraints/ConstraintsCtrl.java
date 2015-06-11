@@ -57,14 +57,10 @@ public class ConstraintsCtrl implements ChangeListener {
 	/**
 	 * Constructeur.
 	 * 
-	 * @param model
-	 *            Le modèle.
-	 * @param solverParametersView
-	 *            Le panel de de configuration du solveur.
-	 * @param campusView
-	 *            Le panel de configuration campus.
-	 * @param weightsView
-	 *            Le panel de management des poids.
+	 * @param model Le modèle.
+	 * @param solverParametersView Le panel de de configuration du solveur.
+	 * @param campusView Le panel de configuration campus.
+	 * @param weightsView Le panel de management des poids.
 	 */
 	public ConstraintsCtrl(Constraints model,
 			SolverConfigurationPanel solverParametersView,
@@ -77,8 +73,7 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		this.weightPanels = new ArrayList<WeightPanel>();
 
-		this.maxChoiceValue = (int) this.solverParametersView.getJsMaxChoice()
-				.getValue();
+		this.maxChoiceValue = (int) this.solverParametersView.getJsMaxChoice().getValue();
 
 		this.addNewWeightPanel();
 
@@ -91,11 +86,9 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		if (src == this.campusView.getJsNbChoice()) {
 			int nbChoice = (int) src.getValue();
-			int nbMaxChoice = (int) this.solverParametersView.getJsMaxChoice()
-					.getValue();
+			int nbMaxChoice = (int) this.solverParametersView.getJsMaxChoice().getValue();
 
-			((SpinnerNumberModel) this.solverParametersView.getJsMaxChoice()
-					.getModel()).setMaximum(nbChoice);
+			((SpinnerNumberModel) this.solverParametersView.getJsMaxChoice().getModel()).setMaximum(nbChoice);
 
 			if (nbMaxChoice > nbChoice) {
 				this.solverParametersView.getJsMaxChoice().setValue(nbChoice);
@@ -103,11 +96,9 @@ public class ConstraintsCtrl implements ChangeListener {
 
 		} else if (src == this.campusView.getJsNbReject()) {
 			int nbReject = (int) src.getValue();
-			int nbMaxReject = (int) this.solverParametersView.getJsMaxReject()
-					.getValue();
+			int nbMaxReject = (int) this.solverParametersView.getJsMaxReject().getValue();
 
-			((SpinnerNumberModel) this.solverParametersView.getJsMaxReject()
-					.getModel()).setMaximum(nbReject);
+			((SpinnerNumberModel) this.solverParametersView.getJsMaxReject().getModel()).setMaximum(nbReject);
 
 			if (nbMaxReject > nbReject) {
 				this.solverParametersView.getJsMaxReject().setValue(nbReject);
@@ -119,7 +110,7 @@ public class ConstraintsCtrl implements ChangeListener {
 
 	/**
 	 * Méthode de réaction. Elle est appellé quand l'utilisateur modifie le
-	 * nombre de choix. Ajoute ou supprime des WeightPanel au besoin.
+	 * nombre de choix. Ajoute ou supprime des WeightPanel au besoins.
 	 */
 	private void manageWeights() {
 		int tmp = (int) this.solverParametersView.getJsMaxChoice().getValue()
@@ -144,25 +135,18 @@ public class ConstraintsCtrl implements ChangeListener {
 	 * Cette méthode sauvegarde les valeurs de la vue dans le modèle.
 	 */
 	public void saveToModel() {
-		this.model.setNbMaxChoice((int) this.solverParametersView
-				.getJsMaxChoice().getValue());
-		this.model.setNbMaxReject((int) this.solverParametersView
-				.getJsMaxReject().getValue());
-		this.model.setNbMinSubjectsAssigned((int) this.solverParametersView
-				.getJsMinAssigned().getValue());
-		this.model.setMultiplicity((int) this.solverParametersView
-				.getJsMultiplicity().getValue());
+		this.model.setNbMaxChoice((int) this.solverParametersView.getJsMaxChoice().getValue());
+		this.model.setNbMaxReject((int) this.solverParametersView.getJsMaxReject().getValue());
+		this.model.setNbMinSubjectsAssigned((int) this.solverParametersView.getJsMinAssigned().getValue());
+		this.model.setMultiplicity((int) this.solverParametersView.getJsMultiplicity().getValue());
 
-		this.model
-				.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
-		this.model
-				.setNbReject((int) this.campusView.getJsNbReject().getValue());
+		this.model.setNbChoice((int) this.campusView.getJsNbChoice().getValue());
+		this.model.setNbReject((int) this.campusView.getJsNbReject().getValue());
 
 		this.model.getWeights().clear();
 
 		for (WeightPanel wp : weightPanels) {
-			this.model.getWeights().add(
-					((Double) wp.getJsValue().getValue()).longValue());
+			this.model.getWeights().add(((Double) wp.getJsValue().getValue()).longValue());
 		}
 	}
 
