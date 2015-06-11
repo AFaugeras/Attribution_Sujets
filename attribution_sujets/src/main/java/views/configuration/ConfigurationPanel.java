@@ -11,10 +11,10 @@ import javax.swing.JSeparator;
 
 import views.configuration.constraints.SolverConfigurationPanel;
 import views.configuration.constraints.CampusConstraintsPanel;
+import views.configuration.constraints.weights.WeightsConfigurationPanel;
 import views.configuration.dataselection.DataSelectionPanel;
 import views.configuration.solver.SolverSelectionPanel;
 import views.configuration.subjects.SubjectsConfigurationPanel;
-import views.configuration.weights.WeightsConfigurationPanel;
 
 /**
  * Panel de configuration.

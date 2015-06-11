@@ -1,4 +1,4 @@
-package views.configuration.weights;
+package views.configuration.constraints.weights;
 
 import java.awt.Color;
 import java.awt.Font;
