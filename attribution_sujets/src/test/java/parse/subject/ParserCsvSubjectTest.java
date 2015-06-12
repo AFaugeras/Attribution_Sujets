@@ -28,16 +28,15 @@ public class ParserCsvSubjectTest extends TestCase {
 			fail("Probléme de format");
 		}
 		List<Subject> subject = parser.getSubjectList();
+		
 		Subject heavySubject = createSubject();
+		
 		assertEquals(subject.get(0).getId(),heavySubject.getId());
 		assertEquals(subject.get(0).getLabel(),heavySubject.getLabel());
 		assertEquals(subject.get(0).getMaxSize(),heavySubject.getMaxSize());
 		assertEquals(subject.get(0).getMinSize(),heavySubject.getMinSize());
 		assertEquals(subject.get(0).getMaxCard(),heavySubject.getMaxCard());
 		assertEquals(subject.get(0).getMinCard(),heavySubject.getMinCard());
-		
-		
-		
 	}
 	
 	
@@ -59,14 +58,5 @@ public class ParserCsvSubjectTest extends TestCase {
 		} catch (FileException e) {
 			fail("Probléme de format");
 		}
-		List<Subject> subject = parser.getSubjectList();
-		
-		@SuppressWarnings("unused")
-		Subject heavySubject = createSubject();
-		
-		Subject.save(subject,new File("testcedric.csv"));
-		
-		
-		
 	}
 }
