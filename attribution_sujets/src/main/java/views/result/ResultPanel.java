@@ -26,7 +26,7 @@ import models.bean.Subject;
 import controllers.result.ResultConfigurationCtrl;
 import controllers.result.ResultStatPanelCtrl;
 import controllers.result.ResultSubjectPanelCtrl;
-import controllers.tableModel.ResultTable;
+import controllers.tablemodel.ResultTable;
 
 /**
  * 

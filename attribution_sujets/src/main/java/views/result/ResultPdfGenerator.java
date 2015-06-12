@@ -17,7 +17,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import controllers.tableModel.ResultTableHeader;
+import controllers.tablemodel.ResultTableHeader;
 
 /**
  * Classe prennant en charge la génération du pdf d'export de l'affichage des résultats.

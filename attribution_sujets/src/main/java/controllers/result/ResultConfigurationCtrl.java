@@ -22,8 +22,8 @@ import views.result.ResultPdfGenerator;
 
 import com.itextpdf.text.DocumentException;
 
-import controllers.tableModel.ResultTable;
-import controllers.tableModel.ResultTableHeader;
+import controllers.tablemodel.ResultTable;
+import controllers.tablemodel.ResultTableHeader;
 
 public class ResultConfigurationCtrl implements ActionListener {
 

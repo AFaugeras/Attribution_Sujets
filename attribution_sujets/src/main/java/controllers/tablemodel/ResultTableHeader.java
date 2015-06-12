@@ -1,4 +1,4 @@
-package controllers.tableModel;
+package controllers.tablemodel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
