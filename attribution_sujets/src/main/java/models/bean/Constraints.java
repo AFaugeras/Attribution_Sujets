@@ -62,17 +62,6 @@ public class Constraints {
 		
 		this.weights = new ArrayList<Long>();	
 	}
-	
-	// TODO : Vieux constructeur à supprimer.
-	public Constraints(int nbMaxChoice, int nbChoice, int nbMaxReject,
-			int nbReject) {
-		this.nbMaxChoice = nbMaxChoice;
-		this.nbChoice = nbChoice;
-		this.nbMaxReject = nbMaxReject;
-		this.nbReject = nbReject;
-		
-		this.weights = new ArrayList<Long>();		
-	}
 
 	/**
 	 * @return the nbChoice

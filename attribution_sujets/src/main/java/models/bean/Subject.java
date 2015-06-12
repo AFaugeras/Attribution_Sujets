@@ -183,9 +183,8 @@ public class Subject {
 		    fw.write (retour);
 		    fw.close();
 		} catch (IOException e) {
-				// TODO Auto-generated catch block
 			throw new FileException();
-			}
+		}
 	}
 	/**
 	 * verifie que la valeur du minimum est bien inférieur au maximum

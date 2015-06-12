@@ -1,8 +1,5 @@
 package controllers.tablemodel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -32,13 +29,6 @@ public class ResultTableHeader extends JPanel {
 		this.position = position;
 		this.label = label;
 		jcbSelected = new JCheckBox(label, selectedDefault);
-		jcbSelected.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("click on : " + label);
-			}
-		});
 		jcbSelected.setEnabled(true);
 		this.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
 

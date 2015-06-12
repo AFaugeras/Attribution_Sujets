@@ -27,7 +27,7 @@ public class Model {
 	private List<Subject> subjects;
 	
 	public Model() {
-		this.constraints = new Constraints(0, 0, 0, 0, 0);
+		this.constraints = new Constraints(0, 0, 0, 0, 1);
 		this.persons = new ArrayList<Person>();
 		this.subjects = new ArrayList<Subject>();
 	}

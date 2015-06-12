@@ -56,30 +56,18 @@ public class ResultTable extends JTable {
 		this.getTableHeader().addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-//				String name = table.getColumnName(col);
-//				System.out.println("Column index selected " + col + " " + name);
-
-				
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
@@ -96,7 +84,6 @@ public class ResultTable extends JTable {
 					break;
 				case MouseEvent.BUTTON3:
 					((ResultTableHeader)colModel.getColumn(col).getHeaderValue()).setIsSelected();
-					System.out.println("left click on : " + ((ResultTableHeader)colModel.getColumn(col).getHeaderValue()).getLabel());
 					//refreshHeader(entete);
 					table.getTableHeader().repaint();
 					break;

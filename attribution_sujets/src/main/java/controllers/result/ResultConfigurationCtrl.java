@@ -163,8 +163,6 @@ public class ResultConfigurationCtrl implements ActionListener {
 				if (!filename.endsWith(".csv"))
 					filename += ".csv";
 
-				System.out.println("FILENAME CHOSEN : " + filename);
-
 				FileWriter fileWriter = new FileWriter(filename);
 
 				String line = "";
@@ -189,9 +187,6 @@ public class ResultConfigurationCtrl implements ActionListener {
 				}
 
 				fileWriter.close();
-			}
-			if (rVal == JFileChooser.CANCEL_OPTION) {
-				System.out.println("CANCEL CHOSING FILENAME FOR CSV EXPORT");
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -278,12 +273,7 @@ public class ResultConfigurationCtrl implements ActionListener {
 				if (!filename.endsWith(".pdf"))
 					filename += ".pdf";
 
-				System.out.println("FILENAME CHOSEN : " + filename);
-
 				generator.buildPDF(filename);
-			}
-			if (rVal == JFileChooser.CANCEL_OPTION) {
-				System.out.println("CANCEL CHOSING FILENAME FOR PDF EXPORT");
 			}
 		} catch (FileNotFoundException | DocumentException e1) {
 			e1.printStackTrace();

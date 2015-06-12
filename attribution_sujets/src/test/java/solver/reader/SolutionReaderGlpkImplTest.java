@@ -120,7 +120,7 @@ public class SolutionReaderGlpkImplTest extends TestCase{
 		
 		
 		List<I_Answer> listanswer = answer.getCleanedData();
-		Constraints c = new Constraints(2, 2, 2, 2);
+		Constraints c = new Constraints(2, 2, 2, 2, 1);
 		List<Person> persons = parser.getUserList();
 		List<Subject> subjects = subject.getSubjectList();
 		

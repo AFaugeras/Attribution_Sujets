@@ -10,7 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-// TODO : Faire la javadoc de cette classe.
+/**
+ * Classe représentant la fenêtre d'attente pendant l'exécution du solver d'attribution.
+ *
+ */
 public class ProcessingPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;

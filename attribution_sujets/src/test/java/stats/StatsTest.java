@@ -20,7 +20,7 @@ public class StatsTest extends TestCase {
 
 	
 	private Model initModel() throws Exception{
-		Constraints constraint =new Constraints(6, 6, 0, 0);
+		Constraints constraint = new Constraints(6, 0, 6, 0, 1);
 		List<Person>   person= initPerson();
 		List<I_Answer> answer = initAnswer();
 		List<Subject>  subject = initSubject();
@@ -91,7 +91,8 @@ public class StatsTest extends TestCase {
 			assertEquals(portionFirdChoice,stat.PortionWhichGetChoiceN(3));
 			
 		} catch (Exception e) {
-			e.printStackTrace();fail("Problem de création de model");
+			e.printStackTrace();
+			fail("Problem de création de model");
 			
 		}
 		

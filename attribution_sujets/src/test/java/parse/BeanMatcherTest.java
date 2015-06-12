@@ -61,7 +61,7 @@ public class BeanMatcherTest extends TestCase{
 		I_Answer answer = AnswerFactory.createAnswer(dataAnswer);
 		listAnswer.add(answer);
 		
-		Constraints constraint = new Constraints(3, 3, 3, 3);
+		Constraints constraint = new Constraints(3, 3, 3, 3, 1);
 		constraint.setMatchSubjectOnId(false);
 		EasyMock.createMock(Constraints.class);
 		BeanMatcher matcher = new BeanMatcher(listPerson, listAnswer, listsubject, constraint);
@@ -110,7 +110,7 @@ public class BeanMatcherTest extends TestCase{
 		listAnswer=parser.getCleanedData();
 		
 		
-		Constraints constraint = new Constraints(6, 6, 0, 0);
+		Constraints constraint = new Constraints(6, 0, 6, 0, 1);
 		constraint.setMatchSubjectOnId(false);
 		EasyMock.createMock(Constraints.class);
 

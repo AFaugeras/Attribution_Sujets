@@ -215,7 +215,6 @@ public class SubjectsConfigurationCtrl extends DropTargetAdapter implements Acti
 		fc.setFileFilter(CSV_XLS_FILE_FILTER);
 		
 		int returnVal = fc.showSaveDialog(SwingUtilities.getWindowAncestor(this.view));
-		System.out.println(returnVal);
 		
 		if(returnVal == JFileChooser.APPROVE_OPTION){
 			String path = fc.getSelectedFile().getName();

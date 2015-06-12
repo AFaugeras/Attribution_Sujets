@@ -76,7 +76,6 @@ public class ParserCsvSubject extends AbstractParser {
 			}
 			return true;
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			throw new NotFoundFileException();
 		}
 		
