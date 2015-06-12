@@ -106,8 +106,11 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 			// Résolution.
 			this.solver.solve();
 
+			this.setProgress(100);
+			
 		} catch (FileException | ModelException  | SolverException | NoDefineSubjectException | NoUserFoundedException e) {
 			displayErrorMessage(e.getMessage());
+			this.setProgress(0);
 		}
 		
 		return ret;
@@ -117,14 +120,10 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 	protected void done() {
 		super.done();
 
-		try {
-			// Affichage du résultat.
-			if(get()) {
-				this.mainFrame.getResultPanel().setModel(this.model);
-				this.mainFrame.showResultPanel();
-			}
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
+		// Affichage du résultat.
+		if(this.getProgress() == 100) {
+			this.mainFrame.getResultPanel().setModel(this.model);
+			this.mainFrame.showResultPanel();
 		}
 		
 		this.dialog.setVisible(false);
