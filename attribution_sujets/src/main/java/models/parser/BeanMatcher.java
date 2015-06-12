@@ -39,8 +39,8 @@ public class BeanMatcher {
 			Person person = this.getPersonById(answer.getUserName());
 			if(constraint.isMatchSubjectOnId()){
 				{	// on enregistre les choix dans le choix de l'objet person
-					int i=0;
-					for(i=i ;i<constraint.getNbChoice();i++){// on enregistre les choix dans le choix de l'objet person
+					int i;
+					for(i = 0;i<constraint.getNbChoice();i++){// on enregistre les choix dans le choix de l'objet person
 						person.getChoices().add(getSubjectbyID(subject.get(i)));
 					}// puis les rejets
 					for ( i = constraint.getNbChoice(); i < constraint.getNbReject()+constraint.getNbChoice(); i++) {
@@ -51,8 +51,8 @@ public class BeanMatcher {
 					}
 				}
 			}else{
-				int i=0;
-				for(i=i ;i < constraint.getNbMaxChoice() && i < subject.size();i++){// on enregistre les choix dans le choix de l'objet person
+				int i;
+				for(i= 0 ;i < constraint.getNbMaxChoice() && i < subject.size();i++){// on enregistre les choix dans le choix de l'objet person
 				if (!subject.get(i).isEmpty())	person.getChoices().add(getSubjectbyLabel(subject.get(i)));
 
 				}// puis les rejets
