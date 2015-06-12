@@ -108,7 +108,6 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 
 		} catch (FileException | ModelException  | SolverException | NoDefineSubjectException | NoUserFoundedException e) {
 			displayErrorMessage(e.getMessage());
-			this.setProgress(0);
 		}
 		
 		return ret;
