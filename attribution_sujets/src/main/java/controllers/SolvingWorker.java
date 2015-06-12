@@ -83,6 +83,9 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 			ParserCsvAnswer parserAwnser = new ParserCsvAnswer();
 			ParserCsvUserList parserPerson = new ParserCsvUserList();
 			BeanMatcher matcher;
+			
+			// Validation du modèle.
+			this.model.checkModel();
 
 			// Parsing du fichier campus et de la liste de personnes.
 			parserAwnser.parseAnswer(this.campusFile);
