@@ -83,9 +83,6 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 			ParserCsvAnswer parserAwnser = new ParserCsvAnswer();
 			ParserCsvUserList parserPerson = new ParserCsvUserList();
 			BeanMatcher matcher;
-			
-			// Validation du modèle.
-			this.model.checkModel();
 
 			// Parsing du fichier campus et de la liste de personnes.
 			parserAwnser.parseAnswer(this.campusFile);
@@ -99,6 +96,9 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 
 			// Mise à jour du modèle.
 			this.model.setPersons(parserPerson.getUserList());
+			
+			// Validation du modèle.
+			this.model.checkModel();
 
 			// Matching. 
 			matcher.match();
@@ -108,6 +108,7 @@ public class SolvingWorker extends SwingWorker<Boolean, Void> {
 
 		} catch (FileException | ModelException  | SolverException | NoDefineSubjectException | NoUserFoundedException e) {
 			displayErrorMessage(e.getMessage());
+			this.setProgress(0);
 		}
 		
 		return ret;
