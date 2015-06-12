@@ -17,7 +17,8 @@ public class NotFoundSolutionException extends SolverException{
 	 * Constructeur
 	 * @param message erreur
 	 */
-	public NotFoundSolutionException(String message){
+	public NotFoundSolutionException(String message)
+	{
 		super(message);
 	}
 

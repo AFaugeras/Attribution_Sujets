@@ -16,7 +16,8 @@ public class ReaderException extends SolverException{
 	 * Constructeur
 	 * @param message erreur
 	 */
-	public ReaderException(String message){
+	public ReaderException(String message)
+	{
 		super(message);
 	}
 }

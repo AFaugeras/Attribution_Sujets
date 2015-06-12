@@ -16,22 +16,26 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	 */
 	private Model data;
 
-	public AdaptorChocoImpl(Model data){
+	public AdaptorChocoImpl(Model data)
+	{
 		this.data = data;
 	}
 
 	@Override
-	public StringBuilder getNbPersons(){
+	public StringBuilder getNbPersons()
+	{
 		return new StringBuilder("" + this.data.getPersons().size());
 	}
 	
 	@Override
-	public StringBuilder getNbSubjects(){
+	public StringBuilder getNbSubjects()
+	{
 		return new StringBuilder("" + this.data.getSubjects().size());
 	}
 	
 	@Override
-	public StringBuilder getSizeRange(){
+	public StringBuilder getSizeRange()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -51,7 +55,8 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	}
 	
 	@Override
-	public StringBuilder getCardRange(){
+	public StringBuilder getCardRange()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -71,12 +76,14 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	}
 	
 	@Override
-	public StringBuilder getMinimumAssignedSubject(){
+	public StringBuilder getMinimumAssignedSubject()
+	{
 		return new StringBuilder("" + this.data.getConstraint().getNbMinSubjectsAssigned());
 	}
 	
 	@Override
-	public StringBuilder getRepartitionCost(){
+	public StringBuilder getRepartitionCost()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Long> costs = this.data.getConstraint().getWeights();
@@ -91,7 +98,8 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	}
 	
 	@Override
-	public StringBuilder getChoices(){
+	public StringBuilder getChoices()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		Person current = null;
@@ -138,7 +146,8 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	}
 	
 	@Override
-	public StringBuilder getRejects(){
+	public StringBuilder getRejects()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Person> persons = this.data.getPersons();
@@ -180,7 +189,8 @@ public class AdaptorChocoImpl implements AdaptorChoco{
 	}
 	
 	@Override
-	public StringBuilder getMultiplicity(){
+	public StringBuilder getMultiplicity()
+	{
 		return new StringBuilder("" + this.data.getConstraint().getMultiplicity());
 	}
 	

@@ -16,7 +16,8 @@ public class WriterException extends SolverException {
 	 * Constructeur
 	 * @param message erreur
 	 */
-	public WriterException(String message){
+	public WriterException(String message)
+	{
 		super(message);
 	}
 }

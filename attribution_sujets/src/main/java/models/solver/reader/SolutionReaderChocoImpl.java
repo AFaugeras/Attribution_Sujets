@@ -19,13 +19,14 @@ public class SolutionReaderChocoImpl implements SolutionReaderChoco{
 	 */
 	private Model data;
 	
-	public SolutionReaderChocoImpl(Model data){
+	public SolutionReaderChocoImpl(Model data)
+	{
 		this.data = data;
 	}
 	
 	@Override
-	public void read(String pathFile) throws ReaderException, NotFoundSolutionException{
-		
+	public void read(String pathFile) throws ReaderException, NotFoundSolutionException
+	{	
 		List<Person> persons = this.data.getPersons();
 		List<Subject> subjects = this.data.getSubjects();
 		

@@ -16,12 +16,14 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	 */
 	private Model data;
 
-	public AdaptorGlpkImpl(Model data){
+	public AdaptorGlpkImpl(Model data)
+	{
 		this.data = data;
 	}
 	
 	@Override
-	public StringBuilder getPersons() {
+	public StringBuilder getPersons()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Person> persons = this.data.getPersons();
@@ -39,7 +41,8 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getSubjects() {
+	public StringBuilder getSubjects()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -57,7 +60,8 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getMinCardSubjects() {
+	public StringBuilder getMinCardSubjects()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -75,7 +79,8 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getMaxCardSubjects() {
+	public StringBuilder getMaxCardSubjects()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -93,12 +98,14 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getMultiplicity() {
+	public StringBuilder getMultiplicity()
+	{
 		return new StringBuilder("param tailleEquipe:=\t" + this.data.getConstraint().getMultiplicity() + "\t;");
 	}
 	
 	@Override
-	public StringBuilder getMinSizeSubjects() {
+	public StringBuilder getMinSizeSubjects()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -116,7 +123,8 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getMaxSizeSubjects() {
+	public StringBuilder getMaxSizeSubjects()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();
@@ -134,7 +142,8 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getMinimumAssignedSubject() {
+	public StringBuilder getMinimumAssignedSubject()
+	{
 		StringBuilder ret = new StringBuilder();
 				
 		ret.append("param nbMiniSujets :=\t");
@@ -147,7 +156,8 @@ public class AdaptorGlpkImpl implements AdaptorGlpk {
 	}
 
 	@Override
-	public StringBuilder getChoices() {
+	public StringBuilder getChoices()
+	{
 		StringBuilder ret = new StringBuilder();
 		
 		List<Subject> subjects = this.data.getSubjects();

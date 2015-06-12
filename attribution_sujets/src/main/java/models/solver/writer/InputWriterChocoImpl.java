@@ -16,13 +16,14 @@ public class InputWriterChocoImpl implements InputWriterChoco{
 	 */
 	private AdaptorChoco ac;
 	
-	public InputWriterChocoImpl(AdaptorChoco ac){
+	public InputWriterChocoImpl(AdaptorChoco ac)
+	{
 		this.ac = ac;
 	}
 	
 	@Override
-	public void write(String pathFile) throws WriterException {
-		
+	public void write(String pathFile) throws WriterException
+	{	
 		try {
 			FileWriter fw = new FileWriter(pathFile);
 			BufferedWriter bw = new BufferedWriter(fw);

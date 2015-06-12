@@ -44,7 +44,8 @@ public class Glpk implements Solver{
 	 * Constructeur du solveur Glpk. C'est ici que le choix des classes d'implementations utilisees a lieu.
 	 * @param data modele de donnes
 	 */
-	public Glpk(Model data){
+	public Glpk(Model data)
+	{
 		this.data = data;
 		
 		//Possiblite de modifier les classes d'implementations utilisees.
@@ -55,9 +56,8 @@ public class Glpk implements Solver{
 	}
 	
 	@Override
-	public void solve()
-			throws SolverException, ModelException{
-		
+	public void solve() throws SolverException, ModelException
+	{	
 		this.generateInputFile();
 		
 		URL modelFile = this.getClass().getClassLoader().getResource("glpk/affectation-modele.mod");
@@ -82,7 +82,8 @@ public class Glpk implements Solver{
 	 * @param data model de donnees
 	 * @return true si la multiplicite est satisfaisante. False sinon.
 	 */
-	private boolean checkMultiplicity(Model data){		
+	private boolean checkMultiplicity(Model data)
+	{		
 		int multiplicity = data.getConstraint().getMultiplicity();
 		
 		if(multiplicity != 0 && data.getPersons().size() % multiplicity != 0){
@@ -93,9 +94,8 @@ public class Glpk implements Solver{
 	}
 
 	@Override
-	public void generateInputFile()
-			throws SolverException, ModelException{
-		
+	public void generateInputFile() throws SolverException, ModelException
+	{
 		boolean correct = 		this.checkMultiplicity(this.data);
 		
 		if(!correct){
@@ -107,9 +107,8 @@ public class Glpk implements Solver{
 	}
 
 	@Override
-	public void readSolutionFile()
-			throws SolverException {
-		
+	public void readSolutionFile() throws SolverException
+	{
 		this.srg.read(Glpk.OUTPUT_FILENAME_GLPK);		
 	}
 

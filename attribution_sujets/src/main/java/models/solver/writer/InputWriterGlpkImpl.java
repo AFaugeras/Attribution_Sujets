@@ -16,13 +16,14 @@ public class InputWriterGlpkImpl implements InputWriterGlpk{
 	 */
 	private AdaptorGlpk ag;
 	
-	public InputWriterGlpkImpl(AdaptorGlpk ag){
+	public InputWriterGlpkImpl(AdaptorGlpk ag)
+	{
 		this.ag = ag;
 	}
 	
 	@Override
-	public void write(String pathFile) throws WriterException {
-		
+	public void write(String pathFile) throws WriterException
+	{	
 		try {
 			FileWriter fw = new FileWriter(pathFile);
 			BufferedWriter bw = new BufferedWriter(fw);

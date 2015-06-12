@@ -19,14 +19,15 @@ public class SolutionReaderGlpkImpl implements SolutionReaderGlpk{
 	 */
 	private Model data;
 	
-	public SolutionReaderGlpkImpl(Model data){
+	public SolutionReaderGlpkImpl(Model data)
+	{
 		this.data = data;
 	}
 	
 	@SuppressWarnings("unused")
 	@Override
-	public void read(String pathFile) throws ReaderException, NotFoundSolutionException{
-		
+	public void read(String pathFile) throws ReaderException, NotFoundSolutionException
+	{
 		List<Person> persons = data.getPersons();
 		List<Subject> subjects = data.getSubjects();
 		int nbSubjects = subjects.size();
